@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html lang="pt_BR"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head jsf:id="head">
         <title>Eva - Login</title>
         <meta name="description" content="Página de login" />
@@ -33,6 +34,18 @@
                                         <span class="white">Imóveis</span>
                                     </h1>
                                     <h4 class="blue">Ma1s Serviços</h4>
+                                    <ui:fragment rendered="#{not empty flash.message}">
+                                        <div class="#{flash.message.type.css}">
+                                            <button type="button" class="close" data-dismiss="alert">
+                                                <i class="icon-remove"></i>
+                                            </button>
+                                            <strong>
+                                                <i class="#{flash.message.type.icon}"></i>
+                                                #{flash.message.title}
+                                            </strong>
+                                                #{flash.message.detail} <br/>
+                                        </div>
+                                    </ui:fragment>
                                 </div>
                             </div>
 
