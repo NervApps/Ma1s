@@ -5,14 +5,20 @@
  */
 package br.com.ma1s.eva.model;
 
+import br.com.ma1s.eva.model.enums.ActiveStatus;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -31,8 +37,24 @@ public class User implements Serializable {
     @Getter @Setter private String login;
     
     @Column(name = "PASSWORD", nullable = false)
-    @Getter @Setter private String password;
+    @Getter private String password;
     
     @Column(name = "EMAIL", nullable = false)
     @Getter @Setter private String email;
+    
+    @ManyToOne
+    @JoinColumn(name = "PROFILE_ID", referencedColumnName = "PROFILE_ID")
+    @Getter @Setter private Profile profile;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ACTIVE")
+    @Getter @Setter private ActiveStatus status;
+
+    public void setPassword(String password) {
+        this.password = DigestUtils.sha1Hex(password);
+    }
+    
+    public boolean isActive() {
+        return ActiveStatus.ACTIVE.equals(status);
+    }
 }
