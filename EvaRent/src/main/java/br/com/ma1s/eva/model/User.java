@@ -50,6 +50,12 @@ public class User implements Serializable {
     @Column(name = "ACTIVE")
     @Getter @Setter private ActiveStatus status;
 
+    public User() {}
+    
+    public User(final String login) {
+        this.login = login;
+    }
+
     public void setPassword(String password) {
         this.password = DigestUtils.sha1Hex(password);
     }

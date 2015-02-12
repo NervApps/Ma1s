@@ -37,6 +37,7 @@ public class LoginBean extends ManagedBean {
     }
     
     public String doLogin() {
+        /*
         final User user = service.getUser(login, password);
         if (!user.isActive())
             warn("Usuário inativo", "Entre em contato com o administrador");
@@ -44,18 +45,24 @@ public class LoginBean extends ManagedBean {
             logged.login(user);
             return "index?faces-redirect=true";
         }
+        */
         
-        return null;
+        logged.login(new User("Vitor"));
+        return "index?faces-redirect=true";
     }
     
     public void create() {
-        final User user = new User();
-        user.setLogin(login);
-        user.setPassword(password);
-        user.setEmail(email);
-        
-        service.newUser(user);
-        info("Usuário criado com sucesso");
+        if (service.exists(login))
+            warn("Usuário já existe");
+        else {
+            final User user = new User();
+            user.setLogin(login);
+            user.setPassword(password);
+            user.setEmail(email);
+
+            service.newUser(user);
+            info("Usuário criado com sucesso");
+        }
     }
     
     public String doLogout() {

@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="_Template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="widget-box">
+                            <div class="widget-header widget-header-blue widget-header-flat">
+                                <h4 class="lighter">Cadastro de Imóvel</h4>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div class="row-fluid">
+                                        <div class="step-content row-fluid position-relative" id="step-container">
+                                            <form class="form-horizontal" jsf:id="form1" id="form1">
+                                            <div class="step-pane active">
+                                                <h3 class="lighter block green">Preencha os dados abaixo</h3>
+                                                    <div class="control-group">
+                                                        <label class="control-label">Logradouro</label>
+                                                        <div class="controls">
+                                                            <div class="span12">
+                                                                <input type="text" placeholder="Avenida, Rua, Rodovia, etc"
+                                                                       required="true"/>
+                                                            </div>
+                                                        </div>
+                                                        <label class="control-label">Número</label>
+                                                        <div class="controls">
+                                                            <div class="span12">
+                                                                <input type="number" placeholder="Número do logradouro" maxlength="5" min="0"
+                                                                       required="true"/>
+                                                            </div>
+                                                        </div>
+                                                        <label class="control-label">Complemento</label>
+                                                        <div class="controls">
+                                                            <div class="span12">
+                                                                <input type="text" placeholder="21A, casa 2, apto 113, etc" maxlength="30"/>
+                                                            </div>
+                                                        </div>
+                                                        <label class="control-label">Bairro</label>
+                                                        <div class="controls">
+                                                            <div class="span12">
+                                                                <input type="number" placeholder="Itaquera, Artur Alvim, Tatuapé, etc" 
+                                                                       required="true" maxlength="3"/>
+                                                            </div>
+                                                        </div>
+                                                        <label class="control-label">Área Construída</label>
+                                                        <div class="controls">
+                                                            <div class="span12">
+                                                                <input type="number" placeholder="Em m²" required="true" maxlength="3"/>
+                                                            </div>
+                                                        </div>
+                                                        <label class="control-label">Situação</label>
+                                                        <div class="controls">
+                                                            <div class="span12">
+                                                                <h:selectOneMenu>
+                                                                    <f:selectItems value="#{dropdownBean.propertyStatus}"
+                                                                                   var="st" itemLabel="#{st.label}" itemValue="#{st}"/>
+                                                                </h:selectOneMenu>
+                                                            </div>
+                                                        </div>
+                                                        <label class="control-label">Observações</label>
+                                                        <div class="controls">
+                                                            <div class="span12">
+                                                                <textArea/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <hr/>
+                                            <div class="row-fluid wizard-actions">
+                                                <button class="btn btn-success btn-next" jsf:id="btnSave">
+                                                    Salvar
+                                                    <i class="icon-check"></i>
+                                                </button>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+    <script src="resources/js/fuelux/fuelux.wizard.min.js"></script>
+    <script src="resources/js/jquery.validate.min.js"></script>
+    <script src="resources/js/additional-methods.min.js"></script>
+    <script src="resources/js/jquery.maskedinput.min.js"></script>
+    <script src="resources/js/select2.min.js"></script>
+
+</ui:composition>
