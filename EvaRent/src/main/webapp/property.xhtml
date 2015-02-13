@@ -47,8 +47,8 @@
                                                         <label class="control-label">Bairro</label>
                                                         <div class="controls">
                                                             <div class="span12">
-                                                                <input type="number" placeholder="Itaquera, Artur Alvim, Tatuapé, etc" 
-                                                                       required="true" maxlength="3"/>
+                                                                <input type="text" placeholder="Itaquera, Artur Alvim, Tatuapé, etc" 
+                                                                       required="true" maxlength="50"/>
                                                             </div>
                                                         </div>
                                                         <label class="control-label">Área Construída</label>
@@ -60,11 +60,29 @@
                                                         <label class="control-label">Situação</label>
                                                         <div class="controls">
                                                             <div class="span12">
-                                                                <h:selectOneMenu>
+                                                                <h:selectOneMenu value="#{propertyBean.property.status}">
+                                                                    <f:selectItem noSelectionOption="true"/>
                                                                     <f:selectItems value="#{dropdownBean.propertyStatus}"
                                                                                    var="st" itemLabel="#{st.label}" itemValue="#{st}"/>
+                                                                    <f:ajax event="change" render="rentValue" execute="@this" immediate="true"/>
                                                                 </h:selectOneMenu>
                                                             </div>
+                                                        </div>
+                                                        <label class="control-label">Valor</label>
+                                                        <div class="controls">
+                                                            <div class="span12">
+                                                                <input type="number" placeholder="R$" required="true" min="0"/>
+                                                            </div>
+                                                        </div>
+                                                        <div jsf:id="rentValue">
+                                                        <ui:fragment rendered="#{propertyBean.property.status eq 'AVALIABLE'}">
+                                                            <label class="control-label">Valor Aluguel</label>
+                                                            <div class="controls">
+                                                                <div class="span12">
+                                                                    <input type="number" placeholder="R$" required="true" min="0"/>
+                                                                </div>
+                                                            </div>
+                                                        </ui:fragment>
                                                         </div>
                                                         <label class="control-label">Observações</label>
                                                         <div class="controls">

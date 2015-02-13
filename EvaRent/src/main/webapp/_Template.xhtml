@@ -160,10 +160,24 @@
             <div class="sidebar" id="sidebar">
                 <form class="nav nav-list" jsf:id="sidebarForm">
                     <li>
-                        <a jsf:action="property?faces-redirect=true">
+                        <a href="#" class="dropdown-toggle">
                             <i class="icon-home"></i>
                             <span class="menu-text"> Imóveis </span>
+                            <b class="arrow icon-angle-down"/>
                         </a>
+                        
+                        <ul class="submenu">
+                            <li>
+                                <a href="#">
+                                    <i class="icon-circle"/> Consulta
+                                </a>
+                            </li>
+                            <li>
+                                <a jsf:action="property?faces-redirect=true">
+                                    <i class="icon-circle"/> Cadastro
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
                     <li>

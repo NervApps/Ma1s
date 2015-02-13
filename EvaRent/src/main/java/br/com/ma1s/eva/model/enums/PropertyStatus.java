@@ -12,7 +12,7 @@ import lombok.Getter;
  * @author Vitor
  */
 public enum PropertyStatus {
-    AVALIABLE("Disponível"),
+    AVALIABLE("Compra e Aluguel"),
     RENTED("Alugada"),
     ONLY_PURCHASE("Somente Compra"),
     ONLY_RENT("Somente Aluguel");
