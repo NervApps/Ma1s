@@ -24,11 +24,11 @@ public class UserService {
     public void newUser(final User user) {
         try {
             if (exists(user.getLogin()))
-                throw new BusinessException("Usu√°rio j√° existente");
+                throw new BusinessException("Usu·rio j· existente");
             else
                 dao.saveAndFlush(user);
         } catch (Exception e) {
-            throw new BusinessException("Erro ao criar usu√°rio", e);
+            throw new BusinessException("Erro ao criar usu·rio", e);
         }
     }
     
@@ -38,7 +38,7 @@ public class UserService {
         if (get != null)
             return get;
         else
-            throw new BusinessException("Usu√°rio n√£o encontrado");
+            throw new BusinessException("Usu·rio n„o encontrado encontrado");
     }
     
     public boolean exists(final String login) {
