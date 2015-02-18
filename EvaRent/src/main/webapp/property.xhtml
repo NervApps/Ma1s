@@ -20,7 +20,8 @@
                                 <div class="widget-main">
                                     <div class="row-fluid">
                                         <div class="step-content row-fluid position-relative" id="step-container">
-                                            <form class="form-horizontal" jsf:id="form1" id="form1">
+                                            <form class="form-horizontal" jsf:id="form1" id="form1"
+                                                  enctype="multipart/form-data">
                                             <div class="step-pane active">
                                                 <h3 class="lighter block green">Preencha os dados abaixo</h3>
                                                     <div class="control-group">
@@ -83,6 +84,13 @@
                                                                 </div>
                                                             </div>
                                                         </ui:fragment>
+                                                        </div>
+                                                        <label class="control-label">Foto</label>
+                                                        <div class="controls">
+                                                            <div class="span12">
+                                                                <input type="file" name="upload" id="upload" jsfc="h:inputFile"
+                                                                       jsf:value="#{propertyBean.file}" jsf:validator="#{imgType.validate}"/>
+                                                            </div>
                                                         </div>
                                                         <label class="control-label">Observações</label>
                                                         <div class="controls">
