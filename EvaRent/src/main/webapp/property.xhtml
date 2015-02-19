@@ -29,33 +29,38 @@
                                                         <div class="controls">
                                                             <div class="span12">
                                                                 <input type="text" placeholder="Avenida, Rua, Rodovia, etc"
+                                                                       jsf:value="#{propertyBean.property.address}"
                                                                        required="true"/>
                                                             </div>
                                                         </div>
                                                         <label class="control-label">Número</label>
                                                         <div class="controls">
                                                             <div class="span12">
-                                                                <input type="number" placeholder="Número do logradouro" maxlength="5" min="0"
+                                                                <input type="text" placeholder="Número do logradouro" maxlength="5"
+                                                                       jsf:value="#{propertyBean.property.number}"
                                                                        required="true"/>
                                                             </div>
                                                         </div>
                                                         <label class="control-label">Complemento</label>
                                                         <div class="controls">
                                                             <div class="span12">
-                                                                <input type="text" placeholder="21A, casa 2, apto 113, etc" maxlength="30"/>
+                                                                <input type="text" placeholder="21A, casa 2, apto 113, etc" maxlength="30"
+                                                                       jsf:value="#{propertyBean.property.complement}"/>
                                                             </div>
                                                         </div>
                                                         <label class="control-label">Bairro</label>
                                                         <div class="controls">
                                                             <div class="span12">
-                                                                <input type="text" placeholder="Itaquera, Artur Alvim, Tatuapé, etc" 
+                                                                <input type="text" placeholder="Itaquera, Artur Alvim, Tatuapé, etc"
+                                                                       jsf:value="#{propertyBean.property.neighborhood}"
                                                                        required="true" maxlength="50"/>
                                                             </div>
                                                         </div>
                                                         <label class="control-label">Área Construída</label>
                                                         <div class="controls">
                                                             <div class="span12">
-                                                                <input type="number" placeholder="Em m²" required="true" maxlength="3"/>
+                                                                <input type="number" placeholder="Em m²" required="true" maxlength="5"
+                                                                       jsf:value="#{propertyBean.property.area}"/>
                                                             </div>
                                                         </div>
                                                         <label class="control-label">Situação</label>
@@ -72,7 +77,10 @@
                                                         <label class="control-label">Valor</label>
                                                         <div class="controls">
                                                             <div class="span12">
-                                                                <input type="number" placeholder="R$" required="true" min="0"/>
+                                                                <input type="number" placeholder="R$" required="true" min="1"
+                                                                       jsf:value="#{propertyBean.property.value}">
+                                                                    <f:convertNumber pattern="#,##0.00"/>
+                                                                </input>
                                                             </div>
                                                         </div>
                                                         <div jsf:id="rentValue">
@@ -80,7 +88,10 @@
                                                             <label class="control-label">Valor Aluguel</label>
                                                             <div class="controls">
                                                                 <div class="span12">
-                                                                    <input type="number" placeholder="R$" required="true" min="0"/>
+                                                                    <input type="number" placeholder="R$" required="true" min="1"
+                                                                           jsf:value="#{propertyBean.property.rentValue}">
+                                                                        <f:convertNumber pattern="#,##0.00"/>
+                                                                    </input>
                                                                 </div>
                                                             </div>
                                                         </ui:fragment>
