@@ -9,14 +9,21 @@ import br.com.ma1s.eva.model.Property;
 import br.com.ma1s.eva.service.PropertyService;
 import br.com.ma1s.eva.web.util.Message;
 import br.com.ma1s.eva.web.util.MessageType;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +36,8 @@ import lombok.Setter;
 public class PropertyBean implements Serializable {
     private static final int SECOND_STEP = 2;
     private static final int THIRD_STEP = 3;
+    private static final String IMG_PATH = "/resources/property-img/";
+    private List<Part> images;
     
     @Getter private Property property;
     @Getter @Setter private Part file;
@@ -40,6 +49,7 @@ public class PropertyBean implements Serializable {
     @PostConstruct
     public void init() {
         property = new Property();
+        images = new ArrayList<>();
     }
     
     private void initConversation() {
@@ -55,10 +65,11 @@ public class PropertyBean implements Serializable {
         
         try {
             initConversation();
-            property.buildPhoto(file.getInputStream());
+            property.setFileExtension(file.getSubmittedFileName());
+            property.setPhotoStream(file.getInputStream());
             step = SECOND_STEP;
             page = "cad_property_img";
-        } catch (IOException e) {
+        } catch (Exception e) {
             msg = new Message(MessageType.ERROR, "Erro ao gravar imagem de fachada");
             msg.show();
         }
@@ -80,7 +91,16 @@ public class PropertyBean implements Serializable {
     public void save() {
         Message msg;
         try {
-            service.save(property);
+            final Property saved = service.save(property);
+            final String fileName = getPhotoFile(saved.getId());
+            saved.setPhoto(fileName);
+            service.update(saved);
+        
+            writePhoto(property.getPhotoStream(), getPath() + fileName);
+            
+            if (!images.isEmpty())
+                saveOtherImages(property);
+            
             conv.end();
             msg = new Message(MessageType.INFO, "Imóvel inserido com sucesso");
         } catch (Exception e) {
@@ -89,8 +109,35 @@ public class PropertyBean implements Serializable {
         msg.show();
     }
     
+    private void saveOtherImages(final Property saved) throws IOException {
+        final String fileName = getPath() + IMG_PATH + saved.getId();
+        final File folder = new File(fileName);
+        folder.createNewFile();
+        
+        for (Part img : images) {
+            writePhoto(img.getInputStream(), fileName + "/" + img.getSubmittedFileName());
+        }
+    }
+    
     public String toStep(final int step, final String page) {
         this.step = step;
         return page;
+    }
+    
+    private String getPhotoFile(final Long id) {
+        return IMG_PATH + id.toString() + property.getFileExtension();
+    }
+    
+    private void writePhoto(final InputStream stream, final String fileName) 
+                throws IOException {
+        
+        final File photo = new File(fileName);
+        Files.copy(stream, photo.toPath(), StandardCopyOption.REPLACE_EXISTING);
+    }
+    
+    private String getPath() {
+        final FacesContext ctx = FacesContext.getCurrentInstance();
+        final ServletContext sc = (ServletContext) ctx.getExternalContext().getContext();
+        return sc.getRealPath("");
     }
 }

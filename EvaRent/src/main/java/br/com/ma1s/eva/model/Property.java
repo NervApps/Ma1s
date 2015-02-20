@@ -17,6 +17,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -60,11 +61,16 @@ public class Property implements Serializable {
     @Column(name = "STATUS", nullable = false)
     @Getter @Setter private PropertyStatus status;
     
-    @Lob
     @Column(name = "PHOTO", nullable = false)
-    @Getter @Setter private byte[] photo;
+    @Getter @Setter private String photo;
     
-    public void buildPhoto(final InputStream stream) throws IOException {
-        this.photo = IOUtils.toByteArray(stream);
+    @Transient
+    @Getter private String fileExtension;
+    
+    @Transient
+    @Getter @Setter private InputStream photoStream;
+
+    public void setFileExtension(final String fileName) {
+        this.fileExtension = fileName.substring(fileName.indexOf("."));
     }
 }

@@ -8,8 +8,6 @@ package br.com.ma1s.eva.service;
 import br.com.ma1s.eva.exception.BusinessException;
 import br.com.ma1s.eva.model.Property;
 import br.com.ma1s.eva.model.repository.PropertyDAO;
-import java.io.IOException;
-import java.io.InputStream;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
@@ -22,14 +20,22 @@ public class PropertyService {
     
     @Inject private PropertyDAO dao;
     
-    public void save(final Property property) {
+    public Property save(final Property property) {
         try {
             if (exists(property))
                 throw new BusinessException("Imóvel já existente");
             else
-                dao.save(property);
+                return dao.save(property);
         } catch (Exception e) {
             throw new BusinessException("Erro ao inserir imóvel", e);
+        }
+    }
+    
+    public Property update(final Property property) {
+        try {   
+            return dao.saveAndFlush(property);
+        } catch (Exception e) {
+            throw new BusinessException("Erro ao atualizar imóvel", e);
         }
     }
     
