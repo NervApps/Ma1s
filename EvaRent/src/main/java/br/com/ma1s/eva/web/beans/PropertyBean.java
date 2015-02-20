@@ -92,7 +92,7 @@ public class PropertyBean implements Serializable {
         Message msg;
         try {
             final Property saved = service.save(property);
-            final String fileName = getPhotoFile(saved.getId());
+            final String fileName = IMG_PATH + saved.getId() + property.getFileExtension();
             saved.setPhoto(fileName);
             service.update(saved);
         
@@ -122,10 +122,6 @@ public class PropertyBean implements Serializable {
     public String toStep(final int step, final String page) {
         this.step = step;
         return page;
-    }
-    
-    private String getPhotoFile(final Long id) {
-        return IMG_PATH + id.toString() + property.getFileExtension();
     }
     
     private void writePhoto(final InputStream stream, final String fileName) 
