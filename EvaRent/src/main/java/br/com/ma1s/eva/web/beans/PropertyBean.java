@@ -12,18 +12,18 @@ import br.com.ma1s.eva.web.util.MessageType;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
 
 /**
  *
  * @author Vitor
  */
-@Named @ViewScoped
+@Named @ViewAccessScoped
 public class PropertyBean implements Serializable {
     @Getter private Property property;
     @Getter @Setter private Part file;
