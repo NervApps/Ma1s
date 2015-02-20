@@ -56,7 +56,6 @@ public class PropertyBean implements Serializable {
         try {
             initConversation();
             property.buildPhoto(file.getInputStream());
-            
             step = SECOND_STEP;
             page = "cad_property_img";
         } catch (IOException e) {
