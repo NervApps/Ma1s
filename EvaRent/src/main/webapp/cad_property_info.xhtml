@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="_PropertyTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="form">
+        <form class="form-horizontal" jsf:id="form1" id="form1"
+              enctype="multipart/form-data">
+            <div class="step-pane active">
+                <h3 class="lighter block green">Preencha os dados abaixo</h3>
+                <div class="control-group">
+                    <label class="control-label">Logradouro</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="text" placeholder="Avenida, Rua, Rodovia, etc"
+                                   jsf:value="#{propertyBean.property.address}"
+                                   required="true"/>
+                        </div>
+                    </div>
+                    <label class="control-label">Número</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="text" placeholder="Número do logradouro" maxlength="5"
+                                   jsf:value="#{propertyBean.property.number}"
+                                   required="true"/>
+                        </div>
+                    </div>
+                    <label class="control-label">Complemento</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="text" placeholder="21A, casa 2, apto 113, etc" maxlength="30"
+                                   jsf:value="#{propertyBean.property.complement}"/>
+                        </div>
+                    </div>
+                    <label class="control-label">Bairro</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="text" placeholder="Itaquera, Artur Alvim, Tatuapé, etc"
+                                   jsf:value="#{propertyBean.property.neighborhood}"
+                                   required="true" maxlength="50"/>
+                        </div>
+                    </div>
+                    <label class="control-label">Área Construída</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="number" placeholder="Em m²" required="true" maxlength="5"
+                                   jsf:value="#{propertyBean.property.area}"/>
+                        </div>
+                    </div>
+                    <label class="control-label">Situação</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <h:selectOneMenu value="#{propertyBean.property.status}">
+                                <f:selectItem noSelectionOption="true"/>
+                                <f:selectItems value="#{dropdownBean.propertyStatus}"
+                                               var="st" itemLabel="#{st.label}" itemValue="#{st}"/>
+                                <f:ajax event="change" render="rentValue" execute="@this" immediate="true"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <label class="control-label">Valor</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="number" placeholder="R$" required="true" min="1"
+                                   jsf:value="#{propertyBean.property.value}">
+                                <f:convertNumber pattern="#,##0.00"/>
+                            </input>
+                        </div>
+                    </div>
+                    <div jsf:id="rentValue">
+                        <ui:fragment rendered="#{propertyBean.property.status eq 'AVALIABLE'}">
+                            <label class="control-label">Valor Aluguel</label>
+                            <div class="controls">
+                                <div class="span12">
+                                    <input type="number" placeholder="R$" required="true" min="1"
+                                           jsf:value="#{propertyBean.property.rentValue}">
+                                        <f:convertNumber pattern="#,##0.00"/>
+                                    </input>
+                                </div>
+                            </div>
+                        </ui:fragment>
+                    </div>
+                    <label class="control-label">Fachada</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="file" name="upload" id="upload" jsfc="h:inputFile"
+                                   jsf:value="#{propertyBean.file}" jsf:validator="#{imgType.validate}"
+                                   required="true"/>
+                        </div>
+                    </div>
+                    <label class="control-label">Observações</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <textArea/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row-fluid wizard-actions">
+                <button class="btn btn-success btn-next" jsf:id="btnSave"
+                        jsf:action="#{propertyBean.fillProperty()}">
+                    Próximo
+                    <i class="icon-check"></i>
+                </button>
+            </div>
+        </form>
+    </ui:define>
+
+</ui:composition>

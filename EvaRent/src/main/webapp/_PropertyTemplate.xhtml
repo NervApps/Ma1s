@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html>
+<ui:composition template="_Template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="content">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="widget-box">
+                            <div class="widget-header widget-header-blue widget-header-flat">
+                                <h4 class="lighter">Cadastro de Imóvel</h4>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <div class="row-fluid">
+                                        <div id="fuelux-wizard" class="row-fluid">
+                                            <form class="wizard-steps" style="left: 100px"
+                                                  jsf:id="wizard-steps">
+                                                <li class="active">
+                                                    <a class="step" jsf:action="#{propertyBean.toStep(1, 'cad_property_info')}">1</a>
+                                                    <span class="title" style="left: 100px">
+                                                        Imóvel
+                                                    </span>
+                                                </li>
+                                                
+                                                <ui:fragment rendered="#{propertyBean.step gt 1}">
+                                                    <li class="active">
+                                                        <a class="step" jsf:action="#{propertyBean.toStep(2, 'cad_property_img')}">2</a>
+                                                        <span class="title" style="width: 400px">
+                                                            Fotos
+                                                        </span>
+                                                    </li>
+                                                </ui:fragment>
+                                                <ui:fragment rendered="#{propertyBean.step le 1}">
+                                                    <li>
+                                                        <a class="step" jsf:action="#{propertyBean.toStep(2, 'cad_property_img')}">2</a>
+                                                        <span class="title" style="width: 400px">
+                                                            Fotos
+                                                        </span>
+                                                    </li>
+                                                </ui:fragment>
+                                                
+                                                <ui:fragment rendered="#{propertyBean.step gt 2}">
+                                                    <li class="active">
+                                                        <a class="step" jsf:action="#{propertyBean.toStep(3, 'cad_property_info')}">3</a>
+                                                        <span class="title" style="width: 100px">
+                                                            Proprietário
+                                                        </span>
+                                                    </li>
+                                                </ui:fragment>
+                                                <ui:fragment rendered="#{propertyBean.step le 2}">
+                                                    <li>
+                                                        <a class="step" jsf:action="#{propertyBean.toStep(3, 'cad_property_info')}">3</a>
+                                                        <span class="title" style="width: 100px">
+                                                            Proprietário
+                                                        </span>
+                                                    </li>
+                                                </ui:fragment>
+                                            </form>
+                                        </div>                                        
+                                        <hr/>
+                                        <div class="step-content row-fluid position-relative" id="step-container">
+                                            <ui:insert name="form"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+    <script src="resources/js/fuelux/fuelux.wizard.min.js"></script>
+    <script src="resources/js/jquery.validate.min.js"></script>
+    <script src="resources/js/additional-methods.min.js"></script>
+    <script src="resources/js/jquery.maskedinput.min.js"></script>
+    <script src="resources/js/select2.min.js"></script>
+
+</ui:composition>

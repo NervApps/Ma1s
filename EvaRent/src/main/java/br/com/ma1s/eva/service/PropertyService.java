@@ -33,13 +33,6 @@ public class PropertyService {
         }
     }
     
-    public void save(final Property property, final InputStream photo) 
-            throws IOException {
-        
-        property.buildPhoto(photo);
-        save(property);
-    }
-    
     public boolean exists(final Property property) {
         final String address = property.getAddress();
         final String number = property.getNumber();

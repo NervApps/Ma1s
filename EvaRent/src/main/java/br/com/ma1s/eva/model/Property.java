@@ -61,7 +61,7 @@ public class Property implements Serializable {
     @Getter @Setter private PropertyStatus status;
     
     @Lob
-    @Column(name = "PHOTO")
+    @Column(name = "PHOTO", nullable = false)
     @Getter @Setter private byte[] photo;
     
     public void buildPhoto(final InputStream stream) throws IOException {
