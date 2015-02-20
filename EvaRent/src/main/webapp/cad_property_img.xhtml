@@ -24,7 +24,13 @@
             </div>
             <hr/>
             <div class="row-fluid wizard-actions">
-                <button class="btn btn-success btn-next" jsf:id="btnSave">
+                <button class="btn btn-success" jsf:id="btnAdd"
+                        jsf:action="#{propertyBean.addImage()}">
+                    Adicionar
+                    <i class="icon-list"></i>
+                </button>
+                <button class="btn btn-success btn-next" jsf:id="btnSave"
+                        jsf:action="#{propertyBean.toStep(3, 'cad_property_info')}">
                     Próximo
                     <i class="icon-check"></i>
                 </button>

@@ -76,16 +76,8 @@ public class PropertyBean implements Serializable {
         return page;
     }
     
-    public String addImage() {
-        Message msg;
-        String page = null;
-        try {
-            step = THIRD_STEP;
-        } catch (Exception e) {
-            msg = new Message(MessageType.ERROR, "Erro ao gravar imagens", e.getMessage());
-            msg.show();
-        }
-        return page;
+    public void addImage() {
+        images.add(file);
     }
     
     public void save() {
