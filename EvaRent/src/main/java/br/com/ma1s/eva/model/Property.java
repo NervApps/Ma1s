@@ -6,7 +6,6 @@
 package br.com.ma1s.eva.model;
 
 import br.com.ma1s.eva.model.enums.PropertyStatus;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,13 +14,11 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.io.IOUtils;
 
 /**
  *
@@ -63,6 +60,30 @@ public class Property implements Serializable {
     
     @Column(name = "PHOTO", nullable = false)
     @Getter @Setter private String photo;
+    
+    @Column(name = "KITCHEN")
+    @Getter @Setter private Integer kitchen;
+    
+    @Column(name = "ROOM")
+    @Getter @Setter private Integer room;
+    
+    @Column(name = "DINNER_ROOM")
+    @Getter @Setter private Integer dinnerRoom;
+    
+    @Column(name = "BEDROOM")
+    @Getter @Setter private Integer bedroom;
+    
+    @Column(name = "LAUNDRY")
+    @Getter @Setter private Integer laundry;
+    
+    @Column(name = "BATHROOM")
+    @Getter @Setter private Integer bathroom;
+    
+    @Column(name = "SUITE")
+    @Getter @Setter private Integer suite;
+    
+    @Column(name = "PARKING_SPACES")
+    @Getter @Setter private Integer parking;
     
     @Transient
     @Getter private String fileExtension;

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="_PropertyTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="form">
+        <form class="form-horizontal" jsf:id="form1" id="form1">
+            <div class="step-pane active">
+                <h3 class="lighter block green">Informe os cômodos do imóvel</h3>
+                <div class="control-group">
+                    <label class="control-label">Cozinha</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="number" min="1"
+                                   placeholder="Quantidade de cozinhas"
+                                   jsf:value="#{propertyBean.property.kitchen}"/>
+                        </div>
+                    </div>
+                    
+                    <label class="control-label">Sala de estar</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="number" min="1"
+                                   placeholder="Quantidade de salas de estar"
+                                   jsf:value="#{propertyBean.property.room}"/>
+                        </div>
+                    </div>
+                    
+                    <label class="control-label">Sala de jantar</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="number" min="1"
+                                   placeholder="Quantidade de salas de jantar"
+                                   jsf:value="#{propertyBean.property.dinnerRoom}"/>
+                        </div>
+                    </div>
+                    
+                    <label class="control-label">Quarto</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="number" min="1"
+                                   placeholder="Quantidade de quartos"
+                                   jsf:value="#{propertyBean.property.bedroom}"/>
+                        </div>
+                    </div>
+                    
+                    <label class="control-label">Suíte</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="number" min="1"
+                                   placeholder="Quantidade de suítes"
+                                   jsf:value="#{propertyBean.property.suite}"/>
+                        </div>
+                    </div>
+                    
+                    <label class="control-label">Banheiro</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="number" min="1"
+                                   placeholder="Quantidade de banheiros"
+                                   jsf:value="#{propertyBean.property.bathroom}"/>
+                        </div>
+                    </div>
+                    
+                    <label class="control-label">Lavanderia</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="number" min="1"
+                                   placeholder="Quantidade de lavanderias"
+                                   jsf:value="#{propertyBean.property.laundry}"/>
+                        </div>
+                    </div>
+                    
+                    <label class="control-label">Vagas na garagem</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="number" min="1"
+                                   placeholder="Quantidade de vagas na garagem"
+                                   jsf:value="#{propertyBean.property.parking}"/>
+                        </div>
+                    </div>
+                    
+                    <label class="control-label">Informações adicionais</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <textArea/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row-fluid wizard-actions">
+                <button class="btn btn-success btn-next" jsf:id="btnSave"
+                        jsf:action="#{propertyBean.toStep(3, 'cad_property_img')}">
+                    Próximo
+                    <i class="icon-check"></i>
+                </button>
+            </div>
+        </form>
+    </ui:define>
+
+</ui:composition>

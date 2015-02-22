@@ -8,8 +8,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="form">
-        <form class="form-horizontal" jsf:id="form1" id="form1"
-              enctype="multipart/form-data">
+        <form class="form-horizontal" jsf:id="form1" id="form1">
             <div class="step-pane active">
                 <h3 class="lighter block green">Preencha os dados abaixo</h3>
                 <div class="control-group">
@@ -65,31 +64,22 @@
                     <label class="control-label">Valor</label>
                     <div class="controls">
                         <div class="span12">
-                            <input type="number" placeholder="R$" required="true" min="1"
+                            <input type="text" placeholder="R$" required="true"
                                    jsf:value="#{propertyBean.property.value}">
-                                <f:convertNumber pattern="#,##0.00"/>
-                            </input>
+                                 <f:convertNumber pattern="#,##0.00"/>
+                             </input>
                         </div>
                     </div>
                     <div jsf:id="rentValue">
-                        <ui:fragment rendered="#{propertyBean.property.status eq 'AVALIABLE'}">
-                            <label class="control-label">Valor Aluguel</label>
-                            <div class="controls">
-                                <div class="span12">
-                                    <input type="number" placeholder="R$" required="true" min="1"
-                                           jsf:value="#{propertyBean.property.rentValue}">
-                                        <f:convertNumber pattern="#,##0.00"/>
-                                    </input>
-                                </div>
+                        <label class="control-label">Valor Aluguel</label>
+                        <div class="controls">
+                            <div class="span12">
+                                <input type="text" placeholder="R$" required="true"
+                                       jsf:value="#{propertyBean.property.rentValue}"
+                                       jsf:disabled="#{'AVALIABLE' ne propertyBean.property.status}">
+                                    <f:convertNumber pattern="#,##0.00"/>
+                                </input>
                             </div>
-                        </ui:fragment>
-                    </div>
-                    <label class="control-label">Fachada</label>
-                    <div class="controls">
-                        <div class="span12">
-                            <input type="file" name="upload" id="upload" jsfc="h:inputFile"
-                                   jsf:value="#{propertyBean.file}" jsf:validator="#{imgType.validate}"
-                                   required="true"/>
                         </div>
                     </div>
                     <label class="control-label">Observações</label>
@@ -103,7 +93,7 @@
             <hr/>
             <div class="row-fluid wizard-actions">
                 <button class="btn btn-success btn-next" jsf:id="btnSave"
-                        jsf:action="#{propertyBean.fillProperty()}">
+                        jsf:action="#{propertyBean.fillProperty}">
                     Próximo
                     <i class="icon-check"></i>
                 </button>

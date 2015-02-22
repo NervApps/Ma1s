@@ -7,6 +7,7 @@ package br.com.ma1s.eva.web.beans;
 
 import br.com.ma1s.eva.model.Property;
 import br.com.ma1s.eva.service.PropertyService;
+import br.com.ma1s.eva.web.beans.common.ManagedBean;
 import br.com.ma1s.eva.web.util.Message;
 import br.com.ma1s.eva.web.util.MessageType;
 import java.io.File;
@@ -33,9 +34,9 @@ import lombok.Setter;
  * @author Vitor
  */
 @Named @ConversationScoped
-public class PropertyBean implements Serializable {
+public class PropertyBean extends ManagedBean implements Serializable {
     private static final int SECOND_STEP = 2;
-    private static final int THIRD_STEP = 3;
+    private static final int FOURTH_STEP = 4;
     private static final String IMG_PATH = "/resources/property-img/";
     private List<Part> images;
     
@@ -60,24 +61,35 @@ public class PropertyBean implements Serializable {
     }
     
     public String fillProperty() {
-        String page = null;
         Message msg;
         
         try {
             initConversation();
-            property.setFileExtension(file.getSubmittedFileName());
-            property.setPhotoStream(file.getInputStream());
-            step = SECOND_STEP;
-            page = "cad_property_img";
+            return toStep(SECOND_STEP, "cad_property_internal");
         } catch (Exception e) {
-            msg = new Message(MessageType.ERROR, "Erro ao gravar imagem de fachada");
+            msg = new Message(MessageType.ERROR, "Erro ao processar dados do cadastro");
             msg.show();
         }
-        return page;
+        return null;
     }
     
     public void addImage() {
         images.add(file);
+    }
+    
+    public String saveImages() {
+        if (!images.isEmpty()) {
+            try {
+                Part first = images.get(0);
+                property.setFileExtension(first.getSubmittedFileName());
+                property.setPhotoStream(first.getInputStream());
+                
+                return toStep(FOURTH_STEP, "cad_property_info");
+            } catch (IOException e) {
+                error("Erro ao processar imagens", e.getMessage());
+            }
+        }
+        return null;
     }
     
     public void save() {
