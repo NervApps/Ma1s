@@ -7,7 +7,6 @@ package br.com.ma1s.eva.web.context.validator;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -38,7 +37,7 @@ public class ImageTypeValidator {
     }
     
     private void validateType(final String name) {
-        if (!allowedTypes.contains(name.substring(name.indexOf(".")))) {
+        if (!allowedTypes.contains(name.substring(name.lastIndexOf(".")))) {
             throw new ValidationException("Tipo de arquivo não suportado");
         }
     }

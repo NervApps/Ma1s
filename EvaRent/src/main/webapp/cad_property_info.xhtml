@@ -65,10 +65,10 @@
                     <label class="control-label">Valor</label>
                     <div class="controls">
                         <div class="span12">
-                            <input type="number" placeholder="R$" required="true" min="1"
+                            <input type="text" placeholder="R$" required="true"
                                    jsf:value="#{propertyBean.property.value}">
-                                <f:convertNumber pattern="#,##0.00"/>
-                            </input>
+                                 <f:convertNumber pattern="#,##0.00"/>
+                             </input>
                         </div>
                     </div>
                     <div jsf:id="rentValue">
@@ -76,7 +76,7 @@
                             <label class="control-label">Valor Aluguel</label>
                             <div class="controls">
                                 <div class="span12">
-                                    <input type="number" placeholder="R$" required="true" min="1"
+                                    <input type="text" placeholder="R$" required="true"
                                            jsf:value="#{propertyBean.property.rentValue}">
                                         <f:convertNumber pattern="#,##0.00"/>
                                     </input>

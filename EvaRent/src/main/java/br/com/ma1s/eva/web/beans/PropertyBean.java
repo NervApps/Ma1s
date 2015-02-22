@@ -36,6 +36,7 @@ import lombok.Setter;
 public class PropertyBean implements Serializable {
     private static final int SECOND_STEP = 2;
     private static final int THIRD_STEP = 3;
+    private static final int FOURTH_STEP = 4;
     private static final String IMG_PATH = "/resources/property-img/";
     private List<Part> images;
     
@@ -60,7 +61,7 @@ public class PropertyBean implements Serializable {
     }
     
     public String fillProperty() {
-        String page = null;
+        String page = "cad_property_info";
         Message msg;
         
         try {
@@ -68,9 +69,9 @@ public class PropertyBean implements Serializable {
             property.setFileExtension(file.getSubmittedFileName());
             property.setPhotoStream(file.getInputStream());
             step = SECOND_STEP;
-            page = "cad_property_img";
+            page = "cad_property_internal";
         } catch (Exception e) {
-            msg = new Message(MessageType.ERROR, "Erro ao gravar imagem de fachada");
+            msg = new Message(MessageType.ERROR, "Erro ao processar dados do cadastro");
             msg.show();
         }
         return page;
