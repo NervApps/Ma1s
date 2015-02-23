@@ -85,7 +85,7 @@ public class PropertyBean extends ManagedBean implements Serializable {
     public String saveImages() {
         if (!images.isEmpty()) {
             try {
-                Part first = images.get(0);
+                final Part first = images.get(0);
                 property.setFileExtension(first.getSubmittedFileName());
                 property.setPhotoStream(first.getInputStream());
                 
