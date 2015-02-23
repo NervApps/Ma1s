@@ -16,6 +16,8 @@
         <link rel="stylesheet" href="resources/css/ace.min.css" />
         <link rel="stylesheet" href="resources/css/ace-responsive.min.css" />
         <link rel="stylesheet" href="resources/css/ace-skins.min.css" />
+        <!-- Inserção de folha de estilos personalizada por página -->
+        <ui:insert name="css"/>
     </head>
     <body jsf:id="body">
         <div class="navbar">
@@ -223,5 +225,13 @@
         <script src="resources/js/jquery.mobile.custom.min.js"></script>
         <script src="resources/js/ace-elements.min.js"></script>
         <script src="resources/js/ace.min.js"></script>
+        <script src="resources/js/jquery.maskedinput.min.js"/>
+        <script type="text/javascript">
+            $(function() { 
+               $('.input-mask-phone').mask('(99) 9999-9999');
+               $('.input-mask-cellphone').mask('(99) 9?9999-9999');
+               $('.input-mask-cpf').mask('999.999.999-99');
+            });
+        </script>
     </body>
 </html>

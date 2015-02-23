@@ -89,7 +89,7 @@ public class PropertyBean extends ManagedBean implements Serializable {
                 property.setFileExtension(first.getSubmittedFileName());
                 property.setPhotoStream(first.getInputStream());
                 
-                return toStep(4, "cad_property_info");
+                return toStep(4, "cad_property_proprietor");
             } catch (IOException e) {
                 error("Erro ao processar imagens", e.getMessage());
             }
