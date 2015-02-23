@@ -98,7 +98,6 @@ public class PropertyBean extends ManagedBean implements Serializable {
     }
     
     public void save() {
-        Message msg;
         try {
             final Property saved = service.save(property);
             final String fileName = IMG_PATH + saved.getId() + property.getFileExtension();
@@ -111,11 +110,10 @@ public class PropertyBean extends ManagedBean implements Serializable {
                 saveOtherImages(property);
             
             conv.end();
-            msg = new Message(MessageType.INFO, "Imóvel inserido com sucesso");
+            info("Imóvel inserido com sucesso");
         } catch (Exception e) {
-            msg = new Message(MessageType.ERROR, "Erro ao inserir imóvel", e.getMessage());
+            error("Erro ao inserir imóvel", e.getMessage());
         }
-        msg.show();
     }
     
     private void saveOtherImages(final Property saved) throws IOException {
