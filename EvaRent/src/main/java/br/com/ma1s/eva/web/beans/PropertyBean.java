@@ -59,14 +59,14 @@ public class PropertyBean extends ManagedBean implements Serializable {
     }
     
     public String fillProperty() {
-        Message msg;
-        
         try {
             initConversation();
-            return toStep(2, "cad_property_internal");
+            if (service.exists(property))
+                warn("Imóvel já cadastrado");
+            else
+                return toStep(2, "cad_property_internal");
         } catch (Exception e) {
-            msg = new Message(MessageType.ERROR, "Erro ao processar dados do cadastro");
-            msg.show();
+            error("Erro ao processar o cadastro", e.getMessage());
         }
         return null;
     }
