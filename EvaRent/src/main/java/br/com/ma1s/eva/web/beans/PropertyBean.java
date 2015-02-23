@@ -38,8 +38,8 @@ public class PropertyBean extends ManagedBean implements Serializable {
     private static final int SECOND_STEP = 2;
     private static final int FOURTH_STEP = 4;
     private static final String IMG_PATH = "/resources/property-img/";
-    private List<Part> images;
     
+    @Getter private List<Part> images;    
     @Getter private Property property;
     @Getter @Setter private Part file;
     @Getter private int step = 1;
@@ -74,7 +74,14 @@ public class PropertyBean extends ManagedBean implements Serializable {
     }
     
     public void addImage() {
-        images.add(file);
+        if (images.contains(file))
+            warn("Imagem já adicionada");
+        else
+            images.add(file);
+    }
+    
+    public void removeImage() {
+        images.remove(file);
     }
     
     public String saveImages() {

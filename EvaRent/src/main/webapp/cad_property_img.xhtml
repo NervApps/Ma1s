@@ -20,6 +20,19 @@
                                    jsf:validator="#{imgType.validate}" jsf:value="#{propertyBean.file}"/>
                         </div>
                     </div>
+                    
+                    <label class="control-label">Imagens adicionadas</label>
+                    <ui:repeat var="file" value="#{propertyBean.images}">
+                    <div class="controls">
+                        <div class="span12">
+                            #{file.submittedFileName}
+                            <a class="icon-remove red" jsf:action="#{propertyBean.removeImage()}">
+                                <f:setPropertyActionListener target="#{propertyBean.file}"
+                                                             value="#{file}"/>
+                            </a>
+                        </div>
+                    </div>
+                    </ui:repeat>
                 </div>
             </div>
             <hr/>
