@@ -35,8 +35,6 @@ import lombok.Setter;
  */
 @Named @ConversationScoped
 public class PropertyBean extends ManagedBean implements Serializable {
-    private static final int SECOND_STEP = 2;
-    private static final int FOURTH_STEP = 4;
     private static final String IMG_PATH = "/resources/property-img/";
     
     @Getter private List<Part> images;    
@@ -65,7 +63,7 @@ public class PropertyBean extends ManagedBean implements Serializable {
         
         try {
             initConversation();
-            return toStep(SECOND_STEP, "cad_property_internal");
+            return toStep(2, "cad_property_internal");
         } catch (Exception e) {
             msg = new Message(MessageType.ERROR, "Erro ao processar dados do cadastro");
             msg.show();
@@ -91,7 +89,7 @@ public class PropertyBean extends ManagedBean implements Serializable {
                 property.setFileExtension(first.getSubmittedFileName());
                 property.setPhotoStream(first.getInputStream());
                 
-                return toStep(FOURTH_STEP, "cad_property_info");
+                return toStep(4, "cad_property_info");
             } catch (IOException e) {
                 error("Erro ao processar imagens", e.getMessage());
             }

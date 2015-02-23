@@ -5,13 +5,18 @@
  */
 package br.com.ma1s.eva.web.context;
 
+import br.com.ma1s.eva.model.Permission;
+import br.com.ma1s.eva.model.Profile;
 import br.com.ma1s.eva.model.User;
+import br.com.ma1s.eva.model.repository.ProfileDAO;
 import br.com.ma1s.eva.web.qualifiers.LoggedIn;
 import java.io.Serializable;
+import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
@@ -22,7 +27,9 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 public class UserLogged implements Serializable {
     
+    @Inject private ProfileDAO dao;
     private User user;
+    private List<Permission> permissions;
     
     @Produces @LoggedIn @Named("logged")
     public User getUser() {
@@ -31,6 +38,7 @@ public class UserLogged implements Serializable {
     
     public void login(final User user) {
         this.user = user;
+        loadPermissions();
     }
     
     public void logout() {
@@ -44,6 +52,32 @@ public class UserLogged implements Serializable {
     
     public boolean isInactive() {
         return !isActive();
+    }
+    
+    public boolean hasPermission(final String name) {
+        if (permissions != null) {
+            for (Permission p : permissions) {
+                if (name.equals(p.getName()))
+                    return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean hasPagePermission(final String page) {
+        if (permissions != null) {
+            for (Permission p : permissions) {
+                if (page.equals(p.getToView()))
+                    return true;
+            }
+        }
+        return false;
+    }
+    
+    private void loadPermissions() {
+        final Profile p = user.getProfile();        
+        if (p != null)
+            permissions = dao.getPermissions(p);
     }
     
     private void invalidate() {
