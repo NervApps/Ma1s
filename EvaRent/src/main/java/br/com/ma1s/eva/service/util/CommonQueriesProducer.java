@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.ma1s.eva.model.repository.util;
+package br.com.ma1s.eva.service.util;
 
 import br.com.ma1s.eva.model.repository.PermissionDAO;
-import br.com.ma1s.eva.model.repository.util.qualifier.BlockedPages;
+import br.com.ma1s.eva.qualifier.BlockedPages;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;

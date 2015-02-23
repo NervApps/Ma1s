@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.ma1s.eva.model.repository.util.qualifier;
+package br.com.ma1s.eva.qualifier;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
