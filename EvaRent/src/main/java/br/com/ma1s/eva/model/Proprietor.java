@@ -7,6 +7,7 @@ package br.com.ma1s.eva.model;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -41,7 +42,7 @@ public class Proprietor implements Serializable {
     @Column(name = "CELLPHONE")
     @Getter @Setter private String cellphone;
     
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ACCOUNT_ID")
     @Getter @Setter private Account account;
     

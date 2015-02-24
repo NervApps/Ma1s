@@ -8,7 +8,6 @@ package br.com.ma1s.eva.web.context.handler;
 import br.com.ma1s.eva.web.util.Message;
 import br.com.ma1s.eva.web.util.MessageType;
 import javax.enterprise.event.Observes;
-import javax.faces.FacesException;
 
 /**
  *
@@ -16,9 +15,7 @@ import javax.faces.FacesException;
  */
 public abstract class ContextExceptionHandler {
     
-    public void handle(@Observes FacesException e) {
-        Throwable cause = e.getCause();
-        
+    public void handle(@Observes Throwable cause) {
         while(cause != null && !type().isInstance(cause)) {
             cause = cause.getCause();
         }

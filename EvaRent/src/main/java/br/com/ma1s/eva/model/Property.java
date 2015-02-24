@@ -9,6 +9,7 @@ import br.com.ma1s.eva.model.enums.PropertyStatus;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -87,7 +88,7 @@ public class Property implements Serializable {
     @Column(name = "PARKING_SPACES")
     @Getter @Setter private Integer parking;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PROPRIETOR_ID", referencedColumnName = "PROPRIETOR_ID", 
                 nullable = false)
     @Getter @Setter private Proprietor proprietor;
