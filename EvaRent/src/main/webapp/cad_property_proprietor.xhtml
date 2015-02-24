@@ -16,7 +16,7 @@
                     <div class="controls">
                         <div class="span12">
                             <input type="text" placeholder="Nome completo"
-                                   jsf:value="#{propertyBean.property.address}"
+                                   jsf:value="#{propertyBean.property.proprietor.name}"
                                    required="true"/>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                         <div class="span12">
                             <input type="text" placeholder="Número do cpf" 
                                    class="input-mask-cpf" maxlength="15"
-                                   jsf:value="#{propertyBean.property.number}"
+                                   jsf:value="#{propertyBean.property.proprietor.document}"
                                    required="true"/>
                         </div>
                     </div>
@@ -34,26 +34,47 @@
                     <label class="control-label">Celular</label>
                     <div class="controls">
                         <div class="input-prepend span12">
-                            <span class="add-on">
-                                <i class="icon-phone"></i>
-                            </span>
-                            
                             <input type="text" class="input-mask-cellphone"
-                                   jsf:value="#{propertyBean.property.complement}"/>
+                                   jsf:value="#{propertyBean.property.proprietor.cellphone}"/>
                         </div>
                     </div>
                     
                     <label class="control-label">Fixo</label>
                     <div class="controls">
                         <div class="input-prepend span12">
-                            <span class="add-on">
-                                <i class="icon-phone"></i>
-                            </span>
-                            
                             <input type="text" class="input-mask-phone"
-                                   jsf:value="#{propertyBean.property.complement}"/>
+                                   jsf:value="#{propertyBean.property.proprietor.phone}"/>
                         </div>
                     </div>
+                    
+                    <label class="control-label">Agência</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="text" placeholder="Número da agência"
+                                   jsf:value="#{propertyBean.property.proprietor.account.agency}"
+                                   required="true"/>
+                        </div>
+                    </div>
+                    
+                    <label class="control-label">Conta</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="text" placeholder="Número da conta"
+                                   jsf:value="#{propertyBean.property.proprietor.account.number}"
+                                   required="true"/>
+                        </div>
+                    </div>
+                    
+                    <label class="control-label">Banco</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <h:selectOneMenu value="#{propertyBean.property.proprietor.account.bank}">
+                                <f:selectItems value="#{dropdownBean.bankList}" var="bank"
+                                               itemLabel="#{bank}" itemValue="#{bank}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
             <hr/>

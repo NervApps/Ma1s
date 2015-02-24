@@ -14,6 +14,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import lombok.EqualsAndHashCode;
@@ -84,6 +87,11 @@ public class Property implements Serializable {
     
     @Column(name = "PARKING_SPACES")
     @Getter @Setter private Integer parking;
+    
+    @ManyToOne
+    @JoinColumn(name = "PROPRIETOR_ID", referencedColumnName = "PROPRIETOR_ID", 
+                nullable = false)
+    @Getter @Setter private Proprietor proprietor;
     
     @Transient
     @Getter private String fileExtension;

@@ -5,7 +5,9 @@
  */
 package br.com.ma1s.eva.web.beans;
 
+import br.com.ma1s.eva.model.Account;
 import br.com.ma1s.eva.model.Property;
+import br.com.ma1s.eva.model.Proprietor;
 import br.com.ma1s.eva.service.PropertyService;
 import br.com.ma1s.eva.web.beans.common.ManagedBean;
 import br.com.ma1s.eva.web.util.Message;
@@ -47,7 +49,11 @@ public class PropertyBean extends ManagedBean implements Serializable {
     
     @PostConstruct
     public void init() {
+        final Proprietor p = new Proprietor();
+        p.setAccount(new Account());
+        
         property = new Property();
+        property.setProprietor(p);
         images = new ArrayList<>();
     }
     
