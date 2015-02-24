@@ -12,9 +12,9 @@ import lombok.Getter;
  * @author Vitor
  */
 public enum MessageType {
-    INFO ("alert alert-info", "icon-ok"),
+    INFO ("alert alert-info green", "icon-ok"),
     WARN ("alert alert-warning", ""),
-    ERROR("alert alert-error", "icon-remove");
+    ERROR("alert alert-error red", "icon-remove");
     
     @Getter private final String css;
     @Getter private final String icon;

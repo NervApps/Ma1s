@@ -10,8 +10,6 @@ import br.com.ma1s.eva.model.Property;
 import br.com.ma1s.eva.model.Proprietor;
 import br.com.ma1s.eva.service.PropertyService;
 import br.com.ma1s.eva.web.beans.common.ManagedBean;
-import br.com.ma1s.eva.web.util.Message;
-import br.com.ma1s.eva.web.util.MessageType;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
