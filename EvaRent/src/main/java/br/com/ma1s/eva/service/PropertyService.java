@@ -8,6 +8,7 @@ package br.com.ma1s.eva.service;
 import br.com.ma1s.eva.exception.BusinessException;
 import br.com.ma1s.eva.model.Property;
 import br.com.ma1s.eva.model.repository.PropertyDAO;
+import br.com.ma1s.eva.model.repository.util.SearchDAO;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 

@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      template="_Template.xhtml"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"      
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      
+    <ui:define name="content">
+        <div class="row-fluid">
+            <div class="widget-box">
+                <div class="widget-header widget-header-blue widget-header-flat">
+                    <h4 class="lighter">Pesquisa de Imóveis</h4>
+                </div>
+                
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <form jsf:id="form1" id="form1">
+                            <div class="row-fluid control-group">
+                                <div class="form-horizontal">
+                                    <div class="span12">
+                                        <label class="control-label">Buscar por</label>
+                                        <div class="controls">
+                                            <h:selectOneMenu value="#{searchPropertyBean.param.field}">
+                                                <f:selectItem noSelectionOption="true"/>
+                                                <f:selectItems value="#{searchParams.fields}" var="field"
+                                                               itemLabel="#{field.label}" itemValue="#{field}"/>
+                                                <f:ajax event="change" render="condition input" execute="@this" immediate="true"/>
+                                            </h:selectOneMenu>
+                                        </div>
+                                        
+                                        <div jsf:id="condition">
+                                            <ui:fragment rendered="#{not empty searchPropertyBean.param.field}">
+                                                <label class="control-label">Condição</label>
+                                                <div class="controls">
+                                                    <h:selectOneMenu value="#{searchPropertyBean.param.condition}">
+                                                        <f:selectItem noSelectionOption="true"/>
+                                                        <f:selectItems value="#{searchPropertyBean.param.field.avaliableConditions}" 
+                                                                       var="condition" itemLabel="#{condition.label}" itemValue="#{condition}"/>
+                                                        <f:ajax event="change" render="input" execute="@this" immediate="true"/>
+                                                    </h:selectOneMenu>    
+                                                </div>
+                                            </ui:fragment>
+                                        </div>
+                                        
+                                        <div jsf:id="input">
+                                            <ui:fragment rendered="#{not empty searchPropertyBean.param.field and 
+                                                                     not empty searchPropertyBean.param.condition}">
+                                                <label class="control-label">Valor</label>
+                                                <div class="controls">
+                                                    <input type="#{searchPropertyBean.param.field.htmlInputType}"
+                                                           placeholder="#{searchPropertyBean.param.field.placeholder}"
+                                                           required="true"
+                                                           jsf:value="#{searchPropertyBean.param.value}"/>
+                                                </div>
+                                            </ui:fragment>
+                                        </div>
+                                        
+                                        <div jsf:id="query">
+                                            <ui:fragment rendered="#{not empty searchPropertyBean.params}">
+                                                <br/>
+                                                <b>Filtros de busca</b>
+                                                <br/>
+                                                <ui:repeat value="#{searchPropertyBean.params}" var="p">
+                                                    #{p.field.label} #{p.condition.label} #{p.value}
+                                                    <a class="icon-remove red" jsf:action="#{searchPropertyBean.removeQuery()}">
+                                                        <f:setPropertyActionListener target="#{searchPropertyBean.param}"
+                                                                                     value="#{p}"/>
+                                                    </a>
+                                                    <br/>
+                                                </ui:repeat>
+                                            </ui:fragment>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid wizard-actions">
+                                <button class="btn btn-success" jsf:id="btnAdd"
+                                        jsf:action="#{searchPropertyBean.addQuery()}">
+                                    Adicionar
+                                    <i class="icon-list"></i>
+                                </button>
+                                <button class="btn btn-success btn-next blue" jsf:id="btnSave"
+                                        jsf:action="#{searchPropertyBean.search()}">
+                                    Pesquisar
+                                    <i class="icon-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+    
+</ui:composition>
