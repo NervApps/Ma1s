@@ -5,14 +5,19 @@
  */
 package br.com.ma1s.eva.model.repository.query;
 
-import br.com.ma1s.eva.web.beans.enums.Fieldset;
+import br.com.ma1s.eva.model.Field;
+import br.com.ma1s.eva.service.FieldService;
+import javax.inject.Inject;
+import javax.persistence.Column;
 
 /**
  *
  * @author Vitor
  * @param <T> A entidade tratada na busca
  */
-public interface SearchQueryTranslator<T> {
+public abstract class SearchQueryTranslator<T> {
+    
+    @Inject private FieldService service;
     
     /**
      * Retorna o nome do atributo da entidade
@@ -22,11 +27,25 @@ public interface SearchQueryTranslator<T> {
      * @return O nome do atributo correspondente
      * na entidade.
      */
-    String getAttribute(final Fieldset field);
+    public String getAttribute(final Field field) {
+        final String columnName = service.getColumnName(getType(), field);
+ 
+        if (columnName != null) {
+            for (java.lang.reflect.Field attr : getType().getDeclaredFields()) {
+                if (attr.isAnnotationPresent(Column.class)) {
+                    final Column column = attr.getAnnotation(Column.class);
+
+                    if (columnName.equals(column.name()))
+                        return attr.getName();
+                }
+            }
+        }
+        return null;
+    }
     
     /**
      * Define o tipo da entidade que será usada na query.
      * @return A classe da entidade.
      */
-    Class<T> getType();
+    public abstract Class<T> getType();
 }

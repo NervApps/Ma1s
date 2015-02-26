@@ -5,8 +5,8 @@
  */
 package br.com.ma1s.eva.web.util;
 
-import br.com.ma1s.eva.web.beans.enums.Fieldset;
-import br.com.ma1s.eva.web.beans.enums.QueryConditions;
+import br.com.ma1s.eva.model.Field;
+import br.com.ma1s.eva.model.Filter;
 import java.io.Serializable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,8 +18,8 @@ import lombok.Setter;
  */
 @EqualsAndHashCode
 public class SearchParam implements Serializable {
-    @Getter @Setter private Fieldset field;
-    @Getter @Setter private QueryConditions condition;
+    @Getter @Setter private Field field;
+    @Getter @Setter private Filter condition;
     @Getter @Setter private Object value;
     @Getter @Setter private Object value2;
 }

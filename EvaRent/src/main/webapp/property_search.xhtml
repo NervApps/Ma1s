@@ -22,9 +22,9 @@
                                     <div class="span12">
                                         <label class="control-label">Buscar por</label>
                                         <div class="controls">
-                                            <h:selectOneMenu value="#{searchPropertyBean.param.field}">
-                                                <f:selectItem noSelectionOption="true"/>
-                                                <f:selectItems value="#{searchParams.fields}" var="field"
+                                            <h:selectOneMenu value="#{searchPropertyBean.param.field}" converter="beanConverter">
+                                                <f:selectItem itemLabel="--- Selecione ---"/>
+                                                <f:selectItems value="#{searchParams.propertySearchFields}" var="field"
                                                                itemLabel="#{field.label}" itemValue="#{field}"/>
                                                 <f:ajax event="change" render="condition input" execute="@this" immediate="true"/>
                                             </h:selectOneMenu>
@@ -34,9 +34,9 @@
                                             <ui:fragment rendered="#{not empty searchPropertyBean.param.field}">
                                                 <label class="control-label">Condição</label>
                                                 <div class="controls">
-                                                    <h:selectOneMenu value="#{searchPropertyBean.param.condition}">
-                                                        <f:selectItem noSelectionOption="true"/>
-                                                        <f:selectItems value="#{searchPropertyBean.param.field.avaliableConditions}" 
+                                                    <h:selectOneMenu value="#{searchPropertyBean.param.condition}" converter="beanConverter">
+                                                        <f:selectItem itemLabel="--- Selecione ---"/>
+                                                        <f:selectItems value="#{searchPropertyBean.param.field.filters}" 
                                                                        var="condition" itemLabel="#{condition.label}" itemValue="#{condition}"/>
                                                         <f:ajax event="change" render="input" execute="@this" immediate="true"/>
                                                     </h:selectOneMenu>    
@@ -49,7 +49,7 @@
                                                                      not empty searchPropertyBean.param.condition}">
                                                 <label class="control-label">Valor</label>
                                                 <div class="controls">
-                                                    <input type="#{searchPropertyBean.param.field.htmlInputType}"
+                                                    <input type="#{searchPropertyBean.param.field.inputType}"
                                                            placeholder="#{searchPropertyBean.param.field.placeholder}"
                                                            required="true"
                                                            jsf:value="#{searchPropertyBean.param.value}"/>
@@ -71,7 +71,8 @@
                                     <i class="icon-search"></i>
                                 </button>
                                 <button class="btn btn-danger" jsf:id="btnClear"
-                                        jsf:action="#{searchPropertyBean.init()}">
+                                        jsf:action="#{searchPropertyBean.init()}"
+                                        jsf:immediate="true">
                                     Limpar
                                     <i class="icon-trash"></i>
                                 </button>
