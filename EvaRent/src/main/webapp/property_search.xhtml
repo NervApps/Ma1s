@@ -56,22 +56,6 @@
                                                 </div>
                                             </ui:fragment>
                                         </div>
-                                        
-                                        <div jsf:id="query">
-                                            <ui:fragment rendered="#{not empty searchPropertyBean.params}">
-                                                <br/>
-                                                <b>Filtros de busca</b>
-                                                <br/>
-                                                <ui:repeat value="#{searchPropertyBean.params}" var="p">
-                                                    #{p.field.label} #{p.condition.label} #{p.value}
-                                                    <a class="icon-remove red" jsf:action="#{searchPropertyBean.removeQuery()}">
-                                                        <f:setPropertyActionListener target="#{searchPropertyBean.param}"
-                                                                                     value="#{p}"/>
-                                                    </a>
-                                                    <br/>
-                                                </ui:repeat>
-                                            </ui:fragment>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -83,11 +67,27 @@
                                 </button>
                                 <button class="btn btn-success btn-next blue" jsf:id="btnSave"
                                         jsf:action="#{searchPropertyBean.search()}">
-                                    Pesquisar
+                                    Buscar
                                     <i class="icon-search"></i>
                                 </button>
                             </div>
                         </form>
+                        <div jsf:id="query" class="form-horizontal">
+                            <form jsf:id="removeForm">
+                            <ui:fragment rendered="#{not empty searchPropertyBean.params}">
+                                <br/>
+                                <b>Filtros de busca</b>
+                                <br/>
+                                <ui:repeat value="#{searchPropertyBean.params}" var="p">
+                                    #{p.field.label} #{p.condition.label} #{p.value}
+                                    <a class="icon-remove red" jsf:action="#{searchPropertyBean.removeQuery()}">
+                                        <f:setPropertyActionListener target="#{searchPropertyBean.param}"
+                                                                     value="#{p}"/>
+                                    </a>
+                                </ui:repeat>
+                            </ui:fragment>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
