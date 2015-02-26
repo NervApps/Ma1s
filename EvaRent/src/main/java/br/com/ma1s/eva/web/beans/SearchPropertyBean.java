@@ -40,6 +40,7 @@ public class SearchPropertyBean extends ManagedBean implements Serializable {
     public void init() {
         param = new SearchParam();
         params = new ArrayList<>();
+        result = new ArrayList();
     }
     
     public void addQuery() {
@@ -55,10 +56,14 @@ public class SearchPropertyBean extends ManagedBean implements Serializable {
         if (param != null && params.contains(param)) {
             params.remove(param);
             param = new SearchParam();
+            
+            if (!result.isEmpty())
+                search();
         }
     }
     
     public void search() {
-        result = service.find(Property.class, translator, params, current, max);
+        result.clear();
+        result.addAll(service.find(Property.class, translator, params, current, max));
     }
 }
