@@ -33,7 +33,7 @@ public class SearchPropertyBean extends ManagedBean implements Serializable {
     @Getter private List<SearchParam> params;
     @Getter private List<Property> result;
     
-    @Inject private GenericSearchService service;
+    @Inject private GenericSearchService<Property> service;
     @Inject private PropertyQueryTranslator translator;
     
     @PostConstruct
@@ -64,6 +64,9 @@ public class SearchPropertyBean extends ManagedBean implements Serializable {
     
     public void search() {
         result.clear();
-        result.addAll(service.find(Property.class, translator, params, current, max));
+        result.addAll(service.find(translator, params));
+        
+        if (result.isEmpty())
+            warn("Sua pesquisa não retornou resultados");
     }
 }
