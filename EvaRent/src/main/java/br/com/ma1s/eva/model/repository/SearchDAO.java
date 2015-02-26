@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.ma1s.eva.model.repository.util;
+package br.com.ma1s.eva.model.repository;
 
 import br.com.ma1s.eva.web.util.SearchParam;
 import java.util.List;

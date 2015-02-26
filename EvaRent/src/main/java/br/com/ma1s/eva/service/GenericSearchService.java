@@ -6,7 +6,7 @@
 package br.com.ma1s.eva.service;
 
 import br.com.ma1s.eva.model.repository.query.SearchQueryTranslator;
-import br.com.ma1s.eva.model.repository.util.SearchDAO;
+import br.com.ma1s.eva.model.repository.SearchDAO;
 import br.com.ma1s.eva.web.util.SearchParam;
 import java.io.Serializable;
 import java.util.List;
