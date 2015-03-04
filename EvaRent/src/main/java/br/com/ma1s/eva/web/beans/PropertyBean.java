@@ -56,6 +56,7 @@ public class PropertyBean extends ManagedBean implements Serializable {
     }
     
     private void initConversation() {
+        createPropertyImgFolder();
         final FacesContext ctx = FacesContext.getCurrentInstance();
         
         if (ctx.isPostback() && conv.isTransient())
@@ -101,29 +102,34 @@ public class PropertyBean extends ManagedBean implements Serializable {
         return null;
     }
     
-    public void save() {
+    public String save() {
         try {
             final Property saved = service.save(property);
-            final String fileName = IMG_PATH + saved.getId() + property.getFileExtension();
-            saved.setPhoto(fileName);
-            service.update(saved);
-        
-            writePhoto(property.getPhotoStream(), getPath() + fileName);
             
-            if (!images.isEmpty())
-                saveOtherImages(property);
+            if (property.getFileExtension() != null) {
+                final String fileName = IMG_PATH + saved.getId() + property.getFileExtension();
+                saved.setPhoto(fileName);
+                service.update(saved);
+
+                writePhoto(property.getPhotoStream(), getPath() + fileName);
+
+                if (!images.isEmpty())
+                    saveOtherImages(property);
+            }
             
             conv.end();
             info("Imóvel inserido com sucesso");
-        } catch (Exception e) {
+            return toStep(1, "cad_property_info");
+        } catch (IOException e) {
             error("Erro ao inserir imóvel", e.getMessage());
         }
+        return null;
     }
     
     private void saveOtherImages(final Property saved) throws IOException {
         final String fileName = getPath() + IMG_PATH + saved.getId();
         final File folder = new File(fileName);
-        folder.createNewFile();
+        folder.mkdir();
         
         for (Part img : images) {
             writePhoto(img.getInputStream(), fileName + "/" + img.getSubmittedFileName());
@@ -139,6 +145,10 @@ public class PropertyBean extends ManagedBean implements Serializable {
                 throws IOException {
         
         final File photo = new File(fileName);
+        if (!photo.exists()) {
+            photo.createNewFile();
+        }
+        
         Files.copy(stream, photo.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
     
@@ -146,5 +156,19 @@ public class PropertyBean extends ManagedBean implements Serializable {
         final FacesContext ctx = FacesContext.getCurrentInstance();
         final ServletContext sc = (ServletContext) ctx.getExternalContext().getContext();
         return sc.getRealPath("");
+    }
+    
+    private void createPropertyImgFolder() {
+        final File folder = new File(getPath() + IMG_PATH);
+        
+        try {
+            if (!folder.exists())
+                folder.mkdir();
+            
+            System.out.println("img property folder successfull created");
+        } catch (Exception e) {
+            System.err.println("Error to create img property folder");
+            e.printStackTrace(System.err);
+        }
     }
 }

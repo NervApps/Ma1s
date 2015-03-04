@@ -14,6 +14,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -33,6 +35,7 @@ import lombok.Setter;
 public class Property implements Serializable {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PROPERTY_ID")
     @Getter @Setter private Long id;
     
@@ -54,14 +57,14 @@ public class Property implements Serializable {
     @Column(name = "PROPERTY_VALUE", nullable = false)
     @Getter @Setter private BigDecimal value;
     
-    @Column(name = "PROPERTY_RENT_VALUE", nullable = false)
+    @Column(name = "PROPERTY_RENT_VALUE")
     @Getter @Setter private BigDecimal rentValue;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS", nullable = false)
     @Getter @Setter private PropertyStatus status;
     
-    @Column(name = "PHOTO", nullable = false)
+    @Column(name = "PHOTO")
     @Getter @Setter private String photo;
     
     @Column(name = "KITCHEN")

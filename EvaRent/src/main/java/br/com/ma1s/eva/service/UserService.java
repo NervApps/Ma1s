@@ -7,6 +7,7 @@ package br.com.ma1s.eva.service;
 
 import br.com.ma1s.eva.exception.BusinessException;
 import br.com.ma1s.eva.model.User;
+import br.com.ma1s.eva.model.enums.ActiveStatus;
 import br.com.ma1s.eva.model.repository.UserDAO;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -25,8 +26,10 @@ public class UserService {
         try {
             if (exists(user.getLogin()))
                 throw new BusinessException("Usuário já existente");
-            else
+            else {
+                user.setStatus(ActiveStatus.ACTIVE);
                 dao.saveAndFlush(user);
+            }
         } catch (Exception e) {
             throw new BusinessException("Erro ao criar usuário", e);
         }
@@ -34,14 +37,14 @@ public class UserService {
     
     public User getUser(final String login, final String password) {
         final String encoded = DigestUtils.sha1Hex(password);
-        final User get = dao.findByLoginEqualdAndPasswordEqual(login, encoded);
+        final User get = dao.findByLoginEqualAndPasswordEqual(login, encoded);
         if (get != null)
             return get;
         else
-            throw new BusinessException("Usuário não encontrado encontrado");
+            throw new BusinessException("Usuário não encontrado");
     }
     
     public boolean exists(final String login) {
-        return dao.findBy(login) != null;
+        return dao.findByLoginEqual(login) != null;
     }
 }

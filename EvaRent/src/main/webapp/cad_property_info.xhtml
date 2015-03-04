@@ -57,7 +57,7 @@
                                 <f:selectItem noSelectionOption="true"/>
                                 <f:selectItems value="#{dropdownBean.propertyStatus}"
                                                var="st" itemLabel="#{st.label}" itemValue="#{st}"/>
-                                <f:ajax event="change" render="rentValue" execute="@this" immediate="true"/>
+                                <f:ajax event="change" render="rent" execute="@this" immediate="true"/>
                             </h:selectOneMenu>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                              </input>
                         </div>
                     </div>
-                    <div jsf:id="rentValue">
+                    <div jsf:id="rent">
                         <label class="control-label">Valor Aluguel</label>
                         <div class="controls">
                             <div class="span12">

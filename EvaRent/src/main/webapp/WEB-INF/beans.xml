@@ -5,7 +5,7 @@
     <interceptors>
         <class>org.apache.deltaspike.jpa.impl.transaction.TransactionalInterceptor</class>
     </interceptors>
-    <alternatives>
+<!--    <alternatives>
         <class>org.apache.deltaspike.jpa.impl.transaction.BeanManagedUserTransactionStrategy</class>
-    </alternatives>
+    </alternatives>-->
 </beans>
