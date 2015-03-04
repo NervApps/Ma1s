@@ -6,12 +6,19 @@
 package br.com.ma1s.eva.web.beans.common;
 
 import br.com.ma1s.eva.model.Field;
+import br.com.ma1s.eva.model.FieldTable;
 import br.com.ma1s.eva.model.Filter;
+import br.com.ma1s.eva.model.Property;
+import br.com.ma1s.eva.service.FieldService;
+import br.com.ma1s.eva.service.FilterService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.Table;
 
 /**
  *
@@ -20,23 +27,33 @@ import javax.inject.Named;
 @Named("searchParams") @ApplicationScoped
 public class SearchParamsBean implements Serializable {
     
-//    @Inject private FieldService service;
+    @Inject private FieldService fieldService;
+    @Inject private FilterService filterService;
     
-    public List<Field> getPropertySearchFields() {
-//        return service.getFields(Property.class);
-        return getPropertyFieldsMock();
+    @PostConstruct
+    public void init() {
+        createFieldsAndFiltersForProperty();
     }
     
-    private List<Field> getPropertyFieldsMock() {
-        final List<Field> fields = new ArrayList<>();
-        fields.add(new Field("Bairro", "Itaquera, Artur Alvim, Tatuapé, etc", "text", getBasicFilters()));
-        fields.add(new Field("Área Constrúida", "Em m²", "number", getAllFilters()));
-        fields.add(new Field("Cozinha", "", "number", getAllFilters()));
+    public List<Field> getPropertySearchFields() {
+        return fieldService.getFields(Property.class);
+    }
+    
+    private void createFieldsAndFiltersForProperty() {
+        List<Filter> filters = getBasicFilters();
+        Field created = fieldService.newField(new Field("Bairro", "Itaquera, Artur Alvim, Tatuapé, etc", "text", filters));
+        createPropertyFieldMap(created, "NEIGHBORHOOD");
         
-        return fields;
+        filters = getAllFilters();
+        created = fieldService.newField(new Field("Área Constrúida", "Em m²", "number", filters));
+        createPropertyFieldMap(created, "AREA");
+        
+        created = fieldService.newField(new Field("Cozinha", "", "number", filters));
+        createPropertyFieldMap(created, "KITCHEN");
     }
     
     private List<Filter> getAllFilters() {
+        final List<Filter> inserted = new ArrayList<>();
         final List<Filter> filters = new ArrayList<>();
         filters.add(new Filter("Igual a", "="));
         filters.add(new Filter("Maior que", ">"));
@@ -44,13 +61,32 @@ public class SearchParamsBean implements Serializable {
         filters.add(new Filter("Diferente de", "!="));
         filters.add(new Filter("Menor que", "<"));
         filters.add(new Filter("Menor ou igual a", "<="));
-        return filters;
+        
+        for (Filter filter : filters) {
+            inserted.add(filterService.newFilter(filter));
+        }
+        
+        return inserted;
     }
     
     private List<Filter> getBasicFilters() {
+        final List<Filter> inserted = new ArrayList<>();
         final List<Filter> filters = new ArrayList<>();
         filters.add(new Filter("Igual a", "="));
         filters.add(new Filter("Diferente de", "!="));
-        return filters;
+        
+        for (Filter filter : filters) {
+            inserted.add(filterService.newFilter(filter));
+        }
+        
+        return inserted;
+    }
+    
+    private void createPropertyFieldMap(final Field field, final String column) {
+        final FieldTable ft = new FieldTable();
+        ft.setField(field);
+        ft.setTableName(Property.class.getAnnotation(Table.class).name());
+        ft.setColumnName(column);
+        fieldService.newFieldTable(ft);
     }
 }

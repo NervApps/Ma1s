@@ -50,9 +50,11 @@ public class GenericSearchService<T> implements Serializable {
             if (i > 0) 
                 sb.append(" AND ");
             
-            sb.append(translator.getAttribute(param.getField()))
+            sb.append("e.")
+              .append(translator.getAttribute(param.getField()))
               .append(" ")
               .append(param.getCondition().getSql())
+              .append("?")
               .append(i+1);
             
         }

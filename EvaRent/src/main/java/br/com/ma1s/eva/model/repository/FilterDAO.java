@@ -5,20 +5,15 @@
  */
 package br.com.ma1s.eva.model.repository;
 
-import br.com.ma1s.eva.model.Field;
+import br.com.ma1s.eva.model.Filter;
 import org.apache.deltaspike.data.api.EntityRepository;
-import org.apache.deltaspike.data.api.Query;
 import org.apache.deltaspike.data.api.Repository;
-import org.apache.deltaspike.data.api.SingleResultType;
 
 /**
  *
  * @author Vitor
  */
 @Repository
-public interface FieldDAO extends EntityRepository<Field, Long> {
-    
-    @Query(singleResult = SingleResultType.OPTIONAL)
-    Field findByLabelEqual(String label);
+public interface FilterDAO extends EntityRepository<Filter, Long> {
     
 }

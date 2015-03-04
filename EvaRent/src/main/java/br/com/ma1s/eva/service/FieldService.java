@@ -8,6 +8,7 @@ package br.com.ma1s.eva.service;
 import br.com.ma1s.eva.model.Field;
 import br.com.ma1s.eva.model.FieldTable;
 import br.com.ma1s.eva.model.repository.FieldDAO;
+import br.com.ma1s.eva.model.repository.FieldTableDAO;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -20,18 +21,33 @@ import javax.persistence.Table;
 @RequestScoped
 public class FieldService {
     
-    @Inject private FieldDAO dao;
+    @Inject private FieldTableDAO fieldTableDAO;
+    @Inject private FieldDAO fieldDAO;
     
     public List<Field> getFields(Class<?> entity) {
         final String table = getTableName(entity);
-        return dao.getFieldsBy(table);
+        return fieldTableDAO.getFieldsBy(table);
     }
     
     public String getColumnName(Class<?> entity, Field field) {
         final String table = getTableName(entity);
-        final FieldTable ft = dao.findBy(field, table);
+        final FieldTable ft = fieldTableDAO.findBy(field, table);
         
         return ft != null ? ft.getColumnName() : null;
+    }
+    
+    public Field newField(Field field) {
+        Field saved = fieldDAO.findByLabelEqual(field.getLabel());
+        if (saved == null)
+            saved = fieldDAO.save(field);
+        
+        return saved;
+    }
+    
+    public void newFieldTable(FieldTable ft) {
+        FieldTable saved = fieldTableDAO.findBy(ft.getField(), ft.getTableName());
+        if (saved == null)
+            fieldTableDAO.save(ft);
     }
     
     private String getTableName(Class<?> entity) {
