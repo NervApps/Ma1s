@@ -119,7 +119,9 @@ public class PropertyBean extends ManagedBean implements Serializable {
             
             conv.end();
             info("Imóvel inserido com sucesso");
-            return toStep(1, "cad_property_info");
+            
+            init();
+            return toStep(1, "cad_property_info?faces-redirect=true");
         } catch (IOException e) {
             error("Erro ao inserir imóvel", e.getMessage());
         }
