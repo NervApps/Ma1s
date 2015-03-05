@@ -108,7 +108,7 @@
                 </div>
             </div>
 
-            <ui:fragment rendered="#{not empty searchPropertyBean.result}">
+            <ui:fragment rendered="#{not empty searchPropertyBean.result}" id="result">
                 <form jsf:id="resultForm" class="form-horizontal">
                     <ui:repeat var="p" value="#{searchPropertyBean.result}">
                         <div class="widget-box pricing-box-small pricing-span">
@@ -196,7 +196,7 @@
                 </button>
                 <button class="btn btn-next blue" jsf:id="btnNext"
                         jsf:action="#{searchPropertyBean.next()}"
-                        jsf:disabled="#{searchPropertyBean.result.size() le searchPropertyBean.max}">
+                        jsf:disabled="#{searchPropertyBean.result.size() lt searchPropertyBean.max}">
                     Próximo
                     <i class="icon-arrow-right"></i>
                 </button>
