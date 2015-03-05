@@ -50,7 +50,8 @@ public class SearchParamsBean implements Serializable {
         
         created = fieldService.newField(new Field("Cozinha", "", "number", filters));
         createPropertyFieldMap(created, "KITCHEN");
-        
+     
+        filters = getBasicFilters();
         created = fieldService.newField(new Field("Tipo de Imóvel", "", "combo", filters));
         createPropertyFieldMap(created, "PROPERTY_TYPE");
     }
