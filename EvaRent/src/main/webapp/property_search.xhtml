@@ -47,12 +47,24 @@
                                         <div jsf:id="input">
                                             <ui:fragment rendered="#{not empty searchPropertyBean.param.field and 
                                                                      not empty searchPropertyBean.param.condition}">
+
                                                 <label class="control-label">Valor</label>
                                                 <div class="controls">
+
+                                                <ui:fragment rendered="#{searchPropertyBean.param.field.inputType eq 'combo'}">
+                                                    <div class="span12">
+                                                        <h:selectOneMenu value="#{searchPropertyBean.param.value}">
+                                                            <f:selectItems value="#{searchPropertyBean.param.option.options}"
+                                                                           var="op" itemLabel="#{op.label}" itemValue="#{op}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </ui:fragment>
+                                                <ui:fragment rendered="#{searchPropertyBean.param.field.inputType ne 'combo'}">
                                                     <input type="#{searchPropertyBean.param.field.inputType}"
                                                            placeholder="#{searchPropertyBean.param.field.placeholder}"
                                                            required="true"
                                                            jsf:value="#{searchPropertyBean.param.value}"/>
+                                                </ui:fragment>
                                                 </div>
                                             </ui:fragment>
                                         </div>
@@ -113,10 +125,6 @@
                                             #{p.neighborhood}
                                         </li>
                                         <li>
-                                            <i class="icon-dollar"></i>
-                                            #{p.status.label}
-                                        </li>
-                                        <li>
                                             <i class="icon-ok green"></i>
                                             #{p.area}m²
                                         </li>
@@ -153,6 +161,10 @@
                                     </ul>
                                     <hr/>
                                     <div class="price">
+                                        <li>
+                                            <i class="icon-dollar"></i>
+                                            #{p.status.label}
+                                        </li>
                                         <b>R$
                                             <h:outputText value="#{p.value}">
                                                 <f:convertNumber pattern="#,##0.00"/>

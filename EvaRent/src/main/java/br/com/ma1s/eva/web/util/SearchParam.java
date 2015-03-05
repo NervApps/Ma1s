@@ -7,6 +7,8 @@ package br.com.ma1s.eva.web.util;
 
 import br.com.ma1s.eva.model.Field;
 import br.com.ma1s.eva.model.Filter;
+import br.com.ma1s.eva.web.converter.dropdown.DropdownOptions;
+import br.com.ma1s.eva.web.converter.dropdown.PropertyTypeDropdownOptions;
 import java.io.Serializable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,14 +36,26 @@ public class SearchParam implements Serializable {
     private Object parseValue(Object value) {
         if (value != null && field.getInputType() != null) {
             switch (field.getInputType()) {
-            case "text":
-                return value.toString();
-            case "number":
-                return Integer.parseInt(value.toString());
-            default:
-                return value;
+                case "number":
+                    return Integer.parseInt(value.toString());
+                case "combo":
+                    return getOption().convert(value);
+                default:
+                    return value;
             }
         } else
             return value;
+    }
+    
+    public DropdownOptions getOption() {
+        if (field.getLabel() != null) {
+            switch (field.getLabel()) {
+                case "Tipo de Imóvel":
+                    return new PropertyTypeDropdownOptions();
+                default:
+                    return null;
+            }
+        }
+        return null;
     }
 }
