@@ -6,6 +6,7 @@
 package br.com.ma1s.eva.model;
 
 import br.com.ma1s.eva.model.enums.PropertyStatus;
+import br.com.ma1s.eva.model.enums.PropertyType;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -39,6 +40,10 @@ public class Property implements Serializable {
     @Column(name = "PROPERTY_ID")
     @Getter @Setter private Long id;
     
+    @Enumerated(EnumType.STRING)
+    @Column(name = "PROPERTY_TYPE", nullable = false)
+    @Getter @Setter private PropertyType type;
+    
     @Column(name = "ADDRESS", nullable = false)
     @Getter @Setter private String address;
     
@@ -56,9 +61,6 @@ public class Property implements Serializable {
     
     @Column(name = "PROPERTY_VALUE", nullable = false)
     @Getter @Setter private BigDecimal value;
-    
-    @Column(name = "PROPERTY_RENT_VALUE")
-    @Getter @Setter private BigDecimal rentValue;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS", nullable = false)

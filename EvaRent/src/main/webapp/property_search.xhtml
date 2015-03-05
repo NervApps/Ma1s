@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='ISO-8859-1' ?>
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      template="_Template.xhtml"
-      xmlns:jsf="http://xmlns.jcp.org/jsf"      
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-      
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="_Template.xhtml"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"      
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
     <ui:define name="content">
         <div class="row-fluid">
             <div class="widget-box">
                 <div class="widget-header widget-header-blue widget-header-flat">
                     <h4 class="lighter">Pesquisa de Imóveis</h4>
                 </div>
-                
+
                 <div class="widget-body">
                     <div class="widget-main">
                         <form jsf:id="form1" id="form1">
@@ -29,7 +29,7 @@
                                                 <f:ajax event="change" render="condition input" execute="@this" immediate="true"/>
                                             </h:selectOneMenu>
                                         </div>
-                                        
+
                                         <div jsf:id="condition">
                                             <ui:fragment rendered="#{not empty searchPropertyBean.param.field}">
                                                 <label class="control-label">Condição</label>
@@ -43,7 +43,7 @@
                                                 </div>
                                             </ui:fragment>
                                         </div>
-                                        
+
                                         <div jsf:id="input">
                                             <ui:fragment rendered="#{not empty searchPropertyBean.param.field and 
                                                                      not empty searchPropertyBean.param.condition}">
@@ -80,24 +80,95 @@
                         </form>
                         <div jsf:id="query" class="form-horizontal">
                             <form jsf:id="removeForm">
-                            <ui:fragment rendered="#{not empty searchPropertyBean.params}">
-                                <br/>
-                                <b>Filtros de busca</b>
-                                <br/>
-                                <ui:repeat value="#{searchPropertyBean.params}" var="p">
-                                    #{p.field.label} #{p.condition.label} #{p.value}
-                                    <a class="icon-remove red" jsf:action="#{searchPropertyBean.removeQuery()}">
-                                        <f:setPropertyActionListener target="#{searchPropertyBean.param}"
-                                                                     value="#{p}"/>
-                                    </a>
-                                </ui:repeat>
-                            </ui:fragment>
+                                <ui:fragment rendered="#{not empty searchPropertyBean.params}">
+                                    <br/>
+                                    <b>Filtros de busca</b>
+                                    <br/>
+                                    <ui:repeat value="#{searchPropertyBean.params}" var="p">
+                                        #{p.field.label} #{p.condition.label} #{p.value}
+                                        <a class="icon-remove red" jsf:action="#{searchPropertyBean.removeQuery()}">
+                                            <f:setPropertyActionListener target="#{searchPropertyBean.param}"
+                                                                         value="#{p}"/>
+                                        </a>
+                                    </ui:repeat>
+                                </ui:fragment>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <ui:fragment rendered="#{not empty searchPropertyBean.result}">
+                <form jsf:id="resultForm" class="form-horizontal">
+                    <ui:repeat var="p" value="#{searchPropertyBean.result}">
+                        <div class="widget-box pricing-box-small pricing-span">
+                            <div class="widget-header header-color-blue">
+                                <h5 class="bigger lighter">
+                                    #{p.type.label} #{p.neighborhood}
+                                </h5>
+                            </div>
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <ul class="unstyled spaced2">
+                                        <li>
+                                            <i class="icon-warning-sign red"></i>
+                                            #{p.status.label}
+                                        </li>
+                                        <li>
+                                            <i class="icon-ok green"></i>
+                                            #{p.area}m²
+                                        </li>
+                                        <ui:fragment rendered="#{not empty p.kitchen}">
+                                        <li>
+                                            <i class="icon-ok green"></i>
+                                            Cozinha
+                                        </li>
+                                        </ui:fragment>
+                                        <ui:fragment rendered="#{not empty p.dinnerRoom}">
+                                            <li>
+                                                <i class="icon-ok green"></i>
+                                                Sala de Jantar
+                                            </li>
+                                        </ui:fragment>
+                                        <li>
+                                            <i class="icon-ok green"></i>
+                                            Sala de Estar
+                                        </li>
+                                        <li>
+                                            <i class="icon-ok green"></i>
+                                            #{p.bedroom} quartos
+                                        </li>
+                                        <ui:fragment rendered="#{not empty p.suite}">
+                                        <li>
+                                            <i class="icon-ok green"></i>
+                                            #{p.suite} suítes
+                                        </li>
+                                        </ui:fragment>
+                                        <li>
+                                            <i class="icon-ok green"></i>
+                                            #{p.bathroom} banheiros
+                                        </li>
+                                    </ul>
+                                    <hr/>
+                                    <div class="price">
+                                        <b>R$
+                                            <h:outputText value="#{p.value}">
+                                                <f:convertNumber pattern="#,##0.00"/>
+                                            </h:outputText>
+                                        </b>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a class="btn btn-block btn-primary" href="#">
+                                        <span>Selecionar</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </form>
+            </ui:fragment>
         </div>
     </ui:define>
-    
+
 </ui:composition>

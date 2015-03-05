@@ -12,6 +12,15 @@
             <div class="step-pane active">
                 <h3 class="lighter block green">Preencha os dados abaixo</h3>
                 <div class="control-group">
+                    <label class="control-label">Tipo do Imóvel</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <h:selectOneMenu value="#{propertyBean.property.type}">
+                                <f:selectItems value="#{dropdownBean.propertyTypes}"
+                                               var="type" itemLabel="#{type.label}" itemValue="#{type}"/>
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
                     <label class="control-label">Logradouro</label>
                     <div class="controls">
                         <div class="span12">
@@ -54,10 +63,8 @@
                     <div class="controls">
                         <div class="span12">
                             <h:selectOneMenu value="#{propertyBean.property.status}">
-                                <f:selectItem noSelectionOption="true"/>
                                 <f:selectItems value="#{dropdownBean.propertyStatus}"
                                                var="st" itemLabel="#{st.label}" itemValue="#{st}"/>
-                                <f:ajax event="change" render="rent" execute="@this" immediate="true"/>
                             </h:selectOneMenu>
                         </div>
                     </div>
@@ -67,19 +74,7 @@
                             <input type="text" placeholder="R$" required="true"
                                    jsf:value="#{propertyBean.property.value}">
                                  <f:convertNumber pattern="#,##0.00"/>
-                             </input>
-                        </div>
-                    </div>
-                    <div jsf:id="rent">
-                        <label class="control-label">Valor Aluguel</label>
-                        <div class="controls">
-                            <div class="span12">
-                                <input type="text" placeholder="R$" required="true"
-                                       jsf:value="#{propertyBean.property.rentValue}"
-                                       jsf:disabled="#{'AVALIABLE' ne propertyBean.property.status}">
-                                    <f:convertNumber pattern="#,##0.00"/>
-                                </input>
-                            </div>
+                            </input>
                         </div>
                     </div>
                     <label class="control-label">Observações</label>

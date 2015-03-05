@@ -68,7 +68,5 @@ public class SearchPropertyBean extends ManagedBean implements Serializable {
         
         if (result.isEmpty())
             warn("Sua pesquisa não retornou resultados");
-        else
-            info("Sua pesquisa retornou: " + result.size());
     }
 }

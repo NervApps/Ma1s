@@ -20,6 +20,28 @@ import lombok.Setter;
 public class SearchParam implements Serializable {
     @Getter @Setter private Field field;
     @Getter @Setter private Filter condition;
-    @Getter @Setter private Object value;
-    @Getter @Setter private Object value2;
+    @Setter private Object value;
+    @Setter private Object value2;
+
+    public Object getValue() {
+        return parseValue(value);
+    }
+
+    public Object getValue2() {
+        return parseValue(value2);
+    }
+    
+    private Object parseValue(Object value) {
+        if (value != null && field.getInputType() != null) {
+            switch (field.getInputType()) {
+            case "text":
+                return value.toString();
+            case "number":
+                return Integer.parseInt(value.toString());
+            default:
+                return value;
+            }
+        } else
+            return value;
+    }
 }

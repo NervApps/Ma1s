@@ -12,6 +12,7 @@ import br.com.ma1s.eva.model.repository.ProfileDAO;
 import br.com.ma1s.eva.web.qualifiers.LoggedIn;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.ExternalContext;
@@ -85,5 +86,10 @@ public class UserLogged implements Serializable {
         final ExternalContext ext = ctx.getExternalContext();
         final HttpSession session = (HttpSession) ext.getSession(false);
         session.invalidate();
+    }
+    
+    @PreDestroy
+    public void dispose() {
+        this.user = null;
     }
 }

@@ -7,6 +7,7 @@ package br.com.ma1s.eva.web.beans.common;
 
 import br.com.ma1s.eva.model.enums.Bank;
 import br.com.ma1s.eva.model.enums.PropertyStatus;
+import br.com.ma1s.eva.model.enums.PropertyType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,10 +27,12 @@ public class CommonDropdownBean implements Serializable {
     
     @Getter private List<PropertyStatus> propertyStatus;
     @Getter private List<Bank> bankList;
+    @Getter private List<PropertyType> propertyTypes;
     
     @PostConstruct
     public void init() {
         loadPropertyStatus();
+        loadPropertyTypes();
         loadBankList();
     }
     
@@ -41,5 +44,10 @@ public class CommonDropdownBean implements Serializable {
     private void loadBankList() {
         bankList = new ArrayList<>();
         bankList.addAll(Arrays.asList(Bank.values()));
+    }
+    
+    private void loadPropertyTypes() {
+        propertyTypes = new ArrayList<>();
+        propertyTypes.addAll(Arrays.asList(PropertyType.values()));
     }
 }

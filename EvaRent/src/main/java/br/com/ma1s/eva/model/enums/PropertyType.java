@@ -11,14 +11,15 @@ import lombok.Getter;
  *
  * @author Vitor
  */
-public enum PropertyStatus {
-    ONLY_PURCHASE("Compra"),
-    ONLY_RENT("Aluguel"),
-    RENTED("Alugada");
+public enum PropertyType {
+    CASA("Casa"),
+    APARTAMENTO("Apartamento"),
+    SOBRADO("Sobrado"),
+    DUPLEX("Duplex");
     
     @Getter private final String label;
 
-    private PropertyStatus(final String label) {
+    private PropertyType(final String label) {
         this.label = label;
     }
 }
