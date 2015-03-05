@@ -100,16 +100,20 @@
                 <form jsf:id="resultForm" class="form-horizontal">
                     <ui:repeat var="p" value="#{searchPropertyBean.result}">
                         <div class="widget-box pricing-box-small pricing-span">
-                            <div class="widget-header header-color-blue">
+                            <div class="widget-header header-color-blue center-align">
                                 <h5 class="bigger lighter">
-                                    #{p.type.label} #{p.neighborhood}
+                                    #{p.type.label}
                                 </h5>
                             </div>
                             <div class="widget-body">
                                 <div class="widget-main">
                                     <ul class="unstyled spaced2">
                                         <li>
-                                            <i class="icon-warning-sign red"></i>
+                                            <i class="icon-home"></i>
+                                            #{p.neighborhood}
+                                        </li>
+                                        <li>
+                                            <i class="icon-dollar"></i>
                                             #{p.status.label}
                                         </li>
                                         <li>
