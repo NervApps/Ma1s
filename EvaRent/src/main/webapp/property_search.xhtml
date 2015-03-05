@@ -183,6 +183,26 @@
                 </form>
             </ui:fragment>
         </div>
+        
+        <ui:fragment rendered="#{not empty searchPropertyBean.result}">
+        <div class="row-fluid wizard-actions">
+            <form jsf:id="paginatorForm">
+                <br/>
+                <button class="btn btn-next blue" jsf:id="btnPrev"
+                        jsf:action="#{searchPropertyBean.previous()}"
+                        jsf:disabled="#{searchPropertyBean.first lt 6}">
+                    <i class="icon-arrow-left"></i>
+                    Anterior
+                </button>
+                <button class="btn btn-next blue" jsf:id="btnNext"
+                        jsf:action="#{searchPropertyBean.next()}"
+                        jsf:disabled="#{searchPropertyBean.result.size() lt 6}">
+                    Próximo
+                    <i class="icon-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+        </ui:fragment>
     </ui:define>
 
 </ui:composition>

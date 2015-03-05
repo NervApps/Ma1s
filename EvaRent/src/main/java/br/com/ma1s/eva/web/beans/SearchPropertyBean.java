@@ -26,12 +26,13 @@ import lombok.Setter;
  */
 @Named @ViewScoped
 public class SearchPropertyBean extends ManagedBean implements Serializable {
-    private static final int max = 50;
+    private static final int max = 6;
     
     @Getter @Setter private int current = 0;
     @Getter @Setter private SearchParam param;
     @Getter private List<SearchParam> params;
     @Getter private List<Property> result;
+    @Getter private int first = 0;
     
     @Inject private GenericSearchService<Property> service;
     @Inject private PropertyQueryTranslator translator;
@@ -63,10 +64,35 @@ public class SearchPropertyBean extends ManagedBean implements Serializable {
     }
     
     public void search() {
+        first = 0;
         result.clear();
-        result.addAll(service.find(translator, params));
+        result.addAll(find());
         
         if (result.isEmpty())
             warn("Sua pesquisa não retornou resultados");
+    }
+    
+    public void next() {
+        int previousValue = first;
+        first += 6;
+        final List<Property> found = find();
+        
+        if (found.isEmpty()) {
+            warn("Não existem mais resultados");
+            first = previousValue;
+        } else {
+            result.clear();
+            result.addAll(found);
+        }
+    }
+    
+    public void previous() {
+        first = first >=6 ? first-6 : 0;
+        result.clear();
+        result.addAll(find());
+    }
+    
+    private List<Property> find() {
+        return service.find(translator, params, first, max);
     }
 }
