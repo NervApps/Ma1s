@@ -78,26 +78,24 @@
                                 </button>
                             </div>
                         </form>
-                        <div jsf:id="query" class="form-horizontal">
+                        <ui:fragment rendered="#{not empty searchPropertyBean.params}">
                             <form jsf:id="removeForm">
-                                <ui:fragment rendered="#{not empty searchPropertyBean.params}">
-                                    <br/>
-                                    <b>Filtros de busca</b>
-                                    <br/>
-                                    <ui:repeat value="#{searchPropertyBean.params}" var="p">
-                                        #{p.field.label} #{p.condition.label} #{p.value}
-                                        <a class="icon-remove red" jsf:action="#{searchPropertyBean.removeQuery()}">
-                                            <f:setPropertyActionListener target="#{searchPropertyBean.param}"
-                                                                         value="#{p}"/>
-                                        </a>
-                                    </ui:repeat>
-                                </ui:fragment>
+                                <br/>
+                                <b>Filtros de busca</b>
+                                <br/>
+                                <ui:repeat value="#{searchPropertyBean.params}" var="p">
+                                    #{p.field.label} #{p.condition.label} #{p.value}
+                                    <a class="icon-remove red" jsf:action="#{searchPropertyBean.removeQuery()}">
+                                        <f:setPropertyActionListener target="#{searchPropertyBean.param}"
+                                                                     value="#{p}"/>
+                                    </a>
+                                </ui:repeat>
                             </form>
-                        </div>
+                        </ui:fragment>
                     </div>
                 </div>
             </div>
-            
+
             <ui:fragment rendered="#{not empty searchPropertyBean.result}">
                 <form jsf:id="resultForm" class="form-horizontal">
                     <ui:repeat var="p" value="#{searchPropertyBean.result}">
@@ -119,10 +117,10 @@
                                             #{p.area}m²
                                         </li>
                                         <ui:fragment rendered="#{not empty p.kitchen}">
-                                        <li>
-                                            <i class="icon-ok green"></i>
-                                            Cozinha
-                                        </li>
+                                            <li>
+                                                <i class="icon-ok green"></i>
+                                                Cozinha
+                                            </li>
                                         </ui:fragment>
                                         <ui:fragment rendered="#{not empty p.dinnerRoom}">
                                             <li>
@@ -139,10 +137,10 @@
                                             #{p.bedroom} quartos
                                         </li>
                                         <ui:fragment rendered="#{not empty p.suite}">
-                                        <li>
-                                            <i class="icon-ok green"></i>
-                                            #{p.suite} suítes
-                                        </li>
+                                            <li>
+                                                <i class="icon-ok green"></i>
+                                                #{p.suite} suítes
+                                            </li>
                                         </ui:fragment>
                                         <li>
                                             <i class="icon-ok green"></i>
