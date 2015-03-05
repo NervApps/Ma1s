@@ -10,6 +10,8 @@ import java.util.List;
 /**
  *
  * @author Vitor
+ * @param <T> O tipo do objeto que será exibido na combo box. Este objeto
+ * deve possuir um método getLabel() que é chamado na tela.
  */
 public interface DropdownOptions<T> {
     
