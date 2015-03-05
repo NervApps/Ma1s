@@ -190,13 +190,13 @@
                 <br/>
                 <button class="btn btn-next blue" jsf:id="btnPrev"
                         jsf:action="#{searchPropertyBean.previous()}"
-                        jsf:disabled="#{searchPropertyBean.first lt 6}">
+                        jsf:disabled="#{searchPropertyBean.first le searchPropertyBean.max}">
                     <i class="icon-arrow-left"></i>
                     Anterior
                 </button>
                 <button class="btn btn-next blue" jsf:id="btnNext"
                         jsf:action="#{searchPropertyBean.next()}"
-                        jsf:disabled="#{searchPropertyBean.result.size() lt 6}">
+                        jsf:disabled="#{searchPropertyBean.result.size() le searchPropertyBean.max}">
                     Próximo
                     <i class="icon-arrow-right"></i>
                 </button>
