@@ -13,6 +13,7 @@ import br.com.ma1s.eva.service.FieldService;
 import br.com.ma1s.eva.service.FilterService;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -51,7 +52,7 @@ public class SearchParamsBean implements Serializable {
         created = fieldService.newField(new Field("Cozinha", "", "number", filters));
         createPropertyFieldMap(created, "KITCHEN");
      
-        filters = getBasicFilters();
+        filters = getOneFilter();
         created = fieldService.newField(new Field("Tipo de Imóvel", "", "combo", filters));
         createPropertyFieldMap(created, "PROPERTY_TYPE");
     }
@@ -84,6 +85,11 @@ public class SearchParamsBean implements Serializable {
         }
         
         return inserted;
+    }
+    
+    private List<Filter> getOneFilter() {
+        final Filter filter = new Filter("Igual a", "=");
+        return Arrays.asList(filterService.newFilter(filter));
     }
     
     private void createPropertyFieldMap(final Field field, final String column) {
