@@ -7,7 +7,6 @@ package br.com.ma1s.eva.model;
 
 import br.com.ma1s.eva.model.enums.PropertyStatus;
 import br.com.ma1s.eva.model.enums.PropertyType;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.CascadeType;
@@ -21,7 +20,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -66,9 +64,6 @@ public class Property implements Serializable {
     @Column(name = "STATUS", nullable = false)
     @Getter @Setter private PropertyStatus status;
     
-    @Column(name = "PHOTO")
-    @Getter @Setter private String photo;
-    
     @Column(name = "KITCHEN")
     @Getter @Setter private Integer kitchen;
     
@@ -97,14 +92,4 @@ public class Property implements Serializable {
     @JoinColumn(name = "PROPRIETOR_ID", referencedColumnName = "PROPRIETOR_ID", 
                 nullable = false)
     @Getter @Setter private Proprietor proprietor;
-    
-    @Transient
-    @Getter private String fileExtension;
-    
-    @Transient
-    @Getter @Setter private InputStream photoStream;
-
-    public void setFileExtension(final String fileName) {
-        this.fileExtension = fileName.substring(fileName.indexOf("."));
-    }
 }

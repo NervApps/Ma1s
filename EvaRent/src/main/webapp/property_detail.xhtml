@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="_Template.xhtml"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"      
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+    <ui:define name="css">
+        <link rel="stylesheet" href="resources/css/colorbox.css"/>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="page-header position-relative blue">
+            <h2> Detalhes do Imóvel</h2>
+        </div>
+        
+        <div class="user-profile row-fluid">
+            <div class="center">
+                <div>
+                    <div class="profile-user-info profile-user-info-striped span10">
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Endereço
+                            </div>
+                            <div class="profile-info-value">
+                                <ui:fragment rendered="#{not empty detailBean.property.complement}">
+                                    #{detailBean.property.address}, #{detailBean.property.number} #{detailBean.property.complement}
+                                </ui:fragment>
+                                <ui:fragment rendered="#{empty detailBean.property.complement}">
+                                    #{detailBean.property.address}, #{detailBean.property.number}
+                                </ui:fragment>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Bairro
+                            </div>
+                            <div class="profile-info-value">
+                                #{detailBean.property.neighborhood}
+                            </div>
+                        </div>
+                        
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Área Construída
+                            </div>
+                            <div class="profile-info-value">
+                                #{detailBean.property.area} m²
+                            </div>
+                        </div>
+                        
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Valor
+                            </div>
+                            <div class="profile-info-value">
+                                R$
+                                <h:outputText value="#{detailBean.property.value}">
+                                    <f:convertNumber pattern="#,##0.00"/>
+                                </h:outputText>
+                                (#{detailBean.property.status.label})
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-header position-relative blue">
+            <h2> Imagens </h2>
+        </div>
+        
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="row-fluid">
+                    <ul class="ace-thumbnails">
+                        <ui:repeat var="img" value="#{detailBean.images}">
+                            <a href="resources/property-img/#{detailBean.property.id}/#{img}" data-rel="colorbox">
+                                <img src="resources/property-img/#{detailBean.property.id}/#{img}" width="150" height="150"/>
+                            </a>
+                        </ui:repeat>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

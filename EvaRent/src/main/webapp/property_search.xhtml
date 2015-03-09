@@ -173,8 +173,9 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <a class="btn btn-block btn-primary" href="#">
+                                    <a class="btn btn-block btn-primary" jsf:action="#{searchPropertyBean.select()}">
                                         <span>Selecionar</span>
+                                        <f:setPropertyActionListener target="#{searchPropertyBean.selected}" value="#{p}"/>
                                     </a>
                                 </div>
                             </div>

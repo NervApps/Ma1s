@@ -7,6 +7,10 @@ package br.com.ma1s.eva.web.beans.common;
 
 import br.com.ma1s.eva.web.util.Message;
 import br.com.ma1s.eva.web.util.MessageType;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
+import javax.servlet.ServletContext;
 
 /**
  *
@@ -42,5 +46,28 @@ public abstract class ManagedBean {
     protected void error(final String title) {
         final Message msg = new Message(MessageType.ERROR, title);
         msg.show();
+    }
+    
+    protected void putParam(final String name, final Object value) {
+        getFlash().put(name, value);
+    }
+    
+    protected <T> T getParam(final String name, final Class<T> type) {
+        return (T) getFlash().get(name);
+    }
+    
+    protected String getPath() {
+        final ServletContext sc = (ServletContext) getExternalContext().getContext();
+        return sc.getRealPath("");
+    }
+    
+    private Flash getFlash() {
+        final ExternalContext ext = getExternalContext();
+        return ext.getFlash();
+    }
+    
+    private ExternalContext getExternalContext() {
+        final FacesContext ctx = FacesContext.getCurrentInstance();
+        return ctx.getExternalContext();
     }
 }

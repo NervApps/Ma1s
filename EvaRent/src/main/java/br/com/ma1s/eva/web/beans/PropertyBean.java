@@ -24,7 +24,6 @@ import javax.enterprise.context.ConversationScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +35,7 @@ import lombok.Setter;
 @Named @ConversationScoped
 public class PropertyBean extends ManagedBean implements Serializable {
     private static final String IMG_PATH = "/resources/property-img/";
+    private static final String PARAM = "property";
     
     @Getter private List<Part> images;    
     @Getter private Property property;
@@ -47,11 +47,17 @@ public class PropertyBean extends ManagedBean implements Serializable {
     
     @PostConstruct
     public void init() {
-        final Proprietor p = new Proprietor();
-        p.setAccount(new Account());
+        final Property param = getParam(PARAM, Property.class);
+        if (param != null)
+            property = param;
+        else {
+            final Proprietor p = new Proprietor();
+            p.setAccount(new Account());
+
+            property = new Property();
+            property.setProprietor(p);
+        }
         
-        property = new Property();
-        property.setProprietor(p);
         images = new ArrayList<>();
     }
     
@@ -89,15 +95,7 @@ public class PropertyBean extends ManagedBean implements Serializable {
     
     public String saveImages() {
         if (!images.isEmpty()) {
-            try {
-                final Part first = images.get(0);
-                property.setFileExtension(first.getSubmittedFileName());
-                property.setPhotoStream(first.getInputStream());
-                
-                return toStep(4, "cad_property_proprietor");
-            } catch (IOException e) {
-                error("Erro ao processar imagens", e.getMessage());
-            }
+            return toStep(4, "cad_property_proprietor");
         }
         return null;
     }
@@ -106,16 +104,8 @@ public class PropertyBean extends ManagedBean implements Serializable {
         try {
             final Property saved = service.save(property);
             
-            if (property.getFileExtension() != null) {
-                final String fileName = IMG_PATH + saved.getId() + property.getFileExtension();
-                saved.setPhoto(fileName);
-                service.update(saved);
-
-                writePhoto(property.getPhotoStream(), getPath() + fileName);
-
-                if (!images.isEmpty())
-                    saveOtherImages(property);
-            }
+            if (!images.isEmpty())
+                saveImages(saved);
             
             conv.end();
             info("Imóvel inserido com sucesso");
@@ -128,7 +118,7 @@ public class PropertyBean extends ManagedBean implements Serializable {
         return null;
     }
     
-    private void saveOtherImages(final Property saved) throws IOException {
+    private void saveImages(final Property saved) throws IOException {
         final String fileName = getPath() + IMG_PATH + saved.getId();
         final File folder = new File(fileName);
         folder.mkdir();
@@ -152,12 +142,6 @@ public class PropertyBean extends ManagedBean implements Serializable {
         }
         
         Files.copy(stream, photo.toPath(), StandardCopyOption.REPLACE_EXISTING);
-    }
-    
-    private String getPath() {
-        final FacesContext ctx = FacesContext.getCurrentInstance();
-        final ServletContext sc = (ServletContext) ctx.getExternalContext().getContext();
-        return sc.getRealPath("");
     }
     
     private void createPropertyImgFolder() {

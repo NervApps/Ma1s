@@ -16,8 +16,7 @@
         <link rel="stylesheet" href="resources/css/ace.min.css" />
         <link rel="stylesheet" href="resources/css/ace-responsive.min.css" />
         <link rel="stylesheet" href="resources/css/ace-skins.min.css" />
-        <!-- Inserção de folha de estilos personalizada por página -->
-        <ui:insert name="css"/>
+        <link rel="stylesheet" href="resources/css/colorbox.css"/>
     </head>
     <body jsf:id="body">
         <div class="navbar">
@@ -226,11 +225,38 @@
         <script src="resources/js/ace-elements.min.js"></script>
         <script src="resources/js/ace.min.js"></script>
         <script src="resources/js/jquery.maskedinput.min.js"/>
+        <script src="resources/js/jquery.colorbox-min.js"/>
         <script type="text/javascript">
             $(function() { 
                $('.input-mask-phone').mask('(99) 9999-9999');
                $('.input-mask-cellphone').mask('(99) 9?9999-9999');
                $('.input-mask-cpf').mask('999.999.999-99');
+            });
+        </script>
+        <script type="text/javascript">
+            $(function() {
+                var colorbox_params = {
+                 reposition: true,
+                 scalePhotos: true,
+                 scrolling: false,
+                 previous: '<i class="icon-arrow-left"></i>',
+                 next: '<i class="icon-arrow-right"></i>',
+                 current: '{current} de {total}',
+                 maxWidth: '100%',
+                 maxHeight: '100%',
+                 onOpen: function() {
+                    document.body.style.overflow = 'hidden';
+                 },
+                 onClosed: function() {
+                    document.body.style.overflow = 'auto';
+                 },
+                 onComplete: function() {
+                    $.colorbox.resize();
+                 }
+               };
+               
+               $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+               $("#cboxLoadingGraphic").append('<i class="icon-spinner orange"></i>');
             });
         </script>
     </body>

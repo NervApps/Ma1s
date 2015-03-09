@@ -33,6 +33,7 @@ public class SearchPropertyBean extends ManagedBean implements Serializable {
     @Getter private int first = 0;
     @Getter private final int max = 6;
     @Getter private final int interval = 7;
+    @Setter private Property selected;
     
     @Inject private GenericSearchService<Property> service;
     @Inject private PropertyQueryTranslator translator;
@@ -90,6 +91,11 @@ public class SearchPropertyBean extends ManagedBean implements Serializable {
         first = first >= max ? first-interval : 0;
         result.clear();
         result.addAll(find());
+    }
+    
+    public String select() {
+        putParam("property", selected);
+        return "property_detail?faces-redirect=true";
     }
     
     private List<Property> find() {
