@@ -78,7 +78,7 @@ public class UserLogged implements Serializable {
     private void loadPermissions() {
         final Profile p = user.getProfile();        
         if (p != null)
-            permissions = dao.getPermissions(p);
+            permissions = dao.getPermissions(p.getId());
     }
     
     private void invalidate() {

@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.Query;
 import org.apache.deltaspike.data.api.Repository;
+import org.apache.deltaspike.data.api.SingleResultType;
 
 /**
  *
@@ -20,5 +21,8 @@ import org.apache.deltaspike.data.api.Repository;
 public interface ProfileDAO extends EntityRepository<Profile, Long> {
     
     @Query(value = "SELECT p.permissions FROM Profile p WHERE p.id = ?1")
-    public List<Permission> getPermissions(final Profile profile);
+    public List<Permission> getPermissions(final Long id);
+    
+    @Query(singleResult = SingleResultType.OPTIONAL)
+    Profile findByNameEqual(final String name);
 }

@@ -132,15 +132,15 @@
 
                             <form class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer"
                                   jsf:id="menuForm">
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-cog"></i>
-                                        Configurações
-                                    </a>
-                                </li>
-
-                                <li class="divider"></li>
-
+                                <ui:fragment rendered="#{logged.profile.admin}">
+                                    <li>
+                                        <a href="#">
+                                            <i class="icon-cog"></i>
+                                            Configurações
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                </ui:fragment>
                                 <li>
                                     <a jsf:action="login?faces-redirect=true">
                                         <i class="icon-off"></i>

@@ -42,4 +42,8 @@ public class Profile implements Serializable {
                joinColumns = {@JoinColumn(name = "PERMISSION_ID", nullable = false)},
                inverseJoinColumns = {@JoinColumn(name = "PROFILE_ID", nullable = false)})
     @Getter @Setter private List<Permission> permissions;
+    
+    public boolean isAdmin() {
+        return "ADMIN".equalsIgnoreCase(name); 
+    }
 }
