@@ -92,4 +92,19 @@ public class Property implements Serializable {
     @JoinColumn(name = "PROPRIETOR_ID", referencedColumnName = "PROPRIETOR_ID", 
                 nullable = false)
     @Getter @Setter private Proprietor proprietor;
+    
+    @Column(name = "OBS")
+    @Getter @Setter private String obs;
+    
+    @Column(name = "INTERNAL_OBS")
+    @Getter @Setter private String internalObs;
+    
+    public String getObsFormatted() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append(obs != null ? obs.replace("\n", "|") : "");
+        if (internalObs != null)
+            sb.append(internalObs.replace("\n", "|"));
+        
+        return sb.toString();
+    }
 }

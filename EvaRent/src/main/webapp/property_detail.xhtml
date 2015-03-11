@@ -6,12 +6,26 @@
                 xmlns:jsf="http://xmlns.jcp.org/jsf"      
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html">
-    
-    <ui:define name="css">
-        <link rel="stylesheet" href="resources/css/colorbox.css"/>
-    </ui:define>
 
     <ui:define name="content">
+        <div class="page-header position-relative blue">
+            <h2> Imagens </h2>
+        </div>
+        
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="row-fluid">
+                    <ul class="ace-thumbnails">
+                        <ui:repeat var="img" value="#{detailBean.images}">
+                            <a href="resources/property-img/#{detailBean.property.id}/#{img}" data-rel="colorbox">
+                                <img src="resources/property-img/#{detailBean.property.id}/#{img}" width="150" height="150"/>
+                            </a>
+                        </ui:repeat>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
         <div class="page-header position-relative blue">
             <h2> Detalhes do Imóvel</h2>
         </div>
@@ -64,25 +78,36 @@
                                 (#{detailBean.property.status.label})
                             </div>
                         </div>
+                        
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Dados internos
+                            </div>
+                            <div class="profile-info-value">
+                                #{detailBean.property.kitchen} cozinha, 
+                                #{detailBean.property.room} sala de estar,
+                                <ui:fragment rendered="#{not empty detailBean.property.dinnerRoom}">
+                                    #{detailBean.property.dinnerRoom} sala de jantar, 
+                                </ui:fragment>
+                                #{detailBean.property.bathroom} banheiros, 
+                                #{detailBean.property.bedroom} quartos, 
+                                <ui:fragment rendered="#{not empty detailBean.property.suite}">
+                                #{detailBean.property.suite} suítes, 
+                                </ui:fragment>
+                                #{detailBean.property.laundry} lavanderia, 
+                                #{detailBean.property.parking} vagas
+                            </div>
+                        </div>
+                        
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">
+                                Observações
+                            </div>
+                            <div class="profile-info-value">
+                                #{detailBean.property.obsFormatted}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="page-header position-relative blue">
-            <h2> Imagens </h2>
-        </div>
-        
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="row-fluid">
-                    <ul class="ace-thumbnails">
-                        <ui:repeat var="img" value="#{detailBean.images}">
-                            <a href="resources/property-img/#{detailBean.property.id}/#{img}" data-rel="colorbox">
-                                <img src="resources/property-img/#{detailBean.property.id}/#{img}" width="150" height="150"/>
-                            </a>
-                        </ui:repeat>
-                    </ul>
                 </div>
             </div>
         </div>

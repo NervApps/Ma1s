@@ -43,7 +43,7 @@ public class UserLogged implements Serializable {
     }
     
     public void logout() {
-        login(null);
+        this.user = null;
         invalidate();
     }
     
