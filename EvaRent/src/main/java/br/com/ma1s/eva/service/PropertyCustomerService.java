@@ -42,14 +42,14 @@ public class PropertyCustomerService {
    
     private void rent() {
         beforeInsert();
-        pc = insert();
+        insert();
         afterInsert(rents);
         updateStatus(PropertyStatus.RENTING);
     }
     
     private void sell() {
         beforeInsert();
-        pc = insert();
+        insert();
         afterInsert(sells);
         updateStatus(PropertyStatus.SELLING);
     }
@@ -60,8 +60,8 @@ public class PropertyCustomerService {
             pv.validate();
     }
     
-    private PropertyCustomer insert() {
-        return pcDAO.save(pc);
+    private void insert() {
+        pc = pcDAO.save(pc);
     }
     
     private void afterInsert(Event event) {
