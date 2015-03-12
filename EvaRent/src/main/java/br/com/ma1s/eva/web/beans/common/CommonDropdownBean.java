@@ -38,7 +38,8 @@ public class CommonDropdownBean implements Serializable {
     
     private void loadPropertyStatus() {
         propertyStatus = new ArrayList<>();
-        propertyStatus.addAll(Arrays.asList(PropertyStatus.values()));
+        propertyStatus.addAll(Arrays.asList(PropertyStatus.ONLY_PURCHASE, 
+                PropertyStatus.ONLY_RENT, PropertyStatus.RENTED));
     }
     
     private void loadBankList() {

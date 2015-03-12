@@ -9,7 +9,7 @@ import br.com.ma1s.eva.model.Account;
 import br.com.ma1s.eva.model.Property;
 import br.com.ma1s.eva.model.Proprietor;
 import br.com.ma1s.eva.service.PropertyService;
-import br.com.ma1s.eva.web.beans.common.ManagedBean;
+import br.com.ma1s.eva.web.beans.common.ConversationBean;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,9 +19,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Conversation;
-import javax.enterprise.context.ConversationScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
@@ -32,18 +29,16 @@ import lombok.Setter;
  *
  * @author Vitor
  */
-@Named @ConversationScoped
-public class PropertyBean extends ManagedBean implements Serializable {
+@Named
+public class PropertyBean extends ConversationBean implements Serializable {
     private static final String IMG_PATH = "/resources/property-img/";
     private static final String PARAM = "property";
     
     @Getter private List<Part> images;    
     @Getter private Property property;
     @Getter @Setter private Part file;
-    @Getter private int step = 1;
     
     @Inject private PropertyService service;
-    @Inject private Conversation conv;
     
     @PostConstruct
     public void init() {
@@ -61,12 +56,10 @@ public class PropertyBean extends ManagedBean implements Serializable {
         images = new ArrayList<>();
     }
     
-    private void initConversation() {
+    @Override
+    protected void initConversation() {
         createPropertyImgFolder();
-        final FacesContext ctx = FacesContext.getCurrentInstance();
-        
-        if (ctx.isPostback() && conv.isTransient())
-            conv.begin();
+        super.initConversation();
     }
     
     public String fillProperty() {
@@ -107,7 +100,7 @@ public class PropertyBean extends ManagedBean implements Serializable {
             if (!images.isEmpty())
                 saveImages(saved);
             
-            conv.end();
+            endConversation();
             info("Imóvel inserido com sucesso");
             
             init();
@@ -126,11 +119,6 @@ public class PropertyBean extends ManagedBean implements Serializable {
         for (Part img : images) {
             writePhoto(img.getInputStream(), fileName + "/" + img.getSubmittedFileName());
         }
-    }
-    
-    public String toStep(final int step, final String page) {
-        this.step = step;
-        return page;
     }
     
     private void writePhoto(final InputStream stream, final String fileName) 

@@ -9,12 +9,9 @@ import br.com.ma1s.eva.model.Customer;
 import br.com.ma1s.eva.model.Property;
 import br.com.ma1s.eva.model.PropertyCustomer;
 import br.com.ma1s.eva.service.PropertyCustomerService;
-import br.com.ma1s.eva.web.beans.common.ManagedBean;
-import br.com.ma1s.eva.web.util.Message;
-import br.com.ma1s.eva.web.util.MessageType;
+import br.com.ma1s.eva.web.beans.common.ConversationBean;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
@@ -23,13 +20,12 @@ import lombok.Getter;
  *
  * @author Vitor
  */
-@Named @ViewScoped
-public class PropertySellBean extends ManagedBean implements Serializable {
+@Named("lockBean")
+public class PropertyLockBean extends ConversationBean implements Serializable {
     private static final String SEARCH_PAGE = "property_search";
     private static final String PARAM_NAME = "property";
-    @Getter private PropertyCustomer propertyCustomer;
-    @Getter private Customer customer;
     
+    @Getter private PropertyCustomer propertyCustomer;
     @Inject private PropertyCustomerService service;
     
     @PostConstruct
@@ -43,11 +39,15 @@ public class PropertySellBean extends ManagedBean implements Serializable {
             toPage(SEARCH_PAGE, true);
     }
     
-    public String lock() {
+    public String toContract() {
+        initConversation();
+        return toStep(2, "lock_property_contract");
+    }
+    
+    public String confirm() {
         service.lock(propertyCustomer);
-        
-        final Message msg = new Message(MessageType.INFO, "Imóvel reservado com sucesso");
-        msg.show();
+        endConversation();
+        info("Imóvel reservado com sucesso");
         return SEARCH_PAGE;
     }
 }

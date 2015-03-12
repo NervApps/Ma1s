@@ -8,8 +8,6 @@ package br.com.ma1s.eva.web.beans;
 import br.com.ma1s.eva.model.Property;
 import br.com.ma1s.eva.service.PropertyService;
 import br.com.ma1s.eva.web.beans.common.ManagedBean;
-import br.com.ma1s.eva.web.util.Message;
-import br.com.ma1s.eva.web.util.MessageType;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,10 +26,9 @@ import lombok.Getter;
 public class PropertyDetailBean extends ManagedBean implements Serializable {
     private static final String IMG_PATH = "/resources/property-img/";
     private static final String PARAM_NAME = "property";
-    private static final String PAGE_LOCK = "property_lock?faces-redirect-true";
+    private static final String PAGE_LOCK = "lock_property_customer?faces-redirect-true";
     private static final String PAGE_SEARCH = "property_search?faces-redirect-true";
     
-    @Getter private String profileImg;
     @Getter private Property property;
     @Getter private List<String> images;
     
@@ -41,8 +38,11 @@ public class PropertyDetailBean extends ManagedBean implements Serializable {
     @PostConstruct
     public void init() {
         property = getParam(PARAM_NAME, Property.class);
-        profileImg = null;
-        loadImages();
+        if (property != null) {
+            property = service.getUpdated(property.getId());
+            loadImages();
+        } else
+            toPage(PAGE_SEARCH, true);
     }
     
     public void loadImages() {
@@ -52,9 +52,6 @@ public class PropertyDetailBean extends ManagedBean implements Serializable {
             final File folder = new File(getPath() + IMG_PATH + property.getId());
             if (folder.isDirectory()) {
                for (File file : folder.listFiles()) {
-                   if (profileImg == null)
-                       profileImg = file.getName();
-                   
                    images.add(file.getName());
                }
             }
@@ -68,18 +65,13 @@ public class PropertyDetailBean extends ManagedBean implements Serializable {
     
     public String unlock() {
         searchBean.search();
-        
-        final Message msg = new Message(MessageType.INFO, "Imóvel atualizado com sucesso");
-        msg.show();
+        info("Imóvel atualizado com sucesso");
         return PAGE_SEARCH;
     }
     
     public String delete() {
         service.remove(property);
-        
-        final Message msg = new Message(MessageType.INFO, "Imóvel removido com sucesso");
-        msg.show();
-        
+        info("Imóvel excluído com sucesso");
         searchBean.search();
         return PAGE_SEARCH;
     }

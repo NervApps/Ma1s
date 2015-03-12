@@ -70,4 +70,8 @@ public class PropertyService {
             throw new BusinessException("Erro ao remover imóvel", e);
         }
     }
+    
+    public Property getUpdated(Long id) {
+        return manager.getReference(Property.class, id);
+    }
  }
