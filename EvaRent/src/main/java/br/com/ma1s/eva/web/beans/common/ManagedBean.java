@@ -7,6 +7,7 @@ package br.com.ma1s.eva.web.beans.common;
 
 import br.com.ma1s.eva.web.util.Message;
 import br.com.ma1s.eva.web.util.MessageType;
+import javax.faces.application.Application;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
@@ -59,6 +60,15 @@ public abstract class ManagedBean {
     protected String getPath() {
         final ServletContext sc = (ServletContext) getExternalContext().getContext();
         return sc.getRealPath("");
+    }
+    
+    protected void toPage(String page, boolean redirect) {
+        final String toPage = redirect ? page.concat("?faces-redirect=true")
+                                       : page;
+        
+        final FacesContext ctx = FacesContext.getCurrentInstance();
+        final Application app = ctx.getApplication();
+        app.getNavigationHandler().handleNavigation(ctx, null, toPage);
     }
     
     private Flash getFlash() {

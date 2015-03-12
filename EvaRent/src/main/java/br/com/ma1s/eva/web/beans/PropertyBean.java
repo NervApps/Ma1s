@@ -102,7 +102,7 @@ public class PropertyBean extends ManagedBean implements Serializable {
     
     public String save() {
         try {
-            final Property saved = service.save(property);
+            final Property saved = service.newProperty(property);
             
             if (!images.isEmpty())
                 saveImages(saved);

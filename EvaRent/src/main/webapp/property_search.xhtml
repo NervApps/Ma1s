@@ -22,7 +22,8 @@
                                     <div class="span12">
                                         <label class="control-label">Buscar por</label>
                                         <div class="controls">
-                                            <h:selectOneMenu value="#{searchPropertyBean.param.field}" converter="beanConverter">
+                                            <h:selectOneMenu value="#{searchPropertyBean.param.field}" converter="beanConverter"
+                                                             valueChangeListener="#{searchPropertyBean.filterValueChange}">
                                                 <f:selectItem itemLabel="--- Selecione ---"/>
                                                 <f:selectItems value="#{searchParams.propertySearchFields}" var="field"
                                                                itemLabel="#{field.label}" itemValue="#{field}"/>

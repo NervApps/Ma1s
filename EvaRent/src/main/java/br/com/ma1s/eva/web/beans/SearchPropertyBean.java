@@ -5,6 +5,8 @@
  */
 package br.com.ma1s.eva.web.beans;
 
+import br.com.ma1s.eva.model.Field;
+import br.com.ma1s.eva.model.Filter;
 import br.com.ma1s.eva.model.Property;
 import br.com.ma1s.eva.model.repository.query.PropertyQueryTranslator;
 import br.com.ma1s.eva.service.GenericSearchService;
@@ -14,7 +16,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
@@ -24,7 +27,7 @@ import lombok.Setter;
  *
  * @author Vitor
  */
-@Named @ViewScoped
+@Named @SessionScoped
 public class SearchPropertyBean extends ManagedBean implements Serializable {
     @Getter @Setter private int current = 0;
     @Getter @Setter private SearchParam param;
@@ -100,5 +103,16 @@ public class SearchPropertyBean extends ManagedBean implements Serializable {
     
     private List<Property> find() {
         return service.find(translator, params, first, max);
+    }
+    
+    public void filterValueChange(ValueChangeEvent e) {
+        if (e.getNewValue() != null) {
+            final Field field = (Field) e.getNewValue();
+            
+            if (field.getFilters().size() == 1) {
+                final Filter filter = field.getFilters().get(0);
+                param.setCondition(filter);
+            }
+        }
     }
 }

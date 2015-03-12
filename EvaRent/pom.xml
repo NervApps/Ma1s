@@ -19,6 +19,7 @@
         <codec.version>1.10</codec.version>
         <commons-io.version>2.4</commons-io.version>
         <hsqldb.version>2.3.2</hsqldb.version>
+        <joda-time.version>2.7</joda-time.version>
     </properties>
     
     <dependencies>
@@ -115,6 +116,13 @@
             <artifactId>hsqldb</artifactId>
             <version>${hsqldb.version}</version>
         </dependency>
+        
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${joda-time.version}</version>
+        </dependency>
+
 
     </dependencies>
 

@@ -5,7 +5,7 @@
  */
 package br.com.ma1s.eva.web.context;
 
-import br.com.ma1s.eva.qualifier.BlockedPages;
+import br.com.ma1s.eva.web.qualifiers.BlockedPages;
 import java.util.List;
 import javax.enterprise.event.Observes;
 import javax.faces.application.NavigationHandler;

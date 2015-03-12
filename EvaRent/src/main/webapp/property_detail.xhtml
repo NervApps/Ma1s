@@ -111,6 +111,50 @@
                 </div>
             </div>
         </div>
+        
+        <div class="row-fluid wizard-actions">
+            <form jsf:id="rentForm">
+                <button class="btn btn-next" jsf:id="btnBack"
+                        jsf:action="property_search?faces-redirect=true">
+                    <i class="icon-arrow-left"></i>
+                    Voltar
+                </button>
+                
+                <ui:fragment rendered="#{detailBean.property.status ne 'RENTING' and
+                                         detailBean.property.status ne 'SELLING'}">
+                    
+                    <ui:fragment rendered="#{detailBean.property.status eq 'RENTED'}">
+                    <button class="btn btn-next btn-success" jsf:id="btnRent"
+                            jsf:action="#{detailBean.unlock()}">
+                        <i class="icon-unlock"></i>
+                        Liberar
+                    </button>
+                    </ui:fragment>
+
+                    <ui:fragment rendered="#{detailBean.property.status ne 'RENTED'}">
+                    <button class="btn btn-next btn-success" jsf:id="btnLock"
+                            jsf:action="#{detailBean.lock()}">
+                        <i class="icon-check-sign"></i>
+                        <ui:fragment rendered="#{detailBean.property.status eq 'ONLY_PURCHASE'}">
+                            Comprar
+                        </ui:fragment>
+                        <ui:fragment rendered="#{detailBean.property.status eq 'ONLY_RENT'}">
+                            Alugar
+                        </ui:fragment>
+                    </button>
+                    </ui:fragment>
+                    
+                    <ui:fragment rendered="#{logged.profile.admin}">
+                        <button class="btn btn-danger" jsf:id="btnDelete"
+                                jsf:action="#{detailBean.delete()}">
+                            <i class="icon-trash"></i>
+                            Excluir
+                        </button>
+                    </ui:fragment>
+                    
+                </ui:fragment>
+            </form>
+        </div>
     </ui:define>
 
 </ui:composition>

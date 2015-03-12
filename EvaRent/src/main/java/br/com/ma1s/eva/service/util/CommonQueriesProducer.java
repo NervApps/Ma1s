@@ -6,7 +6,7 @@
 package br.com.ma1s.eva.service.util;
 
 import br.com.ma1s.eva.model.repository.PermissionDAO;
-import br.com.ma1s.eva.qualifier.BlockedPages;
+import br.com.ma1s.eva.web.qualifiers.BlockedPages;
 import java.io.Serializable;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;

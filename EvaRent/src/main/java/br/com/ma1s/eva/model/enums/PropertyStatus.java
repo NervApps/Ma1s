@@ -14,7 +14,10 @@ import lombok.Getter;
 public enum PropertyStatus {
     ONLY_PURCHASE("Compra"),
     ONLY_RENT("Aluguel"),
-    RENTED("Alugada");
+    RENTING("Alugando"),
+    RENTED("Alugada"),
+    SELLING("Vendendo"),
+    SELLED("Vendida");
     
     @Getter private final String label;
 
