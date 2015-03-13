@@ -47,7 +47,7 @@ public class PropertyLockBean extends ConversationBean implements Serializable {
             return toStep(2, "lock_property_contract");
         } else {
             error("Nenhum imóvel selecionado", "Escolha um imóvel ");
-            return "property_search?faces-redirect=true";
+            return cancel();
         }
     }
     
