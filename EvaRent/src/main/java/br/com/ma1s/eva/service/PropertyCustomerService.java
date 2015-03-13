@@ -17,6 +17,7 @@ import java.util.Date;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
 
 /**
  *
@@ -62,7 +63,8 @@ public class PropertyCustomerService {
         
         pc.setStartedDate(new Date());
     }
-    
+
+    @Transactional
     private void insert() {
         pc = pcDAO.save(pc);
     }
