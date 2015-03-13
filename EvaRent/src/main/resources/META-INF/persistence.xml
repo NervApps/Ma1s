@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="evaTest" transaction-type="RESOURCE_LOCAL">
-    <class>br.com.ma1s.eva.model.Account</class>
-    <class>br.com.ma1s.eva.model.Field</class>
-    <class>br.com.ma1s.eva.model.FieldTable</class>
-    <class>br.com.ma1s.eva.model.Filter</class>
-    <class>br.com.ma1s.eva.model.Permission</class>
-    <class>br.com.ma1s.eva.model.Profile</class>
-    <class>br.com.ma1s.eva.model.Property</class>
-    <class>br.com.ma1s.eva.model.Proprietor</class>
-    <class>br.com.ma1s.eva.model.User</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
       <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>

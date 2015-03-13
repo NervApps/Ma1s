@@ -34,6 +34,7 @@ public abstract class ConversationBean extends ManagedBean implements Serializab
     }
     
     protected void endConversation() {
-        conv.end();
+        if (!conv.isTransient())
+            conv.end();
     }
 }

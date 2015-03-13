@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="_LockPropertyTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="form">
+        <form class="form-horizontal" jsf:id="form1" id="form1">
+            <div class="step-pane active">
+                <h3 class="lighter block green">Confirmação</h3>
+
+                <div class="user-profile row-fluid">
+                    <div class="center">
+                        <div>
+                            <div class="profile-user-info profile-user-info-striped span10">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">
+                                        Tipo do Imóvel
+                                    </div>
+                                    <div class="profile-info-value">
+                                        #{lockBean.propertyCustomer.property.type.label}
+                                    </div>
+                                </div>
+                                
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">
+                                        Endereço
+                                    </div>
+                                    <div class="profile-info-value">
+                                        <ui:fragment rendered="#{not empty lockBean.propertyCustomer.property.complement}">
+                                            #{lockBean.propertyCustomer.property.address}, #{lockBean.propertyCustomer.property.number} 
+                                            #{lockBean.propertyCustomer.property.complement}
+                                        </ui:fragment>
+                                        <ui:fragment rendered="#{empty lockBean.propertyCustomer.property.complement}">
+                                            #{lockBean.propertyCustomer.property.address}, #{lockBean.propertyCustomer.property.number}
+                                        </ui:fragment>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">
+                                        Bairro
+                                    </div>
+                                    <div class="profile-info-value">
+                                        #{lockBean.propertyCustomer.property.neighborhood}
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">
+                                        Área Construída
+                                    </div>
+                                    <div class="profile-info-value">
+                                        #{lockBean.propertyCustomer.property.area} m²
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">
+                                        Valor do Anúncio
+                                    </div>
+                                    <div class="profile-info-value">
+                                        R$
+                                        <h:outputText value="#{lockBean.propertyCustomer.property.value}">
+                                            <f:convertNumber pattern="#,##0.00"/>
+                                        </h:outputText>
+                                    </div>
+                                </div>
+                                
+                                <ui:fragment rendered="#{lockBean.propertyCustomer.property.status eq 'ONLY_RENT'}">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">
+                                        Tempo de Contrato
+                                    </div>
+                                    <div class="profile-info-value">
+                                        #{lockBean.propertyCustomer.contractPeriod}
+                                    </div>
+                                </div>
+                                </ui:fragment>
+                                
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">
+                                        Valor do Depósito
+                                    </div>
+                                    <div class="profile-info-value">
+                                        R$
+                                        <h:outputText value="#{lockBean.propertyCustomer.depositValue}">
+                                            <f:convertNumber pattern="#,##0.00"/>
+                                        </h:outputText>
+                                    </div>
+                                </div>
+                                
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">
+                                        Vencimento
+                                    </div>
+                                    <div class="profile-info-value">
+                                        Dia #{lockBean.propertyCustomer.paymentDay}
+                                        <ui:fragment rendered="#{lockBean.propertyCustomer.property.status eq 'ONLY_RENT'}">
+                                            de cada mês
+                                        </ui:fragment>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row-fluid wizard-actions">
+                <button class="btn btn-success btn-next" jsf:id="btnSave"
+                        jsf:action="#{lockBean.confirm()}">
+                    Finalizar
+                    <i class="icon-check"></i>
+                </button>
+            </div>
+        </form>
+    </ui:define>
+
+</ui:composition>

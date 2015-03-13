@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="_LockPropertyTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="form">
+        <form class="form-horizontal" jsf:id="form1" id="form1">
+            <div class="step-pane active">
+                <h3 class="lighter block green">Dados do Contrato</h3>
+                <div class="control-group">
+                    <ui:fragment rendered="#{lockBean.propertyCustomer.property.status eq 'ONLY_RENT'}">
+                    <label class="control-label">Tempo de contrato</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="number" placeholder="Em anos" min="1"
+                                   jsf:value="#{lockBean.propertyCustomer.contractPeriod}"
+                                   required="true"/>
+                        </div>
+                    </div>
+                    </ui:fragment>
+                    
+                    <label class="control-label">Dia do pagamento</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="number" placeholder="Dia do pagamento" min="1" max="31"
+                                   jsf:value="#{lockBean.propertyCustomer.paymentDay}"
+                                   required="true"/>
+                        </div>
+                    </div>
+                    
+                    <label class="control-label">Valor do depósito</label>
+                    <div class="controls">
+                        <div class="span12">
+                            <input type="text" placeholder="R$" required="true"
+                                   jsf:value="#{lockBean.propertyCustomer.depositValue}">
+                                 <f:convertNumber pattern="#,##0.00"/>
+                            </input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row-fluid wizard-actions">
+                <button class="btn btn-success btn-next" jsf:id="btnSave"
+                        jsf:action="#{lockBean.toStep(3, 'lock_property_confirm')}">
+                    Próximo
+                    <i class="icon-check"></i>
+                </button>
+            </div>
+        </form>
+    </ui:define>
+
+</ui:composition>

@@ -22,32 +22,44 @@ import lombok.Getter;
  */
 @Named("lockBean")
 public class PropertyLockBean extends ConversationBean implements Serializable {
-    private static final String SEARCH_PAGE = "property_search";
+    private static final String SEARCH_PAGE = "property_search?faces-redirect=true";
     private static final String PARAM_NAME = "property";
+    private Property property;
     
     @Getter private PropertyCustomer propertyCustomer;
     @Inject private PropertyCustomerService service;
     
     @PostConstruct
     public void init() {
+        propertyCustomer = new PropertyCustomer();
+        propertyCustomer.setCustomer(new Customer());
+        
         final Property param = getParam(PARAM_NAME, Property.class);
         if (param != null) {
-            propertyCustomer = new PropertyCustomer();
-            propertyCustomer.setProperty(param);
-            propertyCustomer.setCustomer(new Customer());
-        } else
-            toPage(SEARCH_PAGE, true);
+            this.property = param;
+            initConversation();
+        }
     }
     
     public String toContract() {
-        initConversation();
-        return toStep(2, "lock_property_contract");
+        if (property != null) {
+            propertyCustomer.setProperty(property);
+            return toStep(2, "lock_property_contract");
+        } else {
+            error("Nenhum imóvel selecionado", "Escolha um imóvel ");
+            return "property_search?faces-redirect=true";
+        }
     }
     
     public String confirm() {
         service.lock(propertyCustomer);
         endConversation();
         info("Imóvel reservado com sucesso");
+        return SEARCH_PAGE;
+    }
+    
+    public String cancel() {
+        endConversation();
         return SEARCH_PAGE;
     }
 }
