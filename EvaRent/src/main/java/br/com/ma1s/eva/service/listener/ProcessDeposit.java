@@ -8,6 +8,8 @@ package br.com.ma1s.eva.service.listener;
 import br.com.ma1s.eva.model.PaymentRegister;
 import br.com.ma1s.eva.model.PropertyCustomer;
 import br.com.ma1s.eva.service.qualifier.Deposit;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
 import org.joda.time.DateTime;
@@ -20,7 +22,12 @@ import org.joda.time.DateTime;
 public class ProcessDeposit extends ProcessPayment {
     
     public void listen(@Observes @Deposit PropertyCustomer pc) {
-        for (int i = 0; i < 3; i++) {
+        final BigDecimal rentValue = pc.getProperty().getValue();
+        final BigInteger result = pc.getDepositValue()
+                                    .divide(rentValue)
+                                    .toBigInteger();
+        
+        for (int i = 0; i < result.intValue(); i++) {
             final PaymentRegister payment = build(pc);
             payment.setDate(new DateTime().plusMonths(i).toDate());
             prDAO.save(payment);

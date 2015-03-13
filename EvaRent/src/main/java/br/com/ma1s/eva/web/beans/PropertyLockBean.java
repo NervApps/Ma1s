@@ -53,9 +53,8 @@ public class PropertyLockBean extends ConversationBean implements Serializable {
     
     public String confirm() {
         service.lock(propertyCustomer);
-        endConversation();
         info("Imóvel reservado com sucesso");
-        return SEARCH_PAGE;
+        return cancel();
     }
     
     public String cancel() {

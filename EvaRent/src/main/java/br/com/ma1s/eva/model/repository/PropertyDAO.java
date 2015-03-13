@@ -6,6 +6,7 @@
 package br.com.ma1s.eva.model.repository;
 
 import br.com.ma1s.eva.model.Property;
+import br.com.ma1s.eva.model.enums.PropertyStatus;
 import java.util.List;
 import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.Query;
@@ -19,8 +20,10 @@ import org.apache.deltaspike.data.api.Repository;
 public interface PropertyDAO extends EntityRepository<Property, Long> {
     
     @Query(value = "FROM Property p WHERE p.address = ?1 AND p.number = ?2 "
-                 + "AND p.complement = ?3")
-    List<Property> find(String address, String number, String complement);
+                 + "AND p.complement = ?3 AND p.status = ?4")
+    List<Property> find(String address, String number, String complement, PropertyStatus status);
     
-    List<Property> findByAddressEqualAndNumberEqual(String address, String number);
+    @Query(value = "FROM Property p WHERE p.address = ?1 AND p.number = ?2 "
+                 + "AND p.status = ?3")
+    List<Property> find(String address, String number, PropertyStatus status);
 }

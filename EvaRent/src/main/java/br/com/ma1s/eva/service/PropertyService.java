@@ -8,6 +8,7 @@ package br.com.ma1s.eva.service;
 import br.com.ma1s.eva.exception.BusinessException;
 import br.com.ma1s.eva.model.Property;
 import br.com.ma1s.eva.model.enums.PropertyStatus;
+import br.com.ma1s.eva.model.enums.PropertyType;
 import br.com.ma1s.eva.model.repository.PropertyDAO;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -49,11 +50,12 @@ public class PropertyService {
         final String address = property.getAddress();
         final String number = property.getNumber();
         final String complement = property.getComplement();
+        final PropertyStatus status = property.getStatus();
         
         if (complement != null)
-            return !dao.find(address, number, complement).isEmpty();
+            return !dao.find(address, number, complement, status).isEmpty();
         else
-            return !dao.findByAddressEqualAndNumberEqual(address, number).isEmpty();
+            return !dao.find(address, number, status).isEmpty();
     }
     
     public void updateStatus(PropertyStatus status, Property property) {

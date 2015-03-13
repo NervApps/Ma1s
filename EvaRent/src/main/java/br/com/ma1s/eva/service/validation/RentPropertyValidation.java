@@ -30,8 +30,8 @@ class RentPropertyValidation extends PropertyValidation {
     
     private void validateDeposit() {
         final Property p = pc.getProperty();
-        final int compare = pc.getDepositValue().multiply(DEPOSIT_MONTHS)
-                                                .compareTo(p.getValue());
+        final int compare = pc.getDepositValue()
+                              .compareTo(p.getValue().multiply(DEPOSIT_MONTHS));
         
         if (compare == COMPARE_LESS)
             throw new BusinessException("O valor do depósito não pode ser"

@@ -13,6 +13,7 @@ import br.com.ma1s.eva.service.qualifier.Deposit;
 import br.com.ma1s.eva.service.qualifier.Sell;
 import br.com.ma1s.eva.service.validation.PropertyValidation;
 import br.com.ma1s.eva.service.validation.ValidationFactory;
+import java.util.Date;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -58,6 +59,8 @@ public class PropertyCustomerService {
         final PropertyValidation pv = ValidationFactory.propertyValidation(pc);
         if (pv != null)
             pv.validate();
+        
+        pc.setStartedDate(new Date());
     }
     
     private void insert() {
