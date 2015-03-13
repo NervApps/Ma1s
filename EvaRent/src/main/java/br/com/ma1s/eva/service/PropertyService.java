@@ -8,7 +8,6 @@ package br.com.ma1s.eva.service;
 import br.com.ma1s.eva.exception.BusinessException;
 import br.com.ma1s.eva.model.Property;
 import br.com.ma1s.eva.model.enums.PropertyStatus;
-import br.com.ma1s.eva.model.enums.PropertyType;
 import br.com.ma1s.eva.model.repository.PropertyDAO;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
