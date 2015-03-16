@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.ma1s.eva.service.listener;
+package br.com.ma1s.eva.service.util;
 
 import br.com.ma1s.eva.model.PaymentRegister;
 import br.com.ma1s.eva.model.PropertyCustomer;

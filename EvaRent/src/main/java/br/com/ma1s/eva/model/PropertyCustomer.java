@@ -47,14 +47,14 @@ public class PropertyCustomer implements Serializable {
     @Column(name = "PAYMENT_DAY", nullable = false)
     @Getter @Setter private Integer paymentDay;
     
-    @Column(name = "CONTRACT_PERIOD", nullable = false)
+    @Column(name = "CONTRACT_PERIOD")
     @Getter @Setter private Integer contractPeriod;
     
     @Temporal(TemporalType.DATE)
     @Column(name = "STARTED_DATE", nullable = false)
     @Getter @Setter private Date startedDate;
     
-    @Column(name = "DEPOSIT_VALUE")
+    @Column(name = "DEPOSIT_VALUE", nullable = false)
     @Getter @Setter private BigDecimal depositValue;
     
     @Transient

@@ -5,8 +5,10 @@
  */
 package br.com.ma1s.eva.service.listener;
 
+import br.com.ma1s.eva.exception.BusinessException;
 import br.com.ma1s.eva.model.PropertyCustomer;
 import br.com.ma1s.eva.service.qualifier.Sell;
+import java.math.BigDecimal;
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Observes;
@@ -20,6 +22,11 @@ public class ProcessSellDeposit {
     
     @Asynchronous
     public void listen(@Observes @Sell PropertyCustomer pc) {
-        //TODO: inserir o recebimento do pagamento
+        final BigDecimal value = pc.getProperty().getValue();
+        
+        if (!value.equals(pc.getDepositValue())) {
+            throw new BusinessException("O valor do depósito não corresponde "
+                    + "ao valor anunciado");
+        }
     }
 }

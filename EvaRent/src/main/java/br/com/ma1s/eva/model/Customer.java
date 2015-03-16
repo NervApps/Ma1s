@@ -34,6 +34,9 @@ public class Customer implements Serializable {
     @Column(name = "NAME", nullable = false)
     @Getter @Setter private String name;
     
+    @Column(name = "LAST_NAME", nullable = false)
+    @Getter @Setter private String lastName;
+    
     @Column(name = "DOCUMENT", nullable = false)
     @Getter @Setter private String document;
     

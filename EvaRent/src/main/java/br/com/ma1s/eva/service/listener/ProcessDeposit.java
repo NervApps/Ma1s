@@ -5,6 +5,7 @@
  */
 package br.com.ma1s.eva.service.listener;
 
+import br.com.ma1s.eva.service.util.ProcessPayment;
 import br.com.ma1s.eva.model.PaymentRegister;
 import br.com.ma1s.eva.model.PropertyCustomer;
 import br.com.ma1s.eva.service.qualifier.Deposit;

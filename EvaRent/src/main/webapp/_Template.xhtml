@@ -3,7 +3,8 @@
 <html lang="pt_BR"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head jsf:id="head">
         <title>Eva</title>
         <meta name="description" content="Eva" />
@@ -42,82 +43,45 @@
                                     Indicadores
                                 </li>
 
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Inadimplentes</span>
-                                            <span class="pull-right">42%</span>
-                                        </div>
+                                <li jsf:id="percentual">
+                                    <div class="clearfix">
+                                        <span class="pull-left">Inadimplentes</span>
+                                        <span class="pull-right">#{indexBean.pendentPercentual}%</span>
+                                    </div>
 
-                                        <div class="progress progress-mini progress-danger">
-                                            <div style="width:42%" class="bar"></div>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <div class="clearfix">
-                                            <span class="pull-left">Pendentes Aprovação</span>
-                                            <span class="pull-right">15%</span>
-                                        </div>
-
-                                        <div class="progress progress-mini progress-warning">
-                                            <div style="width:15%" class="bar"></div>
-                                        </div>
-                                    </a>
+                                    <div class="progress progress-mini progress-danger">
+                                        <div style="width:#{indexBean.pendentPercentual}%" class="bar"></div>
+                                    </div>
                                 </li>
                             </ul>
                         </li>
 
+                        <ui:fragment rendered="#{indexBean.pendents gt 0}">
                         <li class="red">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <i class="icon-bell-alt icon-animated-bell"></i>
-                                <span class="badge badge-important">8</span>
+                                <span class="badge badge-important">#{indexBean.pendents}</span>
                             </a>
 
                             <ul class="pull-right dropdown-navbar navbar-link dropdown-menu dropdown-caret dropdown-closer">
                                 <li class="nav-header">
                                     <i class="icon-warning-sign"></i>
-                                    8 Inadimplentes
+                                    #{indexBean.pendents} Inadimplentes
                                 </li>
-
-                                <li>
-                                    <a href="#">
-                                        <i class="btn btn-mini btn-primary icon-user"></i>
-                                        Roberto - Casa Itaquera
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <i class="btn btn-mini btn-primary icon-user"></i>
-                                        Jorge - Casa Artur Alvim
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <i class="btn btn-mini btn-primary icon-user"></i>
-                                        Joana - Casa Itaim Paulista
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        <i class="btn btn-mini btn-primary icon-user"></i>
-                                        Maria - Casa Guaianazes
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#">
-                                        Ver todos
-                                        <i class="icon-arrow-right"></i>
-                                    </a>
-                                </li>
+                                
+                                <ui:repeat var="p" value="#{indexBean.firstPendents}">
+                                    <li class="pull-left">
+                                        <a href="#">
+                                            <i class="btn btn-mini btn-primary icon-user"></i>
+                                            <span class="smaller">
+                                                #{p.propertyCustomer.customer.name} - #{p.propertyCustomer.property.neighborhood}
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ui:repeat>
                             </ul>
                         </li>
+                        </ui:fragment>
 
                         <li class="light-blue">
                             <a data-toggle="dropdown" href="#" class="dropdown-toggle">

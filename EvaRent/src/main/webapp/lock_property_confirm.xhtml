@@ -125,7 +125,7 @@
             <hr/>
             <div class="row-fluid wizard-actions">
                 <ui:fragment rendered="#{lockBean.propertyCustomer.property.status eq 'ONLY_RENT'}">
-                <button class="btn btn-block" jsf:id="btnEdit">
+                <button class="btn" jsf:id="btnEdit">
                     Alterar
                     <i class="icon-edit"></i>
                     <f:setPropertyActionListener target="#{lockBean.changeMonts}" value="#{true}"/>
