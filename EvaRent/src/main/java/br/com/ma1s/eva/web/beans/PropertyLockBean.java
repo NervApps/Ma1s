@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -27,6 +28,7 @@ public class PropertyLockBean extends ConversationBean implements Serializable {
     private Property property;
     
     @Getter private PropertyCustomer propertyCustomer;
+    @Getter @Setter private boolean changeMonts = false;
     @Inject private PropertyCustomerService service;
     
     @PostConstruct

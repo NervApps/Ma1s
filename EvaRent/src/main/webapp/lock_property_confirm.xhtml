@@ -105,6 +105,18 @@
                                     </div>
                                 </div>
                                 
+                                <ui:fragment rendered="#{lockBean.changeMonts}">
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name">
+                                        Meses de Depósito
+                                    </div>
+                                    <div class="profile-info-value">
+                                        <input type="text" jsf:value="#{lockBean.propertyCustomer.months}"
+                                               min="2"/>
+                                    </div>
+                                </div>
+                                </ui:fragment>
+                                
                             </div>
                         </div>
                     </div>
@@ -112,6 +124,13 @@
             </div>
             <hr/>
             <div class="row-fluid wizard-actions">
+                <ui:fragment rendered="#{lockBean.propertyCustomer.property.status eq 'ONLY_RENT'}">
+                <button class="btn btn-block" jsf:id="btnEdit">
+                    Alterar
+                    <i class="icon-edit"></i>
+                    <f:setPropertyActionListener target="#{lockBean.changeMonts}" value="#{true}"/>
+                </button>
+                </ui:fragment>
                 <button class="btn btn-success btn-next" jsf:id="btnSave"
                         jsf:action="#{lockBean.confirm()}">
                     Finalizar

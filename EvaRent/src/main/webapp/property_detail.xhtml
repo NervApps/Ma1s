@@ -99,6 +99,7 @@
                             </div>
                         </div>
                         
+                        <ui:fragment rendered="#{not empty detailBean.property.obsFormatted}">
                         <div class="profile-info-row">
                             <div class="profile-info-name">
                                 Observações
@@ -107,6 +108,7 @@
                                 #{detailBean.property.obsFormatted}
                             </div>
                         </div>
+                        </ui:fragment>
                     </div>
                 </div>
             </div>

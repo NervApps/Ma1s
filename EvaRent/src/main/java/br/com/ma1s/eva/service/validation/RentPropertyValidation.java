@@ -15,7 +15,6 @@ import java.math.BigDecimal;
  * @author Vitor
  */
 class RentPropertyValidation extends PropertyValidation {
-    private static final BigDecimal DEPOSIT_MONTHS = new BigDecimal(3);
     private static final int COMPARE_LESS = -1;
 
     public RentPropertyValidation(PropertyCustomer pc) {
@@ -29,9 +28,11 @@ class RentPropertyValidation extends PropertyValidation {
     }
     
     private void validateDeposit() {
+        final BigDecimal months = new BigDecimal(pc.getMonths());
         final Property p = pc.getProperty();
         final int compare = pc.getDepositValue()
-                              .compareTo(p.getValue().multiply(DEPOSIT_MONTHS));
+                              .compareTo(p.getValue()
+                              .multiply(months));
         
         if (compare == COMPARE_LESS)
             throw new BusinessException("O valor do depósito não pode ser"

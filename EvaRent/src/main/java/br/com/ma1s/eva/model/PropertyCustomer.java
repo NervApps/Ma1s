@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -55,4 +56,7 @@ public class PropertyCustomer implements Serializable {
     
     @Column(name = "DEPOSIT_VALUE")
     @Getter @Setter private BigDecimal depositValue;
+    
+    @Transient
+    @Getter @Setter private Integer months = 3;
 }
