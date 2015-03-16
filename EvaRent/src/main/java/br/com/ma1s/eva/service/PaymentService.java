@@ -62,7 +62,7 @@ public class PaymentService {
                         .divide(total)
                         .intValue();
         } else 
-            return 0;
+            return BigInteger.ZERO.intValue();
     }
     
 }
