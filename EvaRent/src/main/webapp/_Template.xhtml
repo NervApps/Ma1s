@@ -46,30 +46,30 @@
                                 <li>
                                     <div class="clearfix">
                                         <span class="pull-left">Inadimplentes</span>
-                                        <span class="pull-right">#{indexBean.pendentPercentual}%</span>
+                                        <span class="pull-right">#{templateBean.pendentPercentual}%</span>
                                     </div>
 
                                     <div class="progress progress-mini progress-danger">
-                                        <div style="width:#{indexBean.pendentPercentual}%" class="bar"></div>
+                                        <div style="width:#{templateBean.pendentPercentual}%" class="bar"></div>
                                     </div>
                                 </li>
                             </ul>
                         </li>
 
-                        <ui:fragment rendered="#{indexBean.pendents gt 0}">
+                        <ui:fragment rendered="#{templateBean.pendents gt 0}">
                         <li class="red">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <i class="icon-bell-alt icon-animated-bell"></i>
-                                <span class="badge badge-important">#{indexBean.pendents}</span>
+                                <span class="badge badge-important">#{templateBean.pendents}</span>
                             </a>
 
                             <ul class="pull-right dropdown-navbar navbar-link dropdown-menu dropdown-caret dropdown-closer">
                                 <li class="nav-header">
                                     <i class="icon-warning-sign"></i>
-                                    #{indexBean.pendents} Inadimplentes
+                                    #{templateBean.pendents} Inadimplentes
                                 </li>
                                 
-                                <ui:repeat var="p" value="#{indexBean.firstPendents}">
+                                <ui:repeat var="p" value="#{templateBean.firstPendents}">
                                     <li class="pull-left">
                                         <a href="#">
                                             <i class="btn btn-mini btn-primary icon-user"></i>
