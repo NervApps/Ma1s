@@ -8,9 +8,11 @@ package br.com.ma1s.eva.web.beans.common;
 import br.com.ma1s.eva.model.PaymentRegister;
 import br.com.ma1s.eva.service.PaymentService;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import lombok.Getter;
 
 /**
  *
@@ -18,10 +20,12 @@ import javax.inject.Named;
  */
 @Named @RequestScoped
 public class TemplateBean extends ManagedBean {
+    @Getter private long pendents;
     @Inject private PaymentService service;
     
-    public long getPendents() {
-        return service.countMonthPendents();
+    @PostConstruct
+    public void init() {
+        this.pendents = service.countMonthPendents();
     }
     
     public List<PaymentRegister> getFirstPendents() {
