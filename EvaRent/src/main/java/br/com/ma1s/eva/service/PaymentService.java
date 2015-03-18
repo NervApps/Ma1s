@@ -34,7 +34,7 @@ public class PaymentService {
     }
     
     public long countPendents() {
-        return paymentDAO.findByStatusEqual(PaymentStatus.PENDENT)
+        return paymentDAO.getPendentsUntilToday(PaymentStatus.PENDENT, monthEnd)
                          .count();
     }
     
@@ -44,6 +44,13 @@ public class PaymentService {
     
     public List<PaymentRegister> getPendents() {
         return paymentDAO.findByStatusEqual(PaymentStatus.PENDENT)
+                         .getResultList();
+    }
+    
+    public List<PaymentRegister> getPendents(int page, int max) {
+        return paymentDAO.getPendentsUntilToday(PaymentStatus.PENDENT, monthEnd)
+                         .withPageSize(max)
+                         .toPage(page)
                          .getResultList();
     }
     

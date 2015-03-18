@@ -145,10 +145,24 @@
                     </li>
 
                     <li>
-                        <a jsf:action="index?faces-redirect=true">
+                        <a href="#" class="dropdown-toggle">
                             <i class="icon-folder-open-alt"></i>
                             <span class="menu-text"> Contratos </span>
+                            <b class="arrow icon-angle-down"/>
                         </a>
+                        
+                        <ul class="submenu">
+                            <li>
+                                <a jsf:action="contract_pendents?faces-redirect=true">
+                                    <i class="icon-circle"/> Pendentes
+                                </a>
+                            </li>
+                            <li>
+                                <a jsf:action="cad_property_info?faces-redirect=true">
+                                    <i class="icon-circle"/> Aluguéis
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     
                     <li>

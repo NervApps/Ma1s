@@ -13,7 +13,9 @@ import br.com.ma1s.eva.service.qualifier.Deposit;
 import br.com.ma1s.eva.service.qualifier.Sell;
 import br.com.ma1s.eva.service.validation.PropertyValidation;
 import br.com.ma1s.eva.service.validation.ValidationFactory;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -40,6 +42,21 @@ public class PropertyCustomerService {
             sell();
         else
             rent();
+    }
+    
+    public List<PropertyCustomer> getLocked(int page) {
+        final List<PropertyCustomer> locked = new ArrayList<>();
+        locked.addAll(getByStatusPaging(page, PropertyStatus.RENTING));
+        locked.addAll(getByStatusPaging(page, PropertyStatus.SELLING));
+        return locked;
+    }
+    
+    public List<PropertyCustomer> getByStatusPaging(int page, PropertyStatus status) {
+        final int max = 10;
+        return pcDAO.getByStatus(PropertyStatus.RENTING)
+                           .firstResult(page)
+                           .maxResults(max)
+                           .getResultList();
     }
    
     private void rent() {

@@ -25,9 +25,10 @@ import lombok.Getter;
 @Named("detailBean") @ViewScoped
 public class PropertyDetailBean extends ManagedBean implements Serializable {
     private static final String IMG_PATH = "/resources/property-img/";
-    private static final String PARAM_NAME = "property";
+    private static final String PARAM_PROPERTY = "property";
     private static final String PAGE_LOCK = "lock_property_customer?faces-redirect-true";
     private static final String PAGE_SEARCH = "property_search?faces-redirect-true";
+    private String backPage = "property_search";
     
     @Getter private Property property;
     @Getter private List<String> images;
@@ -37,7 +38,18 @@ public class PropertyDetailBean extends ManagedBean implements Serializable {
     
     @PostConstruct
     public void init() {
-        property = getParam(PARAM_NAME, Property.class);
+        loadProperty();
+        loadBackPage();
+    }
+    
+    private void loadBackPage() {
+        final String param = getParam(PARAM_FROM_PAGE, String.class);
+        if (param != null)
+            this.backPage = param;
+    }
+    
+    private void loadProperty() {
+        property = getParam(PARAM_PROPERTY, Property.class);
         if (property != null) {
             property = service.getUpdated(property.getId());
             loadImages();
@@ -59,7 +71,7 @@ public class PropertyDetailBean extends ManagedBean implements Serializable {
     }
     
     public String lock() {
-        putParam(PARAM_NAME, property);
+        putParam(PARAM_PROPERTY, property);
         return PAGE_LOCK;
     }
     
@@ -74,5 +86,9 @@ public class PropertyDetailBean extends ManagedBean implements Serializable {
         info("Imóvel excluído com sucesso");
         searchBean.search();
         return PAGE_SEARCH;
+    }
+    
+    public void back() {
+        toPage(backPage, true);
     }
 }

@@ -6,7 +6,11 @@
 package br.com.ma1s.eva.model.repository;
 
 import br.com.ma1s.eva.model.PropertyCustomer;
+import br.com.ma1s.eva.model.enums.PropertyStatus;
+import java.util.List;
 import org.apache.deltaspike.data.api.EntityRepository;
+import org.apache.deltaspike.data.api.Query;
+import org.apache.deltaspike.data.api.QueryResult;
 import org.apache.deltaspike.data.api.Repository;
 
 /**
@@ -14,4 +18,11 @@ import org.apache.deltaspike.data.api.Repository;
  * @author Vitor
  */
 @Repository
-public interface PropertyCustomerDAO extends EntityRepository<PropertyCustomer, Long> {}
+public interface PropertyCustomerDAO extends EntityRepository<PropertyCustomer, Long> {
+
+    @Query("select p from PropertyCustomer p where p.property.status = ?1")
+    List<PropertyCustomer> findByStatus(PropertyStatus status);
+    
+    @Query("select p from PropertyCustomer p where p.property.status = ?1")
+    QueryResult<PropertyCustomer> getByStatus(PropertyStatus status);
+}

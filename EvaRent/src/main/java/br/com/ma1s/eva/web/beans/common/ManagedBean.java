@@ -18,6 +18,7 @@ import javax.servlet.ServletContext;
  * @author Vitor
  */
 public abstract class ManagedBean {
+    protected static final String PARAM_FROM_PAGE = "fromPage";
     
     protected void info(final String title, final String detail) {
         final Message msg = new Message(MessageType.INFO, title, detail);

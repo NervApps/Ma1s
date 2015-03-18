@@ -9,6 +9,7 @@ import br.com.ma1s.eva.model.PaymentRegister;
 import br.com.ma1s.eva.model.enums.PaymentStatus;
 import java.util.Date;
 import org.apache.deltaspike.data.api.EntityRepository;
+import org.apache.deltaspike.data.api.Query;
 import org.apache.deltaspike.data.api.QueryResult;
 import org.apache.deltaspike.data.api.Repository;
 
@@ -22,4 +23,7 @@ public interface PaymentRegisterDAO extends EntityRepository<PaymentRegister, Lo
     QueryResult<PaymentRegister> findByStatusEqual(PaymentStatus status);
     
     QueryResult<PaymentRegister> findByStatusEqualAndDateBetween(PaymentStatus status, Date begin, Date end);
+    
+    @Query("select p from PaymentRegister p where p.status = ?1 and p.date <= ?2")
+    QueryResult<PaymentRegister> getPendentsUntilToday(PaymentStatus status, Date end);
 }
