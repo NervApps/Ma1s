@@ -39,7 +39,8 @@ public class PaymentService {
     }
     
     public long countMonthPendents() {
-        return paymentDAO.findByStatusEqualAndDateBetween(PaymentStatus.PENDENT, monthBegin, monthEnd).count();
+        return paymentDAO.findByStatusEqualAndDateBetween(PaymentStatus.PENDENT, monthBegin, monthEnd)
+                         .count();
     }
     
     public List<PaymentRegister> getPendents() {
