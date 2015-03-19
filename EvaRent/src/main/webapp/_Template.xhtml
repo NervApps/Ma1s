@@ -3,7 +3,8 @@
 <html lang="pt_BR"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head jsf:id="head">
         <title>Eva</title>
         <meta name="description" content="Eva" />
@@ -62,7 +63,8 @@
                                 <span class="badge badge-important">#{templateBean.pendents}</span>
                             </a>
 
-                            <ul class="pull-right dropdown-navbar navbar-link dropdown-menu dropdown-caret dropdown-closer">
+                            <form class="pull-right dropdown-navbar navbar-link dropdown-menu dropdown-caret dropdown-closer"
+                                  jsf:id="pendentPaymentForm">
                                 <li class="nav-header">
                                     <i class="icon-warning-sign"></i>
                                     #{templateBean.pendents} Inadimplentes
@@ -70,15 +72,16 @@
                                 
                                 <ui:repeat var="p" value="#{templateBean.firstPendents}">
                                     <li class="pull-left">
-                                        <a href="#">
+                                        <a jsf:action="#{templateBean.selectPayment()}">
                                             <i class="btn btn-mini btn-primary icon-user"></i>
                                             <span class="smaller">
                                                 #{p.propertyCustomer.customer.name} - #{p.propertyCustomer.property.neighborhood}
                                             </span>
+                                            <f:setPropertyActionListener target="#{templateBean.payment}" value="#{p}"/>
                                         </a>
                                     </li>
                                 </ui:repeat>
-                            </ul>
+                            </form>
                         </li>
                         </ui:fragment>
 

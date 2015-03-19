@@ -13,6 +13,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -20,7 +21,9 @@ import lombok.Getter;
  */
 @Named @RequestScoped
 public class TemplateBean extends ManagedBean {
+    private static final String PARAM_PAYMENT = "payment";
     @Getter private long pendents;
+    @Getter @Setter private PaymentRegister payment;
     @Inject private PaymentService service;
     
     @PostConstruct
@@ -34,5 +37,10 @@ public class TemplateBean extends ManagedBean {
     
     public int getPendentPercentual() {
         return service.getPendentPercentual();
+    }
+    
+    public void selectPayment() {
+        putParam(PARAM_PAYMENT, payment);
+        toPage("contract_pendents", true);
     }
 }

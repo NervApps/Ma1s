@@ -10,7 +10,9 @@ import br.com.ma1s.eva.model.PropertyCustomer;
 import br.com.ma1s.eva.model.enums.PropertyStatus;
 import br.com.ma1s.eva.model.repository.PropertyCustomerDAO;
 import br.com.ma1s.eva.service.qualifier.Deposit;
+import br.com.ma1s.eva.service.qualifier.Remove;
 import br.com.ma1s.eva.service.qualifier.Sell;
+import br.com.ma1s.eva.service.qualifier.UpdateStatus;
 import br.com.ma1s.eva.service.validation.PropertyValidation;
 import br.com.ma1s.eva.service.validation.ValidationFactory;
 import java.util.ArrayList;
@@ -18,7 +20,9 @@ import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import org.apache.deltaspike.jpa.api.transaction.Transactional;
 
 /**
@@ -31,17 +35,18 @@ public class PropertyCustomerService {
     
     @Inject @Deposit private Event<PropertyCustomer> rents;
     @Inject @Sell private Event<PropertyCustomer> sells;
-    @Inject private PropertyCustomerDAO pcDAO;
-    @Inject private PropertyService service;
+    @Inject @UpdateStatus private Event<Property> event;
+    @Inject private PropertyCustomerDAO dao;
+    @Inject private EntityManager manager;
     
     public void lock(PropertyCustomer pc) {
         this.pc = pc;
         final Property p = pc.getProperty();
         
         if (PropertyStatus.ONLY_PURCHASE.equals(p.getStatus()))
-            sell();
+            process(sells);
         else
-            rent();
+            process(rents);
     }
     
     public List<PropertyCustomer> getLocked(int page) {
@@ -53,24 +58,17 @@ public class PropertyCustomerService {
     
     public List<PropertyCustomer> getByStatusPaging(int page, PropertyStatus status) {
         final int max = 10;
-        return pcDAO.getByStatus(PropertyStatus.RENTING)
+        return dao.getByStatus(PropertyStatus.RENTING)
                            .firstResult(page)
                            .maxResults(max)
                            .getResultList();
     }
-   
-    private void rent() {
-        beforeInsert();
-        insert();
-        afterInsert(rents);
-        updateStatus(PropertyStatus.RENTING);
-    }
     
-    private void sell() {
+    private void process(Event<PropertyCustomer> trigger) {
         beforeInsert();
         insert();
-        afterInsert(sells);
-        updateStatus(PropertyStatus.SELLING);
+        afterInsert(trigger);
+        event.fire(pc.getProperty());
     }
     
     private void beforeInsert() {
@@ -83,14 +81,16 @@ public class PropertyCustomerService {
 
     @Transactional
     private void insert() {
-        pc = pcDAO.save(pc);
+        pc = dao.save(pc);
     }
     
     private void afterInsert(Event event) {
         event.fire(pc);
     }
     
-    private void updateStatus(PropertyStatus status) {
-        service.updateStatus(status, pc.getProperty());
+    @Transactional
+    public void remove(@Observes @Remove PropertyCustomer propertyCustomer) {
+        propertyCustomer = manager.getReference(PropertyCustomer.class, propertyCustomer.getId());
+        dao.remove(propertyCustomer);
     }
 }

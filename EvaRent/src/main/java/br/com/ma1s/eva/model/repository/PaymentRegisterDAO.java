@@ -6,8 +6,10 @@
 package br.com.ma1s.eva.model.repository;
 
 import br.com.ma1s.eva.model.PaymentRegister;
+import br.com.ma1s.eva.model.PropertyCustomer;
 import br.com.ma1s.eva.model.enums.PaymentStatus;
 import java.util.Date;
+import java.util.List;
 import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.Query;
 import org.apache.deltaspike.data.api.QueryResult;
@@ -25,5 +27,10 @@ public interface PaymentRegisterDAO extends EntityRepository<PaymentRegister, Lo
     QueryResult<PaymentRegister> findByStatusEqualAndDateBetween(PaymentStatus status, Date begin, Date end);
     
     @Query("select p from PaymentRegister p where p.status = ?1 and p.date <= ?2")
-    QueryResult<PaymentRegister> getPendentsUntilToday(PaymentStatus status, Date end);
+    QueryResult<PaymentRegister> getPendentsUntil(PaymentStatus status, Date end);
+    
+    @Query("select p from PaymentRegister p where p.date <= ?1")
+    QueryResult<PaymentRegister> getPaymentsUntil(Date end);
+    
+    List<PaymentRegister> findByPropertyCustomerEqual(PropertyCustomer propertyCustomer);
 }

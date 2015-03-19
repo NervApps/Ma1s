@@ -21,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +31,7 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "PAYMENT_REGISTER")
+@EqualsAndHashCode(of = "id")
 public class PaymentRegister implements Serializable {
     
     @Id
