@@ -11,6 +11,7 @@ import br.com.ma1s.eva.model.User;
 import br.com.ma1s.eva.model.repository.ProfileDAO;
 import br.com.ma1s.eva.web.qualifiers.LoggedIn;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Vitor
  */
-@SessionScoped
+@Named @SessionScoped
 public class UserLogged implements Serializable {
     
     @Inject private ProfileDAO dao;
@@ -42,9 +43,10 @@ public class UserLogged implements Serializable {
         loadPermissions();
     }
     
-    public void logout() {
+    public String logout() {
         this.user = null;
         invalidate();
+        return "login?faces-redirect-true";
     }
     
     public boolean isActive() {
@@ -79,13 +81,17 @@ public class UserLogged implements Serializable {
         final Profile p = user.getProfile();        
         if (p != null)
             permissions = dao.getPermissions(p.getId());
+        else
+            permissions = new ArrayList<>();
     }
     
     private void invalidate() {
         final FacesContext ctx = FacesContext.getCurrentInstance();
         final ExternalContext ext = ctx.getExternalContext();
+        
         final HttpSession session = (HttpSession) ext.getSession(false);
-        session.invalidate();
+        if (session != null)
+            session.invalidate();
     }
     
     @PreDestroy

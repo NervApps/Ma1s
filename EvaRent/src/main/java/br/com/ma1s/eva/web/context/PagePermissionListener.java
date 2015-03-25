@@ -26,7 +26,7 @@ public class PagePermissionListener {
     
     public void listen(@Observes @AfterPhase(JsfPhaseId.RESTORE_VIEW) PhaseEvent event) {
         final FacesContext ctx = FacesContext.getCurrentInstance();
-        final String page = getPage(ctx);
+        final String page = getPage(ctx).replace(".xhtml", "").trim();
         
         if (logged.isActive() && isBlocked(page)) {
             final String outcome = "denied?faces-redirect=true";
@@ -41,7 +41,7 @@ public class PagePermissionListener {
     
     private boolean isBlocked(final String page) {
         if (page != null && !blocked.isEmpty())
-            return blocked.contains(page.replace(".xhtml", "").trim());
+            return blocked.contains(page);
         else
             return false;
     }

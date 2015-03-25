@@ -99,9 +99,9 @@
                                   jsf:id="menuForm">
                                 <ui:fragment rendered="#{logged.profile.admin}">
                                     <li>
-                                        <a href="#">
+                                        <a jsf:action="user_config?faces-redirect=true">
                                             <i class="icon-cog"></i>
-                                            Configurações
+                                            Usuários
                                         </a>
                                     </li>
                                     <li class="divider"></li>

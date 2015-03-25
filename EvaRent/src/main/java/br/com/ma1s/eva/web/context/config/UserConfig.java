@@ -27,7 +27,7 @@ public class UserConfig {
     @PostConstruct
     public void createAdminUser() {
         try {
-            final Profile p = getAdminProfile();
+            final Profile p = Profile.buildAdmin();
             final User usr = getUser();
             usr.setProfile(usrService.newProfile(p));
             
@@ -46,11 +46,5 @@ public class UserConfig {
         user.setEmail("admin@nerv.com.br");
         user.setStatus(ActiveStatus.ACTIVE);
         return user;
-    }
-    
-    private Profile getAdminProfile() {
-        final Profile p = new Profile();
-        p.setName("ADMIN");
-        return p;
     }
 }

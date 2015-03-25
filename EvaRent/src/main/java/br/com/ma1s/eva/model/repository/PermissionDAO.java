@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.Query;
 import org.apache.deltaspike.data.api.Repository;
+import org.apache.deltaspike.data.api.SingleResultType;
 
 /**
  *
@@ -19,5 +20,8 @@ import org.apache.deltaspike.data.api.Repository;
 public interface PermissionDAO extends EntityRepository<Permission, Long> {
     
     @Query(value = "SELECT DISTINCT p.toView FROM Permission p")
-    public List<String> getProtectedPages();
+    List<String> getProtectedPages();
+    
+    @Query(singleResult = SingleResultType.OPTIONAL)
+    Permission findByNameEqual(String name);
 }

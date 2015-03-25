@@ -5,11 +5,19 @@
  */
 package br.com.ma1s.eva.model.enums;
 
+import lombok.Getter;
+
 /**
  *
  * @author Vitor
  */
 public enum ActiveStatus {
-    ACTIVE,
-    INACTIVE
+    ACTIVE("Ativo"),
+    INACTIVE("Inativo");
+    
+    @Getter private final String label;
+
+    private ActiveStatus(String label) {
+        this.label = label;
+    }
 }

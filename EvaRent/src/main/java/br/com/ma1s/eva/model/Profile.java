@@ -6,6 +6,7 @@
 package br.com.ma1s.eva.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,5 +46,18 @@ public class Profile implements Serializable {
     
     public boolean isAdmin() {
         return "ADMIN".equalsIgnoreCase(name); 
+    }
+    
+    public void addPermission(final Permission permission) {
+        if (permissions == null)
+            permissions = new ArrayList<>();
+        
+        permissions.add(permission);
+    }
+    
+    public static Profile buildAdmin() {
+        final Profile p = new Profile();
+        p.setName("ADMIN");
+        return p;
     }
 }
