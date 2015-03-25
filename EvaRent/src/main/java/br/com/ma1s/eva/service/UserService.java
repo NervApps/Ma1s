@@ -26,9 +26,7 @@ public class UserService {
     @Inject private PermissionDAO permissionDAO;
     
     public void newUser(final User user) {
-        if (user.getLogin().toLowerCase().contains("admin")) {
-            throw new BusinessException("O login não deve conter a palavra admin");
-        } else if (exists(user.getLogin()))
+        if (exists(user.getLogin()))
             throw new BusinessException("Usuário já existente");
         else {
             try {

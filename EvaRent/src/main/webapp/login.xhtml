@@ -186,6 +186,7 @@
                                                         <span class="block input-icon input-icon-right">
                                                             <input type="text" class="span12" placeholder="Usuário" id="user"
                                                                    jsf:value="#{loginBean.login}"
+                                                                   jsf:validator="#{userLoginValidator.validate}"
                                                                    required="true"/>
                                                             <i class="icon-user"></i>
                                                         </span>
