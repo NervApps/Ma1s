@@ -24,10 +24,10 @@ import lombok.Getter;
  */
 @Named("detailBean") @ViewScoped
 public class PropertyDetailBean extends ManagedBean implements Serializable {
-    private static final String IMG_PATH = "/resources/property-img/";
-    private static final String PARAM_PROPERTY = "property";
-    private static final String PAGE_LOCK = "lock_property_customer?faces-redirect-true";
-    private static final String PAGE_SEARCH = "property_search?faces-redirect-true";
+    private final String imgPath = "/resources/property-img/";
+    private final String propertyParam = "property";
+    private final String lockPage = "lock_property_customer?faces-redirect-true";
+    private final String searchPage = "property_search?faces-redirect-true";
     private String backPage = "property_search";
     
     @Getter private Property property;
@@ -49,19 +49,19 @@ public class PropertyDetailBean extends ManagedBean implements Serializable {
     }
     
     private void loadProperty() {
-        property = getParam(PARAM_PROPERTY, Property.class);
+        property = getParam(propertyParam, Property.class);
         if (property != null) {
             property = service.getUpdated(property.getId());
             loadImages();
         } else
-            toPage(PAGE_SEARCH, true);
+            toPage(searchPage, true);
     }
     
     public void loadImages() {
         images = new ArrayList<>();
         
         if (property != null) {
-            final File folder = new File(getPath() + IMG_PATH + property.getId());
+            final File folder = new File(getPath() + imgPath + property.getId());
             if (folder.isDirectory()) {
                for (File file : folder.listFiles()) {
                    images.add(file.getName());
@@ -71,21 +71,21 @@ public class PropertyDetailBean extends ManagedBean implements Serializable {
     }
     
     public String lock() {
-        putParam(PARAM_PROPERTY, property);
-        return PAGE_LOCK;
+        putParam(propertyParam, property);
+        return lockPage;
     }
     
     public String unlock() {
         searchBean.search();
         info("Imóvel atualizado com sucesso");
-        return PAGE_SEARCH;
+        return searchPage;
     }
     
     public String delete() {
         service.remove(property);
         info("Imóvel excluído com sucesso");
         searchBean.search();
-        return PAGE_SEARCH;
+        return searchPage;
     }
     
     public void back() {

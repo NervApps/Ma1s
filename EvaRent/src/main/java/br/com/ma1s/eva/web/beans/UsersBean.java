@@ -23,7 +23,7 @@ import lombok.Setter;
  */
 @Named @ViewScoped
 public class UsersBean extends ManagedBean implements Serializable {
-    private static final String PARAM_USER = "user";
+    private final String userParam = "user";
     @Getter @Setter private User selected;
     @Inject private UserService service;
     
@@ -32,7 +32,7 @@ public class UsersBean extends ManagedBean implements Serializable {
     }
     
     public void updateProfile() {
-        putParam(PARAM_USER, selected);
+        putParam(userParam, selected);
         toPage("user_profile_edt", true);
     }
     

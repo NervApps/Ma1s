@@ -24,8 +24,8 @@ import lombok.Setter;
  */
 @Named @ViewScoped
 public class PendentContractsBean extends ManagedBean implements Serializable {
-    private static final String PARAM_PROPERTY = "property";
-    private static final String PARAM_PAYMENT = "payment";
+    private final String propertyParam = "property";
+    private final String paymentParam = "payment";
     
     @Getter private int page = 0;
     @Getter private final int interval = 20;
@@ -35,7 +35,7 @@ public class PendentContractsBean extends ManagedBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        selected = getParam(PARAM_PAYMENT, PaymentRegister.class);
+        selected = getParam(paymentParam, PaymentRegister.class);
         pendents = new ArrayList<>();
         search();
     }
@@ -56,7 +56,7 @@ public class PendentContractsBean extends ManagedBean implements Serializable {
     }
     
     public void propertyDetail() {
-        putParam(PARAM_PROPERTY, selected.getPropertyCustomer().getProperty());
+        putParam(propertyParam, selected.getPropertyCustomer().getProperty());
         putParam(PARAM_FROM_PAGE, "contract_pendents");
         toPage("property_detail", true);
     }

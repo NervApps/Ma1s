@@ -31,8 +31,8 @@ import lombok.Setter;
  */
 @Named
 public class PropertyBean extends ConversationBean implements Serializable {
-    private static final String IMG_PATH = "/resources/property-img/";
-    private static final String PARAM = "property";
+    private final String imgPath = "/resources/property-img/";
+    private final String propertyParam = "property";
     
     @Getter private List<Part> images;    
     @Getter private Property property;
@@ -42,7 +42,7 @@ public class PropertyBean extends ConversationBean implements Serializable {
     
     @PostConstruct
     public void init() {
-        final Property param = getParam(PARAM, Property.class);
+        final Property param = getParam(propertyParam, Property.class);
         if (param != null)
             property = param;
         else {
@@ -112,7 +112,7 @@ public class PropertyBean extends ConversationBean implements Serializable {
     }
     
     private void saveImages(final Property saved) throws IOException {
-        final String fileName = getPath() + IMG_PATH + saved.getId();
+        final String fileName = getPath() + imgPath + saved.getId();
         final File folder = new File(fileName);
         folder.mkdir();
         
@@ -133,7 +133,7 @@ public class PropertyBean extends ConversationBean implements Serializable {
     }
     
     private void createPropertyImgFolder() {
-        final File folder = new File(getPath() + IMG_PATH);
+        final File folder = new File(getPath() + imgPath);
         
         try {
             if (!folder.exists())

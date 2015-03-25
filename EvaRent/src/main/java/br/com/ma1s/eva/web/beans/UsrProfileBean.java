@@ -24,8 +24,8 @@ import lombok.Setter;
  */
 @Named @ViewScoped
 public class UsrProfileBean extends ManagedBean implements Serializable {
-    private static final String PARAM_USER = "user";
-    private static final String PAGE_USERS = "user_config";
+    private final String userParam = "user";
+    private final String usersPage = "user_config";
     @Getter private User user;
     @Getter @Setter private long profile;
     
@@ -33,10 +33,10 @@ public class UsrProfileBean extends ManagedBean implements Serializable {
     
     @PostConstruct
     public void init() {
-        user = getParam(PARAM_USER, User.class);
+        user = getParam(userParam, User.class);
         if (user == null) {
             error("Por favor, escolha um usuário");
-            toPage(PAGE_USERS, true);
+            toPage(usersPage, true);
         }
     }
     
@@ -47,6 +47,6 @@ public class UsrProfileBean extends ManagedBean implements Serializable {
     public void update() {
         service.updateProfile(user, profile);
         info("Usuário: " + user.getLogin() + " atualizado com sucesso");
-        toPage(PAGE_USERS, true);
+        toPage(usersPage, true);
     }
 }

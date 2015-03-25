@@ -23,8 +23,8 @@ import lombok.Setter;
  */
 @Named("lockBean")
 public class PropertyLockBean extends ConversationBean implements Serializable {
-    private static final String SEARCH_PAGE = "property_search?faces-redirect=true";
-    private static final String PARAM_NAME = "property";
+    private final String searchPage = "property_search?faces-redirect=true";
+    private final String propertyParam = "property";
     private Property property;
     
     @Getter private PropertyCustomer propertyCustomer;
@@ -36,7 +36,7 @@ public class PropertyLockBean extends ConversationBean implements Serializable {
         propertyCustomer = new PropertyCustomer();
         propertyCustomer.setCustomer(new Customer());
         
-        final Property param = getParam(PARAM_NAME, Property.class);
+        final Property param = getParam(propertyParam, Property.class);
         if (param != null) {
             this.property = param;
             initConversation();
@@ -61,6 +61,6 @@ public class PropertyLockBean extends ConversationBean implements Serializable {
     
     public String cancel() {
         endConversation();
-        return SEARCH_PAGE;
+        return searchPage;
     }
 }
