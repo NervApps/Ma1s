@@ -17,11 +17,13 @@
                 <div class="widget-body">
                     <div class="widget-main">
                         <form jsf:id="form1" id="form1">
-                            <div class="row-fluid control-group">
-                                <div class="form-horizontal">
-                                    <div class="span12">
-                                        <label class="control-label">Buscar por</label>
-                                        <div class="controls">
+                            <div class="user-profile row-fluid">
+                                <div class="profile-user-info profile-user-info-striped span10">
+                                    <div class="profile-info-row">
+                                        <div class="profile-info-name">
+                                            Buscar por
+                                        </div>
+                                        <div class="profile-info-value">
                                             <h:selectOneMenu value="#{searchPropertyBean.param.field}" converter="beanConverter"
                                                              valueChangeListener="#{searchPropertyBean.filterValueChange}">
                                                 <f:selectItem itemLabel="--- Selecione ---"/>
@@ -30,11 +32,15 @@
                                                 <f:ajax event="change" render="condition input" execute="@this" immediate="true"/>
                                             </h:selectOneMenu>
                                         </div>
+                                    </div>
 
-                                        <div jsf:id="condition">
-                                            <ui:fragment rendered="#{not empty searchPropertyBean.param.field}">
-                                                <label class="control-label">Filtro</label>
-                                                <div class="controls">
+                                    <div jsf:id="condition">
+                                        <ui:fragment rendered="#{not empty searchPropertyBean.param.field}">
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name">
+                                                    Filtro
+                                                </div>
+                                                <div class="profile-info-value">
                                                     <h:selectOneMenu value="#{searchPropertyBean.param.condition}" converter="beanConverter">
                                                         <f:selectItem itemLabel="--- Selecione ---"/>
                                                         <f:selectItems value="#{searchPropertyBean.param.field.filters}" 
@@ -42,36 +48,39 @@
                                                         <f:ajax event="change" render="input" execute="@this" immediate="true"/>
                                                     </h:selectOneMenu>    
                                                 </div>
-                                            </ui:fragment>
-                                        </div>
+                                            </div>
+                                        </ui:fragment>
+                                    </div>
 
-                                        <div jsf:id="input">
-                                            <ui:fragment rendered="#{not empty searchPropertyBean.param.field and 
-                                                                     not empty searchPropertyBean.param.condition}">
-
-                                                <label class="control-label">Valor</label>
-                                                <div class="controls">
-
-                                                <ui:fragment rendered="#{searchPropertyBean.param.field.inputType eq 'combo'}">
-                                                    <div class="span12">
-                                                        <h:selectOneMenu value="#{searchPropertyBean.param.value}">
-                                                            <f:selectItems value="#{searchPropertyBean.param.option.options}"
-                                                                           var="op" itemLabel="#{op.label}" itemValue="#{op}"/>
-                                                        </h:selectOneMenu>
-                                                    </div>
-                                                </ui:fragment>
-                                                <ui:fragment rendered="#{searchPropertyBean.param.field.inputType ne 'combo'}">
-                                                    <input type="#{searchPropertyBean.param.field.inputType}"
-                                                           placeholder="#{searchPropertyBean.param.field.placeholder}"
-                                                           required="true"
-                                                           jsf:value="#{searchPropertyBean.param.value}"/>
-                                                </ui:fragment>
+                                    <div jsf:id="input">
+                                        <ui:fragment rendered="#{not empty searchPropertyBean.param.field and 
+                                                                 not empty searchPropertyBean.param.condition}">
+                                            <div class="profile-info-row">
+                                                <div class="profile-info-name">
+                                                    Valor
                                                 </div>
-                                            </ui:fragment>
-                                        </div>
+                                                <div class="profile-info-value">
+                                                    <ui:fragment rendered="#{searchPropertyBean.param.field.inputType eq 'combo'}">
+                                                        <div class="span12">
+                                                            <h:selectOneMenu value="#{searchPropertyBean.param.value}">
+                                                                <f:selectItems value="#{searchPropertyBean.param.option.options}"
+                                                                               var="op" itemLabel="#{op.label}" itemValue="#{op}"/>
+                                                            </h:selectOneMenu>
+                                                        </div>
+                                                    </ui:fragment>
+                                                    <ui:fragment rendered="#{searchPropertyBean.param.field.inputType ne 'combo'}">
+                                                        <input type="#{searchPropertyBean.param.field.inputType}"
+                                                               placeholder="#{searchPropertyBean.param.field.placeholder}"
+                                                               required="true"
+                                                               jsf:value="#{searchPropertyBean.param.value}"/>
+                                                    </ui:fragment>
+                                                </div>
+                                            </div>
+                                        </ui:fragment>
                                     </div>
                                 </div>
                             </div>
+                            <br/><br/>
                             <div class="row-fluid wizard-actions">
                                 <button class="btn btn-success" jsf:id="btnAdd"
                                         jsf:action="#{searchPropertyBean.addQuery()}">
@@ -185,25 +194,25 @@
                 </form>
             </ui:fragment>
         </div>
-        
+
         <ui:fragment rendered="#{not empty searchPropertyBean.result}">
-        <div class="row-fluid wizard-actions">
-            <form jsf:id="paginatorForm">
-                <br/>
-                <button class="btn btn-next blue" jsf:id="btnPrev"
-                        jsf:action="#{searchPropertyBean.previous()}"
-                        jsf:disabled="#{searchPropertyBean.first le searchPropertyBean.max}">
-                    <i class="icon-arrow-left"></i>
-                    Anterior
-                </button>
-                <button class="btn btn-next blue" jsf:id="btnNext"
-                        jsf:action="#{searchPropertyBean.next()}"
-                        jsf:disabled="#{searchPropertyBean.result.size() lt searchPropertyBean.max}">
-                    Próximo
-                    <i class="icon-arrow-right"></i>
-                </button>
-            </form>
-        </div>
+            <div class="row-fluid wizard-actions">
+                <form jsf:id="paginatorForm">
+                    <br/>
+                    <button class="btn btn-next blue" jsf:id="btnPrev"
+                            jsf:action="#{searchPropertyBean.previous()}"
+                            jsf:disabled="#{searchPropertyBean.first le searchPropertyBean.max}">
+                        <i class="icon-arrow-left"></i>
+                        Anterior
+                    </button>
+                    <button class="btn btn-next blue" jsf:id="btnNext"
+                            jsf:action="#{searchPropertyBean.next()}"
+                            jsf:disabled="#{searchPropertyBean.result.size() lt searchPropertyBean.max}">
+                        Próximo
+                        <i class="icon-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
         </ui:fragment>
     </ui:define>
 
