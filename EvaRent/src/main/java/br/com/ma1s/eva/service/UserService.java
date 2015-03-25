@@ -119,6 +119,7 @@ public class UserService {
         return userDAO.findAll();
     }
     
+    @Transactional
     public void remove(final User user) {
         try {
             userDAO.remove(user);
