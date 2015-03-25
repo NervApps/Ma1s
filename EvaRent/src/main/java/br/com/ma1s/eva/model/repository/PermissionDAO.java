@@ -19,7 +19,7 @@ import org.apache.deltaspike.data.api.SingleResultType;
 @Repository
 public interface PermissionDAO extends EntityRepository<Permission, Long> {
     
-    @Query(value = "SELECT DISTINCT p.toView FROM Permission p")
+    @Query(value = "SELECT DISTINCT p.toView FROM Permission p WHERE p.toView is not null")
     List<String> getProtectedPages();
     
     @Query(singleResult = SingleResultType.OPTIONAL)
