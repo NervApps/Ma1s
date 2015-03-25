@@ -49,22 +49,20 @@
                                                                 <f:setPropertyActionListener target="#{usersBean.selected}" value="#{usr}"/>
                                                             </button>
                                                             <ui:fragment rendered="#{usr.status eq 'ACTIVE'}">
-                                                                <button class="btn btn-mini" title="Bloquear"
-                                                                        jsf:action="#{usersBean.lock()}">
+                                                                <button class="btn btn-mini" title="Bloquear" jsf:action="#{usersBean.lock()}">
                                                                     <i class="icon-lock bigger-120"></i>
                                                                     <f:setPropertyActionListener target="#{usersBean.selected}" value="#{usr}"/>
                                                                 </button>
                                                             </ui:fragment>
                                                             <ui:fragment rendered="#{usr.status eq 'INACTIVE'}">
-                                                                <button class="btn btn-mini" title="Desbloquear"
-                                                                        jsf:action="#{usersBean.unlock()}">
+                                                                <button class="btn btn-mini" title="Desbloquear" jsf:action="#{usersBean.unlock()}">
                                                                     <i class="icon-unlock bigger-120"></i>
                                                                     <f:setPropertyActionListener target="#{usersBean.selected}" value="#{usr}"/>
                                                                 </button>
                                                             </ui:fragment>
-                                                            <button class="btn btn-mini btn-danger" title="Remover">
+                                                            <button class="btn btn-mini btn-danger" title="Remover" jsf:action="#{usersBean.remove()}">
                                                                 <i class="icon-trash bigger-120"></i>
-<!--                                                                <f:setPropertyActionListener target="#{usersBean.selected}" value="#{usr}"/>-->
+                                                                <f:setPropertyActionListener target="#{usersBean.selected}" value="#{usr}"/>
                                                             </button>
                                                         </td>
                                                     </tr>

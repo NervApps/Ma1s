@@ -39,12 +39,17 @@ public class UsersBean extends ManagedBean implements Serializable {
     public void lock() {
         selected.setStatus(ActiveStatus.INACTIVE);
         service.update(selected);
-        info("Usuário bloqueado com sucesso");
+        info("Usuário: " + selected.getLogin() + " bloqueado com sucesso");
     }
     
     public void unlock() {
         selected.setStatus(ActiveStatus.ACTIVE);
         service.update(selected);
-        info("Usuário desbloqueado com sucesso");
+        info("Usuário: " + selected.getLogin() + " desbloqueado com sucesso");
+    }
+    
+    public void remove() {
+        service.remove(selected);
+        info("Usuário: " + selected.getLogin() + " removido com sucesso");
     }
 }

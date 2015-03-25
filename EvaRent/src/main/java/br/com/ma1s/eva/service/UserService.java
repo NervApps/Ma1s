@@ -118,4 +118,12 @@ public class UserService {
     public List<User> getUsers() {
         return userDAO.findAll();
     }
+    
+    public void remove(final User user) {
+        try {
+            userDAO.remove(user);
+        } catch (Exception e) {
+            throw new BusinessException("Erro ao remover o usuário", e);
+        }
+    }
 }
