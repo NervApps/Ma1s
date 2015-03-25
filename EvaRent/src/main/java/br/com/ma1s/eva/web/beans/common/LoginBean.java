@@ -36,15 +36,14 @@ public class LoginBean extends ManagedBean {
         email = new String();
     }
     
-    public String doLogin() {
+    public void doLogin() {
         final User user = service.getUser(login, password);
         if (!user.isActive())
             warn("Usuário inativo", "Entre em contato com o administrador");
         else {
             logged.login(user);
-            return "index?faces-redirect=true";
+            toPage("index", true);
         }
-        return null;
     }
     
     public void create() {
@@ -61,8 +60,8 @@ public class LoginBean extends ManagedBean {
         }
     }
     
-    public String doLogout() {
+    public void doLogout() {
         logged.logout();
-        return "login?faces-redirect=true";
+        toPage("login", true);
     }
 }
