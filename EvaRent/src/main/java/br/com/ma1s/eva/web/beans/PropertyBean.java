@@ -95,14 +95,12 @@ public class PropertyBean extends ConversationBean implements Serializable {
     
     public String save() {
         try {
-            final Property saved = service.newProperty(property);
-            
+            final Property saved = service.newProperty(property);            
             if (!images.isEmpty())
                 saveImages(saved);
             
             endConversation();
-            info("Imóvel inserido com sucesso");
-            
+            info("Imóvel: 00" + saved.getId() + " inserido com sucesso");
             init();
             return toStep(1, "cad_property_info?faces-redirect=true");
         } catch (IOException e) {

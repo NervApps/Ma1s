@@ -41,20 +41,24 @@ public class SearchParamsBean implements Serializable {
     }
     
     private void createFieldsAndFiltersForProperty() {
-        List<Filter> filters = getBasicFilters();
-        Field created = fieldService.newField(new Field("Bairro", "Itaquera, Artur Alvim, Tatuapé, etc", "text", filters));
-        createPropertyFieldMap(created, "NEIGHBORHOOD");
+        List<Filter> filters = getOneFilter();
+        Field field = fieldService.newField(new Field("Código", "Código do imóvel", "number", filters));
+        createPropertyFieldMap(field, "PROPERTY_ID");
+        
+        filters = getBasicFilters();
+        field = fieldService.newField(new Field("Bairro", "Itaquera, Artur Alvim, Tatuapé, etc", "text", filters));
+        createPropertyFieldMap(field, "NEIGHBORHOOD");
         
         filters = getAllFilters();
-        created = fieldService.newField(new Field("Área Constrúida", "Em m²", "number", filters));
-        createPropertyFieldMap(created, "AREA");
+        field = fieldService.newField(new Field("Área Constrúida", "Em m²", "number", filters));
+        createPropertyFieldMap(field, "AREA");
         
-        created = fieldService.newField(new Field("Cozinha", "", "number", filters));
-        createPropertyFieldMap(created, "KITCHEN");
+        field = fieldService.newField(new Field("Cozinha", "", "number", filters));
+        createPropertyFieldMap(field, "KITCHEN");
      
         filters = getOneFilter();
-        created = fieldService.newField(new Field("Tipo de Imóvel", "", "combo", filters));
-        createPropertyFieldMap(created, "PROPERTY_TYPE");
+        field = fieldService.newField(new Field("Tipo de Imóvel", "", "combo", filters));
+        createPropertyFieldMap(field, "PROPERTY_TYPE");
     }
     
     private List<Filter> getAllFilters() {
