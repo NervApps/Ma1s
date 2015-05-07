@@ -12,7 +12,13 @@ import lombok.Getter;
  * @author Vitor
  */
 public enum Bank {
-    SANTANDER(033);
+    SANTANDER(033),
+    BRADESCO(237),
+    CITIBANK(477),
+    BANCO_DO_BRASIL(001),
+    ITAU(341),
+    HSBC(399),
+    CAIXA(104);    
     
     @Getter private final int code;
 
