@@ -6,7 +6,6 @@
 package br.com.nerv.eva.faces.bean;
 
 import br.com.ma1s.eva.model.User;
-import br.com.ma1s.eva.model.enums.ActiveStatus;
 import br.com.nerv.eva.faces.stereotype.ViewBean;
 import br.com.nerv.eva.faces.util.Messages;
 import br.com.nerv.eva.service.UserService;
@@ -44,7 +43,6 @@ public class LoginBean implements Serializable {
         user.setLogin(username);
         user.setPassword(password);
         user.setEmail(email);
-        user.setStatus(ActiveStatus.ACTIVE);
         service.newUser(user);
         messages.info("Usuário criado com sucesso");
     }
