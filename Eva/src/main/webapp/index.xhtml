@@ -8,13 +8,59 @@
     <ui:define name="content">
         <div class="layout-portlets-box">
             <div class="Container100">
-                <div class="ContainerIndent TexAlCenter">
-                    <h1 class="BigTopic TexAlCenter">Empty Page</h1>
-                    <span class="gray">Use this page to start from scratch and place your custom content.</span>
+                <div class="Container100 ContainerIndent TexAlCenter">
+                    <div class="DispInlBlock TexAlLeft MarTop20">
+                        <div class="Container20"><i class="fa fa-folder-open Fs40 orange Fleft MarRight10"></i></div>
+                        <div class="Container80">
+                            <div class="Fright">
+                                <h2 class="black Fs24 FontRalewayMedium">Contratos Pendentes</h2>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Seperator"></div>
+
+            <div class="Container25 Responsive">
+                <div class="ContainerIndent">
+                    <div class="Container100 TexAlCenter">
+                        <div class="Wid45 BorderedBox Fleft TexAlCenter">
+                            <div class="ContainerIndent">
+                                <div class="EmptyBox10"></div>
+                                <div class="Fs14 gray FontRalewayRegular">Pendentes do Mês</div>
+                                <div class="EmptyBox10"></div>
+                                <ui:fragment rendered="#{dashboardBean.pendentsCount gt 0}">
+                                    <div class="Fs30 red FontRalewayLight animated pulse infinite">
+                                        <i class="fa fa-briefcase Fs24"></i> #{dashboardBean.pendentsCount}
+                                    </div>
+                                </ui:fragment>
+
+                                <ui:fragment rendered="#{dashboardBean.pendentsCount le 0}">
+                                    <div class="Fs30 blue FontRalewayLight">
+                                        <i class="fa fa-briefcase Fs24"></i> #{dashboardBean.pendentsCount}
+                                    </div>
+                                </ui:fragment>
+                                <div class="EmptyBox10"></div>
+                            </div>
+                        </div>
+
+                        <ui:repeat value="#{dashboardBean.pendents}" var="pendent">
+                            <div class="Wid45 BorderedBox Fleft TexAlCenter">
+                                <div class="ContainerIndent">
+                                    <div class="EmptyBox10"></div>
+                                    <div class="Fs14 gray FontRalewayRegular">#{pendent.propertyCustomer.customer.name}</div>
+                                    <div class="EmptyBox10"></div>
+                                    <div class="Fs30 blue FontRalewayLight">
+                                        #{pendent.propertyCustomer.property.type.label} - #{pendent.propertyCustomer.property.neighborhood}
+                                    </div>
+                                    <div class="EmptyBox10"></div>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
                 </div>
             </div>
         </div>
-        
     </ui:define>
-
 </ui:composition>

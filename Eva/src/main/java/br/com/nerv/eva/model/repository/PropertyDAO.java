@@ -5,8 +5,8 @@
  */
 package br.com.nerv.eva.model.repository;
 
-import br.com.ma1s.eva.model.Property;
 import br.com.ma1s.eva.model.enums.PropertyStatus;
+import br.com.nerv.eva.model.Property;
 import java.util.List;
 import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.Query;

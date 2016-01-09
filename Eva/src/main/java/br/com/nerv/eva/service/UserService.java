@@ -56,8 +56,7 @@ public class UserService {
     }
     
     public User getUser(final String login, final String password) {
-        final User get = userDAO.findByLoginEqualAndPasswordEqual(login, password);
-        return get;
+        return userDAO.findByLoginEqualAndPasswordEqual(login, password);
     }
     
     public boolean exists(final String login) {

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.ma1s.eva.model;
+package br.com.nerv.eva.model;
 
 import br.com.ma1s.eva.model.enums.PropertyStatus;
-import br.com.ma1s.eva.model.enums.PropertyType;
+import br.com.nerv.eva.model.enums.PropertyType;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.CascadeType;

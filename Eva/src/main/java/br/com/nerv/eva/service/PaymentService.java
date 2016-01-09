@@ -5,13 +5,13 @@
  */
 package br.com.nerv.eva.service;
 
-import br.com.ma1s.eva.model.PaymentRegister;
-import br.com.ma1s.eva.model.Property;
-import br.com.ma1s.eva.model.PropertyCustomer;
 import br.com.ma1s.eva.model.enums.PaymentStatus;
 import br.com.ma1s.eva.service.qualifier.Remove;
 import br.com.ma1s.eva.service.qualifier.RollbackStatus;
 import br.com.ma1s.eva.service.qualifier.UpdateStatus;
+import br.com.nerv.eva.model.PaymentRegister;
+import br.com.nerv.eva.model.Property;
+import br.com.nerv.eva.model.PropertyCustomer;
 import br.com.nerv.eva.model.repository.PaymentRegisterDAO;
 import java.math.BigInteger;
 import java.util.Date;

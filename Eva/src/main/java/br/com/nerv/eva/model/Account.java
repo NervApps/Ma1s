@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.ma1s.eva.model;
+package br.com.nerv.eva.model;
 
 import br.com.ma1s.eva.model.enums.Bank;
 import java.io.Serializable;

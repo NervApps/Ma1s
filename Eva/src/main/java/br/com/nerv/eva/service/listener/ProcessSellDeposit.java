@@ -5,9 +5,9 @@
  */
 package br.com.nerv.eva.service.listener;
 
-import br.com.ma1s.eva.model.PropertyCustomer;
 import br.com.ma1s.eva.service.qualifier.Sell;
 import br.com.nerv.eva.exception.BusinessException;
+import br.com.nerv.eva.model.PropertyCustomer;
 import java.math.BigDecimal;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;

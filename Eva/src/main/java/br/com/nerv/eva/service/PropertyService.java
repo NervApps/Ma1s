@@ -5,11 +5,11 @@
  */
 package br.com.nerv.eva.service;
 
-import br.com.ma1s.eva.model.Property;
 import br.com.ma1s.eva.model.enums.PropertyStatus;
 import br.com.ma1s.eva.service.qualifier.RollbackStatus;
 import br.com.ma1s.eva.service.qualifier.UpdateStatus;
 import br.com.nerv.eva.exception.BusinessException;
+import br.com.nerv.eva.model.Property;
 import br.com.nerv.eva.model.repository.PropertyDAO;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;

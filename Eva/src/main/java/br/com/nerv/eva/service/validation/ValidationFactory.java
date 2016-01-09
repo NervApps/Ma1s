@@ -5,7 +5,8 @@
  */
 package br.com.nerv.eva.service.validation;
 
-import br.com.ma1s.eva.model.PropertyCustomer;
+import static br.com.ma1s.eva.model.enums.PropertyStatus.ONLY_RENT;
+import br.com.nerv.eva.model.PropertyCustomer;
 
 /**
  *

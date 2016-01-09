@@ -5,9 +5,9 @@
  */
 package br.com.nerv.eva.service.listener;
 
-import br.com.ma1s.eva.model.PaymentRegister;
-import br.com.ma1s.eva.model.PropertyCustomer;
 import br.com.ma1s.eva.service.qualifier.Deposit;
+import br.com.nerv.eva.model.PaymentRegister;
+import br.com.nerv.eva.model.PropertyCustomer;
 import br.com.nerv.eva.service.util.ProcessPayment;
 import java.math.BigDecimal;
 import java.math.BigInteger;

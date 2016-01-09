@@ -5,9 +5,9 @@
  */
 package br.com.nerv.eva.model.repository;
 
-import br.com.ma1s.eva.model.PaymentRegister;
-import br.com.ma1s.eva.model.PropertyCustomer;
 import br.com.ma1s.eva.model.enums.PaymentStatus;
+import br.com.nerv.eva.model.PaymentRegister;
+import br.com.nerv.eva.model.PropertyCustomer;
 import java.util.Date;
 import java.util.List;
 import org.apache.deltaspike.data.api.EntityRepository;

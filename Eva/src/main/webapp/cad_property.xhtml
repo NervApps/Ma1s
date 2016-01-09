@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="layout-portlets-box">
+            <div class="Container100">
+                <div class="ContainerIndent TexAlCenter">
+                    <h1 class="BigTopic TexAlCenter">Cadastro de Imóvel</h1>
+                    <h:form id="cadForm" class="Container80 TexAlCenter MarAuto Fnone">
+                        <p:wizard backLabel="Voltar" nextLabel="Próximo" id="property_wizard">                            
+                            <p:tab title="Dados do Imóvel" id="property">
+                                <p:messages closable="true"/>
+                                <div class="EmptyBox20"></div>
+                                
+                                <p:selectOneMenu value="#{propertyBean.property.type}" styleClass="Container80 Fnone MarAuto Fs18"
+                                                 required="true" requiredMessage="Tipo do imóvel é obrigatório">
+                                    <f:selectItem noSelectionOption="true" itemLabel="Selecione um Tipo"/>
+                                    <f:selectItems value="#{propertyBean.types}" var="pType"
+                                                   itemLabel="#{pType.label}" itemValue="#{pType}"/>
+                                </p:selectOneMenu>
+                                <div class="EmptyBox20"></div>
+                                
+                                <p:inputText value="#{propertyBean.property.address}" placeholder="Endereço" styleClass="Container80 Fnone MarAuto Fs18"
+                                                 required="true" requiredMessage="Endereço obrigatório"/>
+                                <div class="EmptyBox20"></div>
+                                
+                                <p:inputText value="#{propertyBean.property.number}" placeholder="Número" styleClass="Container80 Fnone MarAuto Fs18"
+                                                 required="true" requiredMessage="Número obrigatório"/>
+                                <div class="EmptyBox20"></div>
+                            </p:tab>
+                            
+                            <p:tab title="Detalhes do Imóvel" id="details">
+
+                            </p:tab>
+                            
+                            <p:tab title="Fotos" id="photos">
+
+                            </p:tab>
+                            
+                            <p:tab title="Dados do Proprietário" id="proprietor">
+
+                            </p:tab>
+                        </p:wizard>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

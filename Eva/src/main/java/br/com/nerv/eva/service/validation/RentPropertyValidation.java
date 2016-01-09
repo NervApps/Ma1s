@@ -5,9 +5,9 @@
  */
 package br.com.nerv.eva.service.validation;
 
-import br.com.ma1s.eva.model.Property;
-import br.com.ma1s.eva.model.PropertyCustomer;
 import br.com.nerv.eva.exception.BusinessException;
+import br.com.nerv.eva.model.Property;
+import br.com.nerv.eva.model.PropertyCustomer;
 import java.math.BigDecimal;
 
 /**
