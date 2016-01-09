@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>Eva</title>
+        <h:outputScript name="js/layout.js" library="spark-layout" />
+
+        <ui:insert name="head" />
+    </h:head>
+
+    <h:body>
+
+        <h:form id="loginForm">
+            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+                 style="margin-top:5%; background-image:url(/spark/resources/spark-layout/images/loginpageillust.svg); background-repeat:no-repeat; background-position:center; background-size:cover;">
+
+                <div class="Container90 Fnone MarAuto TexAlCenter">
+                    <div class="EmptyBox50"></div>
+                    <h1 class="BigTopic TexAlCenter">
+                        <span class="Fs40 blue">Ma1s</span>
+                        <span class="Fs30">Imóveis</span>
+                    </h1>
+                    <!--<h:graphicImage name="images/stf.jpg" library="spark-layout" styleClass="MarAuto MarTop20 MarBot10 Responsive40 Container50 "/>-->
+                    <div class="EmptyBox20"></div>
+                    <p:inputText value="#{loginBean.username}" placeholder="Usuário" styleClass="Container80 Fnone MarAuto Fs18"
+                                 required="true" requiredMessage="Usuário obrigatório"/>
+                    <div class="EmptyBox10"></div>
+                    <p:password value="#{loginBean.password}" placeholder="Senha" styleClass="Container80 Fnone MarAuto Fs18" feedback="false"
+                                converter="pwdConverter"
+                                required="true" requiredMessage="Senha obrigatória"/>
+                    <div class="EmptyBox30"></div>
+                    <p:commandButton value="Entrar" styleClass="Fs16" action="#{loginBean.login}"
+                                     update="@form"/>
+                    <p:commandButton value="Cadastro" styleClass="Fs16 GreenButton"
+                                     onclick="PF('newUser').show()"/>
+                    <div class="EmptyBox10"></div>
+                    <p:messages closable="true"/>                
+                </div>
+            </div>
+        </h:form>
+
+        <p:dialog header="Novo Usuário" widgetVar="newUser" modal="true"
+                  class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+                  style="background-repeat:no-repeat; background-position:center; background-size:cover;">
+            <h:form id="cadForm">
+                <div class="Container90 Fnone MarAuto TexAlCenter">
+                    <div class="EmptyBox20"></div>
+                    <p:inputText value="#{loginBean.email}" placeholder="Email" styleClass="Container80 Fnone MarAuto Fs18"
+                                 required="true" requiredMessage="Email obrigatório"
+                                 validatorMessage="Email inválido">
+                        <f:validateRegex
+                            pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                    </p:inputText>
+                    <div class="EmptyBox20"></div>
+                    <p:inputText value="#{loginBean.username}" placeholder="Usuário" styleClass="Container80 Fnone MarAuto Fs18"
+                                 required="true" requiredMessage="Usuário obrigatório"/>
+                    <div class="EmptyBox10"></div>
+                    <p:password value="#{loginBean.password}" placeholder="Senha" styleClass="Container80 Fnone MarAuto Fs18" feedback="false"
+                                converter="pwdConverter" validator="#{samePwdValidator.validateSource}"
+                                required="true" requiredMessage="Senha obrigatória"/>
+                    <div class="EmptyBox10"></div>
+                    <p:password value="#{loginBean.password}" placeholder="Repita a Senha" styleClass="Container80 Fnone MarAuto Fs18" feedback="false"
+                                converter="pwdConverter" validator="#{samePwdValidator.validateTarget}"
+                                required="true" requiredMessage="Senha obrigatória"/>
+                    <div class="EmptyBox30"></div>
+                    <p:commandButton value="Cadastrar" styleClass="Fs16 GreenButton" update="loginForm"
+                                     oncomplete="PF('newUser').hide()"
+                                     action="#{loginBean.newUser}"/>
+                </div>
+            </h:form>
+        </p:dialog>
+
+        <h:outputStylesheet name="css/core-layout.css" library="spark-layout" />
+        <h:outputStylesheet name="css/font-awesome.css" library="spark-layout" />
+        <h:outputStylesheet name="css/animate.css" library="spark-layout" />
+        <h:outputStylesheet name="css/spark-layout.css" library="spark-layout" />
+    </h:body>
+
+</html>

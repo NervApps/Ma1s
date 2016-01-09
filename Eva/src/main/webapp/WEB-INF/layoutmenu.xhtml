@@ -1,0 +1,26 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ps="http://primefaces.org/spark"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <h:form>
+        <ps:menu>
+            <p:submenu icon="fa fa-home" label="Imóveis">
+                <p:menuitem value="Cadastro" icon="fa fa-save" action="empty-page?faces-redirect=true"/>
+                <p:menuitem value="Consulta" icon="fa fa-search" action="empty-page?faces-redirect=true"/>
+            </p:submenu>
+            <p:separator/>
+            <p:submenu icon="fa fa-briefcase" label="Contratos">
+                <p:menuitem value="Pendentes" icon="fa fa-pencil-square" action="empty-page?faces-redirect=true"/>
+                <p:menuitem value="Aluguéis" icon="fa fa-folder-open" action="empty-page?faces-redirect=true"/>
+            </p:submenu>
+            <p:separator/>
+            <p:menuitem value="Indicadores" icon="fa fa-line-chart" action="empty-page?faces-redirect=true"/>
+            <p:separator/>
+            <p:menuitem value="Usuários" icon="fa fa-users" action="empty-page?faces-redirect=true"/>
+        </ps:menu>
+    </h:form>
+
+</ui:composition>
