@@ -8,6 +8,7 @@ package br.com.nerv.eva.model;
 import br.com.ma1s.eva.model.enums.PaymentStatus;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -54,4 +55,8 @@ public class PaymentRegister implements Serializable {
     
     @Column(name = "PAYMENT_VALUE", nullable = false)
     @Getter @Setter private BigDecimal value;
+    
+    public String getFormattedDate() {
+        return new SimpleDateFormat("dd/MM/yyyy").format(date);
+    }
 }

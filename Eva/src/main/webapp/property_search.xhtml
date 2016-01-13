@@ -68,14 +68,15 @@
                             </p:column>
                             <p:column headerText="Ações" styleClass="Wid10">
                                 <p:commandButton icon="fa fa-search" title="Detalhes" 
-                                                 action="#{propertySearchBean.detail()}">
+                                                 action="#{propertySearchBean.detail()}"
+                                                 styleClass="Wid10">
                                     <f:setPropertyActionListener target="#{propertySearchBean.property}" value="#{property}"/>
                                 </p:commandButton>
-                                <p:commandButton icon="fa fa-pencil" styleClass="OrangeButton" title="Editar"
+                                <p:commandButton icon="fa fa-pencil" styleClass="OrangeButton Wid10" title="Editar"
                                                  action="#{propertySearchBean.edit()}">
                                     <f:setPropertyActionListener target="#{propertySearchBean.property}" value="#{property}"/>
                                 </p:commandButton>
-                                <p:commandButton icon="fa fa-trash" styleClass="RedButton" title="Apagar"
+                                <p:commandButton icon="fa fa-trash" styleClass="RedButton Wid10" title="Apagar"
                                                  action="#{propertySearchBean.remove()}" update="@form"/>
                             </p:column>
                         </p:dataTable>

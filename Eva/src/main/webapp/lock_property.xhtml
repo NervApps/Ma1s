@@ -8,8 +8,8 @@
     <ui:define name="content">
         <div class="layout-portlets-box">
             <div class="Container100">
-                <div class="ContainerIndent TexAlCenter">
-                    <h1 class="BigTopic TexAlCenter">Cadastro de Imóvel</h1>
+                <div class="ContainerIndent TexAlLeft">
+                    <h1 class="BigTopic TexAlCenter">Reserva de Imóvel</h1>
                     <p:messages closable="true" id="cadMessage" globalOnly="true"/>
 
                     <h:form id="lockForm" class="Container80 TexAlLeft MarAuto Fnone">
@@ -23,6 +23,11 @@
                                 <p:inputText value="#{lockPropertyBean.propertyCustomer.customer.name}" placeholder="Nome do Cliente" 
                                              styleClass="Container80 Fnone MarAuto Fs18"
                                              required="true" requiredMessage="Nome do cliente é obrigatório"/>
+                                <div class="EmptyBox20"></div>
+                                
+                                <p:inputText value="#{lockPropertyBean.propertyCustomer.customer.lastName}" placeholder="Sobrenome do Cliente" 
+                                             styleClass="Container80 Fnone MarAuto Fs18"
+                                             required="true" requiredMessage="Sobrenome do cliente é obrigatório"/>
                                 <div class="EmptyBox20"></div>
 
                                 <p:panelGrid columns="3" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
@@ -53,7 +58,11 @@
                                         <p:inputText value="#{lockPropertyBean.propertyCustomer.contractPeriod}" 
                                                      placeholder="Tempo de contrato (em anos)" 
                                                      styleClass="Container80 Fnone MarAuto Fs18"
-                                                     required="true" requiredMessage="Tempo de contrato é obrigatório"/>
+                                                     required="true" requiredMessage="Tempo de contrato é obrigatório"
+                                                     type="number"
+                                                     validatorMessage="Tempo de contrato inválido">
+                                            <f:validateLongRange minimum="1"/>
+                                        </p:inputText>
                                         <div class="EmptyBox20"></div>
                                     </ui:fragment>
 
@@ -80,6 +89,11 @@
                                 <p:messages closable="true"/>
                                 <div class="EmptyBox20"></div>
 
+                                <p:inputText value="#{lockPropertyBean.propertyCustomer.customer.completeName}"
+                                             styleClass="Container80 Fnone MarAuto Fs18"
+                                             readonly="true"/>
+                                <div class="EmptyBox20"/>
+                                
                                 <p:inputText value="#{lockPropertyBean.propertyInfo}"
                                              styleClass="Container80 Fnone MarAuto Fs18"
                                              readonly="true"/>
@@ -91,7 +105,7 @@
                                                  styleClass="Container80 Fnone MarAuto Fs18"
                                                  readonly="true"/>
                                     
-                                    <p:outputLabel value="Valor Anunciado: " class="FontBold black"/>
+                                    <p:outputLabel value="Valor Anunciado: R$" class="FontBold black"/>
                                     <p:inputText value="#{lockPropertyBean.property.value}"
                                                  styleClass="Container80 Fnone MarAuto Fs18"
                                                  readonly="true">
@@ -105,7 +119,7 @@
                                                      readonly="true"/>
                                     </ui:fragment>
                                     
-                                    <p:outputLabel value="Valor do Depósito: " class="FontBold black"/>
+                                    <p:outputLabel value="Valor do Depósito: R$" class="FontBold black"/>
                                     <p:inputText value="#{lockPropertyBean.propertyCustomer.depositValue}"
                                                  styleClass="Container80 Fnone MarAuto Fs18"
                                                  readonly="true">

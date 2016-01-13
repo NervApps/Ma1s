@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.joda.time.DateTime;
 
 /**
@@ -22,6 +23,7 @@ import org.joda.time.DateTime;
 @RequestScoped
 public class ProcessDeposit extends ProcessPayment {
     
+    @Transactional
     public void listen(@Observes @Deposit PropertyCustomer pc) {
         final BigDecimal rentValue = pc.getProperty().getValue();
         final BigInteger result = pc.getDepositValue()

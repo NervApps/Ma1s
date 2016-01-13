@@ -49,4 +49,8 @@ public class Customer implements Serializable {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ACCOUNT_ID")
     @Getter @Setter private Account account;
+    
+    public String getCompleteName() {
+        return name + " " + lastName;
+    }
 }

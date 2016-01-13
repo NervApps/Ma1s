@@ -28,7 +28,10 @@
                         <div class="Wid45 BorderedBox Fleft TexAlCenter">
                             <div class="ContainerIndent">
                                 <div class="EmptyBox10"></div>
-                                <div class="Fs14 gray FontRalewayRegular">Pendentes do Mês</div>
+                                <div class="Fs14 gray FontRalewayRegular">
+                                    <p:commandLink value="Pendentes do Mês"
+                                                   styleClass="Fs14 gray FontRalewayRegular"/>
+                                </div>
                                 <div class="EmptyBox10"></div>
                                 <ui:fragment rendered="#{dashboardBean.pendentsCount gt 0}">
                                     <div class="Fs30 red FontRalewayLight animated pulse infinite">
@@ -49,9 +52,13 @@
                             <div class="Wid45 BorderedBox Fleft TexAlCenter">
                                 <div class="ContainerIndent">
                                     <div class="EmptyBox10"></div>
-                                    <div class="Fs14 gray FontRalewayRegular">#{pendent.propertyCustomer.customer.name}</div>
+                                    <div class="Fs14 gray FontRalewayRegular">
+                                        <p:commandLink styleClass="Fs14 gray FontRalewayRegular"
+                                                       value="#{pendent.propertyCustomer.customer.name} (#{pendent.formattedDate})">
+                                        </p:commandLink>
+                                    </div>
                                     <div class="EmptyBox10"></div>
-                                    <div class="Fs30 blue FontRalewayLight">
+                                    <div class="Fs20 black FontRalewayLight">
                                         #{pendent.propertyCustomer.property.type.label} - #{pendent.propertyCustomer.property.neighborhood}
                                     </div>
                                     <div class="EmptyBox10"></div>

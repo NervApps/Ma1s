@@ -9,7 +9,6 @@ import br.com.ma1s.eva.model.enums.PaymentStatus;
 import br.com.nerv.eva.model.PaymentRegister;
 import br.com.nerv.eva.model.PropertyCustomer;
 import br.com.nerv.eva.model.repository.PaymentRegisterDAO;
-import java.util.Date;
 import javax.inject.Inject;
 
 /**
@@ -25,7 +24,6 @@ public abstract class ProcessPayment {
         payment.setPropertyCustomer(pc);
         payment.setValue(pc.getProperty().getValue());
         payment.setStatus(PaymentStatus.PENDENT);
-        payment.setDate(new Date());
         return payment;
     }
 }
