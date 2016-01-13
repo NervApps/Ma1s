@@ -27,10 +27,20 @@ public class PropertyDetailsBean implements Serializable {
     
     @PostConstruct
     public void init() {
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        Flash flash = ctx.getExternalContext().getFlash();
+        Flash flash = getFlash();
         property = (Property) flash.get("property");
         images = streamer.loadImages(property);
+    }
+    
+    public String lock() {
+        Flash flash = getFlash();
+        flash.put("property", property);
+        return "lock_property?faces-redirect=true";
+    }
+    
+    private Flash getFlash() {
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        return ctx.getExternalContext().getFlash();
     }
     
 }

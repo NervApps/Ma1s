@@ -1,0 +1,145 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="layout-portlets-box">
+            <div class="Container100">
+                <div class="ContainerIndent TexAlCenter">
+                    <h1 class="BigTopic TexAlCenter">Cadastro de Imóvel</h1>
+                    <p:messages closable="true" id="cadMessage" globalOnly="true"/>
+
+                    <h:form id="lockForm" class="Container80 TexAlLeft MarAuto Fnone">
+                        <p:wizard backLabel="Anterior" nextLabel="Próximo" id="property_wizard"
+                                  widgetVar="wiz">                            
+
+                            <p:tab title="Dados do Cliente" id="customer">
+                                <p:messages closable="true"/>
+                                <div class="EmptyBox20"></div>
+
+                                <p:inputText value="#{lockPropertyBean.propertyCustomer.customer.name}" placeholder="Nome do Cliente" 
+                                             styleClass="Container80 Fnone MarAuto Fs18"
+                                             required="true" requiredMessage="Nome do cliente é obrigatório"/>
+                                <div class="EmptyBox20"></div>
+
+                                <p:panelGrid columns="3" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
+                                    <p:inputMask value="#{lockPropertyBean.propertyCustomer.customer.document}" placeholder="CPF" 
+                                                 styleClass="Container80 Fnone MarAuto Fs18"
+                                                 required="true" requiredMessage="CPF do cliente é obrigatório"
+                                                 mask="999.999.999-99"/>
+
+                                    <p:inputMask value="#{lockPropertyBean.propertyCustomer.customer.cellphone}" placeholder="Telefone Celular" 
+                                                 styleClass="Container80 Fnone MarAuto Fs18"
+                                                 required="true" requiredMessage="Celular do cliente é obrigatório"
+                                                 mask="(99) 9?9999-9999"/>
+
+                                    <p:inputMask value="#{lockPropertyBean.propertyCustomer.customer.phone}" placeholder="Telefone Fixo" 
+                                                 styleClass="Container80 Fnone MarAuto Fs18"
+                                                 required="true" requiredMessage="Telefone fixo do cliente é obrigatório"
+                                                 mask="(99) 9?9999-9999"/>
+                                </p:panelGrid>                                
+                                <div class="EmptyBox20"/>
+                            </p:tab>
+
+                            <p:tab title="Dados do Contrato" id="contract">
+                                <p:messages closable="true"/>
+                                <div class="EmptyBox20"></div>
+
+                                <p:panelGrid columns="3" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
+                                    <ui:fragment rendered="#{'ONLY_RENT' eq lockPropertyBean.propertyCustomer.property.status}">
+                                        <p:inputText value="#{lockPropertyBean.propertyCustomer.contractPeriod}" 
+                                                     placeholder="Tempo de contrato (em anos)" 
+                                                     styleClass="Container80 Fnone MarAuto Fs18"
+                                                     required="true" requiredMessage="Tempo de contrato é obrigatório"/>
+                                        <div class="EmptyBox20"></div>
+                                    </ui:fragment>
+
+                                    <p:inputText value="#{lockPropertyBean.propertyCustomer.paymentDay}" placeholder="Dia do Pagamento" 
+                                                 styleClass="Container80 Fnone MarAuto Fs18" type="number"
+                                                 required="true" requiredMessage="Dia do pagamento é obrigatório"
+                                                 validatorMessage="Dia de pagamento inválido">
+                                        <f:validateLongRange minimum="1" maximum="31"/>
+                                    </p:inputText>
+                                    <div class="EmptyBox20"></div>
+
+                                    <p:inputText value="#{lockPropertyBean.propertyCustomer.depositValue}" placeholder="Valor do Depósito (em R$)" 
+                                                 styleClass="Container80 Fnone MarAuto Fs18"
+                                                 required="true" requiredMessage="Valor do depoósito é obrigatório">
+                                        <f:convertNumber pattern="#,##0.00"/>
+                                    </p:inputText>
+                                    <div class="EmptyBox20"></div>
+
+                                </p:panelGrid>
+
+                            </p:tab>
+
+                            <p:tab title="Confirmação" id="confirmation">
+                                <p:messages closable="true"/>
+                                <div class="EmptyBox20"></div>
+
+                                <p:inputText value="#{lockPropertyBean.propertyInfo}"
+                                             styleClass="Container80 Fnone MarAuto Fs18"
+                                             readonly="true"/>
+                                <div class="EmptyBox20"/>
+
+                                <p:panelGrid columns="4" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
+                                    <p:outputLabel value="Área Útil: " class="FontBold black"/>
+                                    <p:inputText value="#{lockPropertyBean.property.area}m²"
+                                                 styleClass="Container80 Fnone MarAuto Fs18"
+                                                 readonly="true"/>
+                                    
+                                    <p:outputLabel value="Valor Anunciado: " class="FontBold black"/>
+                                    <p:inputText value="#{lockPropertyBean.property.value}"
+                                                 styleClass="Container80 Fnone MarAuto Fs18"
+                                                 readonly="true">
+                                        <f:convertNumber pattern="#,##0.00"/>
+                                    </p:inputText>
+                                    
+                                    <ui:fragment rendered="#{'ONLY_RENT' eq lockPropertyBean.property.status}">
+                                        <p:outputLabel value="Tempo de Contrato: " class="FontBold black"/>
+                                        <p:inputText value="#{lockPropertyBean.propertyCustomer.contractPeriod} ano(s)"
+                                                     styleClass="Container80 Fnone MarAuto Fs18"
+                                                     readonly="true"/>
+                                    </ui:fragment>
+                                    
+                                    <p:outputLabel value="Valor do Depósito: " class="FontBold black"/>
+                                    <p:inputText value="#{lockPropertyBean.propertyCustomer.depositValue}"
+                                                 styleClass="Container80 Fnone MarAuto Fs18"
+                                                 readonly="true">
+                                        <f:convertNumber pattern="#,##0.00"/>
+                                    </p:inputText>
+                                    
+                                    <p:outputLabel value="Vencimento: " class="FontBold black"/>
+                                    <p:inputText value="Dia #{lockPropertyBean.propertyCustomer.paymentDay} #{'ONLY_RENT' eq lockPropertyBean.property.status ? 'de cada mês' : ''}"
+                                                 styleClass="Container80 Fnone MarAuto Fs18"
+                                                 readonly="true"/>
+                                    
+                                    <ui:fragment rendered="#{'ONLY_RENT' eq lockPropertyBean.property.status}">
+                                        <p:outputLabel value="Meses de Depósito: " class="FontBold black"/>
+                                        <p:inputText value="Dia #{lockBean.propertyCustomer.months}"
+                                                     styleClass="Container80 Fnone MarAuto Fs18"
+                                                     type="number" validatorMessage="Quantidade de meses de depósito inválida"
+                                                     required="true" requiredMessage="Meses de depósito é obrigatório">
+                                            <f:validateLongRange minimum="1" maximum="12"/>
+                                        </p:inputText>
+                                    </ui:fragment>
+                                </p:panelGrid>
+
+                                <div class="EmptyBox20"/>
+                                <p:commandButton value="Finalizar" update="@form"
+                                                 action="#{lockPropertyBean.confirm()}"
+                                                 disabled="#{lockPropertyBean.confirmed}"
+                                                 styleClass="Fs16 GreenButton"/>
+                            </p:tab>
+                        </p:wizard>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

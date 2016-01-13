@@ -169,6 +169,9 @@
                         <p:outputLabel value="#{propertyDetailsBean.property.internalObs}" class="gray"
                                        rendered="#{not empty propertyDetailsBean.property.internalObs}"/>
                     </ui:fragment>
+                    
+                    <p:commandButton value="Reservar" action="#{propertyDetailsBean.lock()}"
+                                     icon="fa fa-lock" styleClass="Fs16 GreenButton"/>
                 </div>
             </div>
         </div>
