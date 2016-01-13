@@ -1,0 +1,178 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="layout-portlets-box">
+            <div class="Container100">
+                <div class="ContainerIndent TexAlLeft">
+                    <h1 class="BigTopic TexAlCenter">Detalhes do Imóvel: 00#{propertyDetailsBean.property.id}</h1>
+
+                    <div class="Container33 Responsive">
+                        <div class="ContainerIndent">
+                            <div class="Container100 TexAlCenter">
+                                <div class="DispInlBlock TexAlLeft MarTop20">
+                                    <div class="Container20"><i class="fa fa-home Fs40 orange Fleft MarRight10"></i></div>
+                                    <div class="Container85">
+                                        <div class="Fright">
+                                            <h2 class="black Fs24 FontRalewayMedium">#{propertyDetailsBean.property.type.label} #{propertyDetailsBean.property.neighborhood}</h2>
+                                            <span class="Fs15 gray FontRalewayRegular DispBlock">
+                                                #{propertyDetailsBean.property.address}, #{propertyDetailsBean.property.number} - #{propertyDetailsBean.property.complement}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="Seperator"></div>
+                                <div class="Container100">
+                                    <ui:fragment rendered="#{not empty propertyDetailsBean.property.kitchen}">
+                                        <div class="Wid45 BorderedBox Fleft TexAlCenter">
+                                            <div class="ContainerIndent">
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs14 gray FontRalewayRegular">Cozinhas</div>
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs30 blue FontRalewayLight">#{propertyDetailsBean.property.kitchen}</div>
+                                                <div class="EmptyBox10"></div>
+                                            </div>
+                                        </div>
+                                    </ui:fragment>
+
+                                    <ui:fragment rendered="#{not empty propertyDetailsBean.property.room}">
+                                        <div class="Wid45 BorderedBox Fleft TexAlCenter">
+                                            <div class="ContainerIndent">
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs14 gray FontRalewayRegular">Salas de Estar</div>
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs30 blue FontRalewayLight">#{propertyDetailsBean.property.room}</div>
+                                                <div class="EmptyBox10"></div>
+                                            </div>
+                                        </div>
+                                    </ui:fragment>
+
+                                    <ui:fragment rendered="#{not empty propertyDetailsBean.property.dinnerRoom}">
+                                        <div class="Wid45 BorderedBox Fleft TexAlCenter">
+                                            <div class="ContainerIndent">
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs14 gray FontRalewayRegular">Salas de Jantar</div>
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs30 blue FontRalewayLight">#{propertyDetailsBean.property.dinnerRoom}</div>
+                                                <div class="EmptyBox10"></div>
+                                            </div>
+                                        </div>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{not empty propertyDetailsBean.property.bedroom}">
+                                        <div class="Wid45 BorderedBox Fleft TexAlCenter">
+                                            <div class="ContainerIndent">
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs14 gray FontRalewayRegular">Quartos</div>
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs30 blue FontRalewayLight">#{propertyDetailsBean.property.bedroom}</div>
+                                                <div class="EmptyBox10"></div>
+                                            </div>
+                                        </div>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{not empty propertyDetailsBean.property.bathroom}">
+                                        <div class="Wid45 BorderedBox Fleft TexAlCenter">
+                                            <div class="ContainerIndent">
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs14 gray FontRalewayRegular">Banheiros</div>
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs30 blue FontRalewayLight">#{propertyDetailsBean.property.bathroom}</div>
+                                                <div class="EmptyBox10"></div>
+                                            </div>
+                                        </div>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{not empty propertyDetailsBean.property.suite}">
+                                        <div class="Wid45 BorderedBox Fleft TexAlCenter">
+                                            <div class="ContainerIndent">
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs14 gray FontRalewayRegular">Suítes</div>
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs30 blue FontRalewayLight">#{propertyDetailsBean.property.suite}</div>
+                                                <div class="EmptyBox10"></div>
+                                            </div>
+                                        </div>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{not empty propertyDetailsBean.property.laundry}">
+                                        <div class="Wid45 BorderedBox Fleft TexAlCenter">
+                                            <div class="ContainerIndent">
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs14 gray FontRalewayRegular">Lavanderias</div>
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs30 blue FontRalewayLight">#{propertyDetailsBean.property.laundry}</div>
+                                                <div class="EmptyBox10"></div>
+                                            </div>
+                                        </div>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{not empty propertyDetailsBean.property.parking}">
+                                        <div class="Wid45 BorderedBox Fleft TexAlCenter">
+                                            <div class="ContainerIndent">
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs14 gray FontRalewayRegular">Vagas na Garagem</div>
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs30 blue FontRalewayLight">#{propertyDetailsBean.property.parking}</div>
+                                                <div class="EmptyBox10"></div>
+                                            </div>
+                                        </div>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{not empty propertyDetailsBean.property.area}">
+                                        <div class="Wid45 BorderedBox Fleft TexAlCenter">
+                                            <div class="ContainerIndent">
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs14 gray FontRalewayRegular">Área Construída</div>
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs30 blue FontRalewayLight">#{propertyDetailsBean.property.area}m²</div>
+                                                <div class="EmptyBox10"></div>
+                                            </div>
+                                        </div>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{not empty propertyDetailsBean.property.value and 
+                                                             not empty propertyDetailsBean.property.status}">
+                                        <div class="Wid45 BorderedBox Fleft TexAlCenter">
+                                            <div class="ContainerIndent">
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs14 gray FontRalewayRegular">#{propertyDetailsBean.property.status.label}</div>
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Fs30 blue FontRalewayLight">
+                                                    R$
+                                                    <p:outputLabel value="#{propertyDetailsBean.property.value}"
+                                                                   styleClass="Fs30 blue FontRalewayLight">
+                                                        <f:convertNumber pattern="#,##0.00"/>
+                                                    </p:outputLabel>
+                                                </div>
+                                                <div class="EmptyBox10"></div>
+                                            </div>
+                                        </div>
+                                    </ui:fragment>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ui:fragment rendered="#{not empty propertyDetailsBean.images}">
+                        <h2 class="black Fs24 FontRalewayMedium">Fotos</h2>
+                        <p:galleria value="#{propertyDetailsBean.images}" var="img" showCaption="false">
+                            <p:graphicImage value="#{imageStreamBean.image}">
+                                <f:param name="id" value="#{img}" />
+                            </p:graphicImage>
+                        </p:galleria>
+                    </ui:fragment>
+
+                    <ui:fragment rendered="#{not empty propertyDetailsBean.property.obs or 
+                                             not empty propertyDetailsBean.property.internalObs}">
+                        <p:outputLabel value="Observações: " class="FontBold black"/>
+                        <p:outputLabel value="#{propertyDetailsBean.property.obs}" class="gray"
+                                       rendered="#{not empty propertyDetailsBean.property.obs}"/>
+                        <br/>
+                        <p:outputLabel value="#{propertyDetailsBean.property.internalObs}" class="gray"
+                                       rendered="#{not empty propertyDetailsBean.property.internalObs}"/>
+                    </ui:fragment>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

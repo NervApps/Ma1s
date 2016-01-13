@@ -5,7 +5,7 @@
  */
 package br.com.nerv.eva.model;
 
-import br.com.ma1s.eva.model.enums.PropertyStatus;
+import br.com.nerv.eva.model.enums.PropertyStatus;
 import br.com.nerv.eva.model.enums.PropertyType;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -23,6 +23,7 @@ import javax.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  *
@@ -31,6 +32,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "PROPERTY")
 @EqualsAndHashCode(of = "id")
+@ToString
 public class Property implements Serializable {
     
     @Id
@@ -88,7 +90,7 @@ public class Property implements Serializable {
     @Column(name = "PARKING_SPACES")
     @Getter @Setter private Integer parking;
     
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "PROPRIETOR_ID", referencedColumnName = "PROPRIETOR_ID", 
                 nullable = false)
     @Getter @Setter private Proprietor proprietor;

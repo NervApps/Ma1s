@@ -5,12 +5,18 @@
  */
 package br.com.nerv.eva.service;
 
-import br.com.ma1s.eva.model.enums.PropertyStatus;
 import br.com.ma1s.eva.service.qualifier.RollbackStatus;
 import br.com.ma1s.eva.service.qualifier.UpdateStatus;
 import br.com.nerv.eva.exception.BusinessException;
 import br.com.nerv.eva.model.Property;
+import br.com.nerv.eva.model.enums.PropertyStatus;
+import static br.com.nerv.eva.model.enums.PropertyStatus.ONLY_PURCHASE;
+import static br.com.nerv.eva.model.enums.PropertyStatus.ONLY_RENT;
+import static br.com.nerv.eva.model.enums.PropertyStatus.RENTED;
+import static br.com.nerv.eva.model.enums.PropertyStatus.RENTING;
+import static br.com.nerv.eva.model.enums.PropertyStatus.SELLING;
 import br.com.nerv.eva.model.repository.PropertyDAO;
+import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -31,11 +37,11 @@ public class PropertyService {
     public Property newProperty(Property property) {
         try {
             if (exists(property))
-                throw new BusinessException("Im�vel j� existente");
+                throw new BusinessException("Imóvel já existente");
             else
                 return dao.save(property);
         } catch (Exception e) {
-            throw new BusinessException("Erro ao inserir im�vel", e);
+            throw new BusinessException("Erro ao inserir imóvel", e);
         }
     }
     
@@ -44,7 +50,7 @@ public class PropertyService {
         try {   
             return dao.save(property);
         } catch (Exception e) {
-            throw new BusinessException("Erro ao atualizar im�vel", e);
+            throw new BusinessException("Erro ao atualizar imóvel", e);
         }
     }
     
@@ -66,7 +72,7 @@ public class PropertyService {
             property = manager.getReference(Property.class, property.getId());
             dao.remove(property);
         } catch (Exception e) {
-            throw new BusinessException("Erro ao remover im�vel", e);
+            throw new BusinessException("Erro ao remover imóvel", e);
         }
     }
     
@@ -85,7 +91,7 @@ public class PropertyService {
             case SELLING : target = PropertyStatus.SELLED; break;
             case ONLY_PURCHASE : target = PropertyStatus.SELLING; break;
             case ONLY_RENT : target = PropertyStatus.RENTING; break;
-            default: throw new BusinessException("Im�vel com status inv�lido. Contate o administrador");
+            default: throw new BusinessException("Imóvel com status inválido. Contate o administrador");
         }
         
         property.setStatus(target);
@@ -100,10 +106,14 @@ public class PropertyService {
         switch (status) {
             case RENTING : target = PropertyStatus.ONLY_RENT; break;
             case SELLING : target = PropertyStatus.ONLY_PURCHASE; break;
-            default: throw new BusinessException("Im�vel com status inv�lido. Contate o administrador");
+            default: throw new BusinessException("Imóvel com status inválido. Contate o administrador");
         }
         
         property.setStatus(target);
         dao.save(property);
+    }
+    
+    public List<Property> findByAttributes(Property property) {
+        return dao.find(property);
     }
  }

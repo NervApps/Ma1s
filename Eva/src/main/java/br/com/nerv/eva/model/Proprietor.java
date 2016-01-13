@@ -45,7 +45,7 @@ public class Proprietor implements Serializable {
     @Column(name = "CELLPHONE")
     @Getter @Setter private String cellphone;
     
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.MERGE})
     @JoinColumn(name = "ACCOUNT_ID", referencedColumnName = "ACCOUNT_ID")
     @Getter @Setter private Account account;
     

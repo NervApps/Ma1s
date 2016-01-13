@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.ma1s.eva.model.enums;
+package br.com.nerv.eva.model.enums;
 
 import lombok.Getter;
 

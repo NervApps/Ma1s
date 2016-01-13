@@ -5,7 +5,7 @@
  */
 package br.com.nerv.eva.model;
 
-import br.com.ma1s.eva.model.enums.Bank;
+import br.com.nerv.eva.model.enums.Bank;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;

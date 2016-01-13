@@ -1,0 +1,87 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <div class="layout-portlets-box">
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <h1 class="BigTopic TexAlCenter">Pesquisa de Imóveis</h1>
+
+                    <h:form id="searchForm" class="ContainerIndent MarAuto TexAlLeft">
+                        <p:panelGrid columns="4" layout="grid" style="border:0px !important; background:none;" styleClass="FormContent">
+                            <p:inputText placeholder="ID" styleClass="Container80 Fnone MarAuto Fs18" type="number"
+                                         value="#{propertySearchBean.property.id}"/>
+                            
+                            <p:selectOneMenu styleClass="Container80 Fnone MarAuto Fs18" value="#{propertySearchBean.property.type}">
+                                <f:selectItem noSelectionOption="true" itemLabel="Selecione um Tipo"/>
+                                <f:selectItems value="#{dropdownBean.types}" var="pType"
+                                               itemLabel="#{pType.label}" itemValue="#{pType}"/>
+                            </p:selectOneMenu>
+
+                            <p:selectOneMenu styleClass="Container80 Fnone MarAuto Fs18" value="#{propertySearchBean.property.status}">
+                                <f:selectItem noSelectionOption="true" itemLabel="Selecione um status"/>
+                                <f:selectItems value="#{dropdownBean.status}" var="pStatus"
+                                               itemLabel="#{pStatus.label}" itemValue="#{pStatus}"/>
+                            </p:selectOneMenu>
+
+                            <p:inputText placeholder="Bairro" styleClass="Container80 Fnone MarAuto Fs18"
+                                         value="#{propertySearchBean.property.neighborhood}"/>
+                        </p:panelGrid>
+
+                        <div class="EmptyBox30"></div>
+                        <p:commandButton value="Pesquisar" styleClass="Fs16 GreenButton" update="tableForm"
+                                         action="#{propertySearchBean.search()}"/>
+                        <p:commandButton value="Limpar" resetValues="true" styleClass="Fs16 RedButton"
+                                         update="@form"/>
+                    </h:form>
+
+                    <p:separator/>
+
+                    <h:form id="tableForm" class="ContainerIndent">
+                        <p:messages closable="true"/>
+                        
+                        <p:dataTable value="#{propertySearchBean.properties}" var="property"
+                                     paginator="true" paginatorAlwaysVisible="false" rows="5"
+                                     emptyMessage="Sua pesquisa não retornou resultados">
+                            <f:facet name="header">
+                                Resultados da Pesquisa
+                            </f:facet>
+                            <p:column headerText="ID">
+                                00#{property.id}
+                            </p:column>
+                            <p:column headerText="Imóvel">
+                                #{property.type.label} - #{property.neighborhood}
+                            </p:column>
+                            <p:column headerText="Logradouro">
+                                #{property.address}, #{property.number} - #{property.complement}
+                            </p:column>
+                            <p:column headerText="Valor">
+                                R$
+                                <p:outputLabel value="#{property.value}">
+                                    <f:convertNumber pattern="#,##0.00"/>
+                                </p:outputLabel> 
+                                (#{property.status.label})
+                            </p:column>
+                            <p:column headerText="Ações" styleClass="Wid10">
+                                <p:commandButton icon="fa fa-search" title="Detalhes" 
+                                                 action="#{propertySearchBean.detail()}">
+                                    <f:setPropertyActionListener target="#{propertySearchBean.property}" value="#{property}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="fa fa-pencil" styleClass="OrangeButton" title="Editar"
+                                                 action="#{propertySearchBean.edit()}">
+                                    <f:setPropertyActionListener target="#{propertySearchBean.property}" value="#{property}"/>
+                                </p:commandButton>
+                                <p:commandButton icon="fa fa-trash" styleClass="RedButton" title="Apagar"
+                                                 action="#{propertySearchBean.remove()}" update="@form"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
